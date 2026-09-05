@@ -20,5 +20,9 @@ jobs:
           DEST_TOKEN: ${{ secrets.DESTINATION_TOKEN }}
           DEST_REPO: "remyagaguy/cultiso"
         run: |
-          git remote add destination https://${DEST_TOKEN}@github.com/${DEST_REPO}.git
+          if [ -z "$DEST_TOKEN" ]; then
+            echo "Erreur: Le secret DESTINATION_TOKEN est vide ou introuvable !"
+            exit 1
+          fi
+          git remote add destination https://x-access-token:${DEST_TOKEN}@github.com/${DEST_REPO}.git
           git push destination main --force
