@@ -1,0 +1,23 @@
+name: Synchronisation automatique vers le Compte B
+
+on:
+  push:
+    branches:
+      - main # Modifiez si votre branche principale s'appelle 'master'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Pousser vers le dépôt de destination
+        env:
+          DEST_TOKEN: ${{ secrets.DESTINATION_TOKEN }}
+          DEST_REPO: "NomUtilisateurB/NomDuDepotB" # Remplacer par les vrais noms du compte B
+        run: |
+          git remote add destination https://x-access-token:${DEST_TOKEN}@github.com/${DEST_REPO}.git
+          git push destination main --force
