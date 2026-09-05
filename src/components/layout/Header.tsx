@@ -1,11 +1,16 @@
+"use client";
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Button } from 'antd';
 import { MegaMenuProducts } from './MegaMenuProducts';
 import { MegaMenuSolutions } from './MegaMenuSolutions';
 
 export const Header = () => {
+  const pathname = usePathname();
+  if (pathname === '/cultisia') return null;
+
   return (
     <header className="bg-white/90 backdrop-blur-md border-b border-[rgba(5,40,33,0.06)] sticky top-0 z-50">
       <div className="max-w-[1200px] mx-auto px-6">

@@ -32,6 +32,28 @@
 *   Créer des pages "Tarifs", "Ressources" ou "Témoignages" (Non requis pour ce MVP).
 *   Modifier l'architecture validée sans demander l'autorisation expresse de l'utilisateur.
 
+## 3. Exigences d'Excellence (Inspirées des Skills Pro Max)
+
+À partir de maintenant, le développement obéit aux standards des meilleurs experts mondiaux :
+
+💎 **UI/UX Pro Max & Awesome Design :**
+*   L'interface doit être épurée, minimaliste (Swiss Style) avec beaucoup d'espace blanc (whitespace).
+*   Typographie stricte et contraste élevé. Pas de fioritures inutiles.
+
+✨ **Make Interfaces Feel Better :**
+*   Les micro-interactions sont obligatoires (transitions douces, hover states, scale-on-press).
+*   Chaque attente utilisateur doit avoir un feedback visuel (skeletons, spinners élégants).
+
+☢️ **Thermo-Nuclear Code Quality & Vercel Best Practices :**
+*   Aucune erreur TypeScript n'est tolérée (`any` est banni).
+*   Séparation stricte des composants Serveur et Client.
+*   Privilégier la composition (Server Components passing data to Client Components) au lieu du prop-drilling.
+*   Gestion des erreurs robuste (Try/Catch typés).
+
+👁️ **Apex (Testing) & AccessLint :**
+*   Le code doit être robuste : anticiper les "edge cases" et valider silencieusement avant validation.
+*   L'accessibilité n'est pas optionnelle (ARIA labels, focus visible, navigation clavier fluide).
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

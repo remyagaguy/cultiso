@@ -27,8 +27,8 @@ SOURCE_DIR = os.path.join("Cloud", "Cultisia")
 DEST_DIR = os.path.join("Cloud", "RAG_Cultiso")
 os.makedirs(DEST_DIR, exist_ok=True)
 
-# Limite de fichiers pour le premier test
-LIMIT = None
+# Limite de fichiers par lot
+LIMIT = 300
 
 def get_file_hash(filepath):
     """Calcule le hash MD5 d'un fichier pour détecter les doublons exacts."""
@@ -74,6 +74,10 @@ def main():
     print(f"📄 {len(all_files)} fichiers PDF trouvés dans {SOURCE_DIR}")
     
     for filepath in all_files:
+        if LIMIT is not None and processed_count >= LIMIT:
+            print(f"\n✋ Limite de {LIMIT} fichiers atteinte pour cette vague.")
+            break
+            
         filename = os.path.basename(filepath)
         print(f"\n🔄 Traitement de : {filename}")
         
