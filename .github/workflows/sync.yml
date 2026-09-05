@@ -3,7 +3,7 @@ name: Synchronisation automatique vers le Compte B
 on:
   push:
     branches:
-      - main # Modifiez si votre branche principale s'appelle 'master'
+      - main
 
 jobs:
   sync:
@@ -13,11 +13,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false # Empêche l'utilisation du robot par défaut
 
       - name: Pousser vers le dépôt de destination
         env:
           DEST_TOKEN: ${{ secrets.DESTINATION_TOKEN }}
-          DEST_REPO: "remyagaguy/cultiso" 
+          DEST_REPO: "remyagaguy/cultiso"
         run: |
-          git remote add destination https://x-access-token:${DEST_TOKEN}@github.com/${DEST_REPO}.git
+          git remote add destination https://${DEST_TOKEN}@github.com/${DEST_REPO}.git
           git push destination main --force
