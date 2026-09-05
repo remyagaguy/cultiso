@@ -1,0 +1,6 @@
+vercel_api_token = "YOUR_VERCEL_API_TOKEN"
+vercel_team_id   = "" # Laissez vide si vous n'avez pas de Team ID Vercel
+
+supabase_access_token      = "YOUR_SUPABASE_ACCESS_TOKEN"
+supabase_organization_id   = "YOUR_SUPABASE_ORGANIZATION_ID"
+supabase_database_password = "YOUR_SECURE_DATABASE_PASSWORD"

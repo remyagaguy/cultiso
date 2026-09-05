@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Fonts */
+  --font-sans: var(--font-manrope);
+  --font-unbounded: var(--font-unbounded);
+  --font-manrope: var(--font-manrope);
+  
+  /* Cultiso Core Colors */
+  --color-brand-green: #0B5345;
+  --color-brand-orange: #D35400;
+
+  /* Plain x Cultiso Semantic Colors */
+  --color-forest-ink: #052821; /* Very dark variant of Cultiso Green */
+  --color-parchment-cream: #f3fbe9;
+  --color-card-linen: #f9f6f1;
+  --color-sage-charcoal: #084035; /* Dark surface */
+  --color-muted-moss: #607166;
+  --color-vivid-accent: #D35400; /* Cultiso Orange for primary action */
+  --color-deep-botanical: #0B5345; /* Cultiso Green for outlines */
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-40: 40px;
+  --spacing-64: 64px;
+  --spacing-72: 72px;
+  --spacing-80: 80px;
+  --spacing-120: 120px;
+  --spacing-160: 160px;
+
+  /* Border Radius */
+  --radius-md: 6px;
+  --radius-lg: 9px;
+
+  /* Animations */
+  --animate-marquee: marquee 35s linear infinite;
+
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+}
+
+body {
+  background-color: #ffffff;
+  color: #052821;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-manrope), sans-serif;
+  letter-spacing: -0.01em; /* Plain body tracking */
+}
+
+.font-mono-numbers {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.015em;
+}
+
+/* Make interfaces feel better: Scale on press & Specific transitions */
+button, 
+.ant-btn {
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s !important;
+}
+
+button:active:not(:disabled),
+.ant-btn:active:not(:disabled) {
+  transform: scale(0.96) !important;
+}
