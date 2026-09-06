@@ -102,17 +102,22 @@ export async function POST(req: Request) {
         const { data: allProducts } = await supabase.from('products').select('*');
         if (allProducts) {
           const matchedProducts = allProducts.filter((p: any) => normalizedQuery.includes(removeAccents(p.name)));
+          const matchedProductIds = matchedProducts.map((p: any) => p.id);
           
-          for (const p of matchedProducts) {
-            const { data: prices } = await supabase.from('price_records')
+          if (matchedProductIds.length > 0) {
+            // Solution au problème N+1 : On fait UNE SEULE requête avec .in() au lieu d'une boucle
+            const { data: allPrices } = await supabase.from('price_records')
                .select('*')
-               .eq('product_id', p.id)
-               .order('record_date', { ascending: false })
-               .limit(10);
+               .in('product_id', matchedProductIds)
+               .order('record_date', { ascending: false });
                
-            if (prices && prices.length > 0) {
-               prices.forEach((pr: any) => {
-                  dbPriceContext += `- ${p.name}: ${pr.price} ${pr.currency} / ${p.default_unit} (Lieu: ${pr.location || 'Non précisé'}, Date: ${pr.record_date})\n`;
+            if (allPrices) {
+               matchedProducts.forEach((p: any) => {
+                  // On filtre et limite côté serveur Node.js (Eager Loading manuel)
+                  const pPrices = allPrices.filter((pr: any) => pr.product_id === p.id).slice(0, 10);
+                  pPrices.forEach((pr: any) => {
+                     dbPriceContext += `- ${p.name}: ${pr.price} ${pr.currency} / ${p.default_unit} (Lieu: ${pr.location || 'Non précisé'}, Date: ${pr.record_date})\n`;
+                  });
                });
             }
           }
