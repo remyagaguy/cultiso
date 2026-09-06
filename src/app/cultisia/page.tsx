@@ -1,12 +1,19 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { message, Tooltip } from "antd";
+import { message as antMessage, Tooltip } from "antd";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { createClient } from "@supabase/supabase-js";
+
+// Initialize Supabase client
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 /* ─── Types ─── */
 interface ChatMessage {
+  id?: string;
   role: "user" | "assistant";
   content: string;
   sources?: { file_name: string }[];
@@ -145,8 +152,65 @@ export default function CultisiaChat() {
   const [isLoading, setIsLoading] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Load chat history if authenticated
+  useEffect(() => {
+    const loadSession = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      setUserId(user.id);
+
+      // Find existing session or create one
+      let { data: sessions } = await supabase
+        .from("chat_sessions")
+        .select("id")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(1);
+
+      let currentSessionId = null;
+
+      if (sessions && sessions.length > 0) {
+        currentSessionId = sessions[0].id;
+      } else {
+        const { data: newSession, error } = await supabase
+          .from("chat_sessions")
+          .insert({ user_id: user.id, title: "Discussion Cultisia" })
+          .select("id")
+          .single();
+        if (newSession && !error) {
+          currentSessionId = newSession.id;
+        }
+      }
+
+      if (currentSessionId) {
+        setSessionId(currentSessionId);
+        // Load messages
+        const { data: history } = await supabase
+          .from("chat_messages")
+          .select("id, role, content")
+          .eq("session_id", currentSessionId)
+          .order("created_at", { ascending: true });
+
+        if (history && history.length > 0) {
+          setMessages(history as ChatMessage[]);
+        }
+      }
+    };
+    loadSession();
+  }, []);
+
+  const clearHistory = async () => {
+    if (sessionId) {
+      await supabase.from("chat_messages").delete().eq("session_id", sessionId);
+    }
+    setMessages([]);
+    antMessage.success("Historique effacé");
+  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -164,16 +228,23 @@ export default function CultisiaChat() {
   /* ─── Streaming Send ─── */
   const doSend = async (text: string) => {
     if (!text.trim() || isLoading) return;
-    setMessages((p) => [...p, { role: "user", content: text }]);
+    const newMessages = [...messages, { role: "user" as const, content: text }];
+    setMessages(newMessages);
     setInput("");
     setIsLoading(true);
     setIsThinking(true);
+
+    // Sauvegarde en DB (si connecté)
+    if (sessionId) {
+      await supabase.from("chat_messages").insert({ session_id: sessionId, role: "user", content: text });
+    }
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, mode: "Chat", model: "google/gemini-2.5-flash" }),
+        // On envoie tout l'historique pour la mémoire temporelle !
+        body: JSON.stringify({ messages: newMessages, mode: "Chat", model: "google/gemini-2.5-flash" }),
       });
 
       if (!res.ok || !res.body) throw new Error("Response error");
@@ -223,6 +294,10 @@ export default function CultisiaChat() {
                 }
                 return updated;
               });
+              // Sauvegarde de la réponse finale en DB
+              if (sessionId) {
+                supabase.from("chat_messages").insert({ session_id: sessionId, role: "assistant", content: assistantContent }).then();
+              }
             }
           } catch {
             // Skip malformed lines
@@ -270,7 +345,7 @@ export default function CultisiaChat() {
         <div className="flex items-center bg-[#f9f8f6] rounded-full p-[3px] border border-gray-100">
           <span className="px-3 py-[4px] text-[12px] font-semibold rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] text-[#0B5345] cursor-default select-none">Chat</span>
           <Tooltip title="Bientôt disponible" placement="top">
-            <span className="px-3 py-[4px] text-[12px] font-medium rounded-full text-gray-400 cursor-not-allowed select-none hover:text-gray-500 transition-colors" onClick={() => message.info("Le mode Premium (IoT) sera bientôt disponible !")}>Premium</span>
+            <span className="px-3 py-[4px] text-[12px] font-medium rounded-full text-gray-400 cursor-not-allowed select-none hover:text-gray-500 transition-colors" onClick={() => antMessage.info("Le mode Premium (IoT) sera bientôt disponible !")}>Premium</span>
           </Tooltip>
         </div>
         <button
@@ -373,6 +448,20 @@ export default function CultisiaChat() {
           </div>
         ) : (
           <>
+            {/* Entête du chat (Actions) */}
+            <div className="w-full h-14 border-b border-gray-100 flex items-center justify-end px-6 flex-shrink-0 bg-white/80 backdrop-blur-md sticky top-0 z-10">
+              {messages.length > 0 && (
+                <Tooltip title="Effacer la discussion">
+                  <button 
+                    onClick={clearHistory}
+                    className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-lg hover:bg-red-50 flex items-center gap-2 text-sm font-medium"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    <span className="hidden sm:inline">Effacer</span>
+                  </button>
+                </Tooltip>
+              )}
+            </div>
             <div className="flex-1 overflow-y-auto scroll-smooth min-h-0">
               <div className="max-w-[780px] mx-auto px-6 py-8 space-y-7">
                 {messages.map((msg, idx) => {

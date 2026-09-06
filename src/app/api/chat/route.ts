@@ -94,10 +94,38 @@ export async function POST(req: Request) {
     // Injection des données de prix si l'utilisateur parle de prix
     const isPriceQuery = message.toLowerCase().includes("prix") || message.toLowerCase().includes("coût") || message.toLowerCase().includes("coute") || message.toLowerCase().includes("combien");
     if (isPriceQuery) {
-      const priceContext = prixData
+      let dbPriceContext = "";
+      try {
+        const removeAccents = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        const normalizedQuery = removeAccents(combinedQuery);
+        
+        const { data: allProducts } = await supabase.from('products').select('*');
+        if (allProducts) {
+          const matchedProducts = allProducts.filter((p: any) => normalizedQuery.includes(removeAccents(p.name)));
+          
+          for (const p of matchedProducts) {
+            const { data: prices } = await supabase.from('price_records')
+               .select('*')
+               .eq('product_id', p.id)
+               .order('record_date', { ascending: false })
+               .limit(10);
+               
+            if (prices && prices.length > 0) {
+               prices.forEach((pr: any) => {
+                  dbPriceContext += `- ${p.name}: ${pr.price} ${pr.currency} / ${p.default_unit} (Lieu: ${pr.location || 'Non précisé'}, Date: ${pr.record_date})\n`;
+               });
+            }
+          }
+        }
+      } catch (err) {
+         console.error("DB Price fetch error:", err);
+      }
+
+      const jsonPriceContext = prixData
         .map((item: any) => `- ${item.produit} : ${item.prix || "Non précisé"} (Vendeur: ${item.vendeur}, Date: ${item.date})`)
         .join("\n");
-      contextText += `\n\nDONNÉES DE PRIX DU MARCHÉ (BASE DE DONNÉES) :\n${priceContext}`;
+        
+      contextText += `\n\nDONNÉES DE PRIX DU MARCHÉ (BASE DE DONNÉES) :\n${dbPriceContext}\n\nAUTRES PRIX (WHATSAPP) :\n${jsonPriceContext}`;
     }
 
     let roleContext = "";
