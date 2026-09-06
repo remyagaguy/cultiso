@@ -23,20 +23,22 @@ async function getEmbedding(text: string): Promise<number[]> {
   }
 }
 
-/* ─── Intent Detection ─── */
+export const dynamic = "force-dynamic";
+
+/* â”€â”€â”€ Intent Detection â”€â”€â”€ */
 function needsRAG(message: string): boolean {
   const text = message.toLowerCase().trim();
   const agriKeywords = [
     "culture", "cultiver", "plante", "semence", "engrais", "fertilisant",
     "maladie", "parasite", "insecte", "traitement", "pesticide", "fongicide",
-    "irrigation", "arrosage", "sol", "compost", "récolte", "rendement",
+    "irrigation", "arrosage", "sol", "compost", "rÃ©colte", "rendement",
     "hectare", "parcelle", "champ", "ferme", "exploitation", "agriculture",
-    "tomate", "maïs", "manioc", "riz", "soja", "cacao", "café", "igname",
-    "poulet", "porc", "boeuf", "poisson", "élevage", "bétail", "volaille",
-    "rentabilité", "coût", "bénéfice", "investissement", "production",
-    "sécheresse", "npk", "azote", "phosphore", "potassium", "ph",
+    "tomate", "maÃ¯s", "manioc", "riz", "soja", "cacao", "cafÃ©", "igname",
+    "poulet", "porc", "boeuf", "poisson", "Ã©levage", "bÃ©tail", "volaille",
+    "rentabilitÃ©", "coÃ»t", "bÃ©nÃ©fice", "investissement", "production",
+    "sÃ©cheresse", "npk", "azote", "phosphore", "potassium", "ph",
     "biologique", "organique", "chimique", "conservation", "stockage",
-    "pisciculture", "aquaculture", "apiculture", "aviculture", "maraîchage", "agroforesterie",
+    "pisciculture", "aquaculture", "apiculture", "aviculture", "maraÃ®chage", "agroforesterie",
     "entreprendre", "projet agricole", "conseil agricole"
   ];
   return agriKeywords.some((kw) => text.includes(kw));
@@ -44,7 +46,16 @@ function needsRAG(message: string): boolean {
 
 export async function POST(req: Request) {
   try {
-    const { message, mode, model } = await req.json();
+    if (!process.env.OPENROUTER_API_KEY) {
+      throw new Error("OPENROUTER_API_KEY n'est pas dÃ©finie sur le serveur.");
+    }
+
+    const body = await req.json();
+    const mode = body.mode;
+    const model = body.model;
+    const messages = body.messages || [{ role: "user", content: body.message || "" }];
+    const lastUserMessage = messages.filter((m: any) => m.role === "user").pop()?.content || "";
+    const message = lastUserMessage;
 
     let contextText = "";
     let sources: { file_name: string }[] = [];
@@ -73,47 +84,69 @@ export async function POST(req: Request) {
       }
     }
 
-    const systemPrompt = `Tu es Cultisia, l'agronome virtuel expert de la plateforme Cultiso, spécialisée dans l'agriculture africaine.
+    let roleContext = "";
 
-RÈGLES DE FORMATAGE :
-- Structure tes réponses techniques avec des titres (##), sous-titres (###) et listes à puces (-).
-- Aère tes paragraphes. Pas d'astérisques bruts pour les listes.
-- Ne mentionne JAMAIS tes sources documentaires dans ta réponse texte.
+    switch (mode) {
+      case "cultiplan":
+        roleContext = `TU ES DANS L'OUTIL : CULTIPLAN (Salle Business & Gestion).
+Ton rle : Analyste Financier et Secrtaire de Direction d'Exploitation.
+- En MODE SIMULATION (Ide -> Projet) : Tu dois valuer la faisabilit d'un projet, calculer les CAPEX (investissements), OPEX (charges), le ROI et le seuil de rentabilit.
+- En MODE GESTION (Business existant) : Tu dois agir comme un "Collecteur & Profiler". Pose des questions pour cartographier l'exploitation (taille, animaux, budget).
+- Ton but ultime dans cet outil est de rassembler les donnes exactes pour que notre "Agent Dashboard" puisse gnrer l'interface visuelle. Sois mathmatique, structur, et orient rentabilit.`;
+        break;
+      case "cultiseil":
+        roleContext = `TU ES DANS L'OUTIL : CULTISEIL (Salle Terrain & Technique).
+Ton rle : Tour de Contrle Agronomique et de Prcision.
+- Tu as (virtuellement) accs aux Agents Tlmtrie (Mto, Sols), Diagnostic Visuel (Maladies) et Modlisation (Rendements).
+- Tu dois analyser les paramtres physiques : sol, humidit, climat, sant des plantes/animaux.
+- Si le diagnostic est trop complexe ou incertain (<80% de certitude), propose de transfrer le dossier  un Expert Humain Cultiso. Ne prends aucun risque avec la rcolte de l'utilisateur.`;
+        break;
+      case "cultishop":
+        roleContext = `TU ES DANS L'OUTIL : CULTISHOP (Salle March & Logistique).
+Ton rle : Expert en marchs agricoles et ngociant.
+- Aide l'agriculteur  trouver les meilleurs intrants, analyse les prix du march en temps rel et gre la commercialisation de ses rcoltes.
+- Oriente toujours vers la rentabilit et la scurit des transactions.`;
+        break;
+      default:
+        // Global Cultisia (Interface gnrale)
+        roleContext = `TU ES L'INTERFACE GLOBALE DE CULTISIA.
+Ton rle : Ingnieur Agronome et Chef d'Orchestre de l'cosystme Cultiso.
+- Rponds de manire experte aux questions gnrales en agronomie, agrocologie et agrobusiness africain.
+- Si la question relve de la cration d'un budget, dis  l'utilisateur qu'il pourra utiliser l'outil CultiPlan. Si c'est pour un conseil technique pointu de terrain, parle de Cultiseil.`;
+        break;
+    }
 
-LOGIQUE DU QUESTIONNAIRE DYNAMIQUE (TRÈS IMPORTANT) :
-Si l'utilisateur pose une question vague, un projet vaste ou demande un conseil général (ex: "Je veux entreprendre"), tu dois D'ABORD générer un questionnaire intelligent pour cerner son besoin.
-Tu dois obéir à ces règles de logique agronomique stricte :
-1. LA PERTINENCE ABSOLUE : Les questions doivent être 100% adaptées au domaine. Ne demande JAMAIS d'accès à l'eau/irrigation pour de l'élevage, ni de race pour de la production végétale.
-2. L'ENTONNOIR LOGIQUE : Pose tes questions dans un ordre réfléchi.
-   - Étape 1 : La nature exacte (ex: Si on te dit "élevage", demande quel type d'animaux. Si on te dit "agriculture", demande quelle culture).
-   - Étape 2 : L'échelle ou le milieu (Surface, capacité, région/climat).
-   - Étape 3 : Les ressources (Budget, niveau d'expérience).
-   ATTENTION : Ne demande jamais le budget en première question si tu ne sais pas encore ce que l'utilisateur veut faire exactement.
-3. NOMBRE DE QUESTIONS VARIABLE : Génère entre 1 et 4 questions maximum. Le nombre doit varier selon les éléments manquants dans la requête de l'utilisateur.
+    const systemPrompt = `Tu es Cultisia, l'Intelligence Artificielle centrale, le "Cerveau" de l'écosystème Cultiso, spécialisée dans l'agriculture africaine.
 
-Si le contexte nécessite des précisions, NE POSE PAS tes questions dans le texte libre. Écris juste une phrase d'encouragement très courte, puis génère STRICTEMENT ce bloc JSON à la fin :
+${roleContext}
+
+RÈGLES DE COMMUNICATION (STRICTES) :
+1. SOIS TRÈS CONCIS : Si l'utilisateur dit juste "bonjour", réponds en 1 ou 2 phrases maximum (ex: "Bonjour ! Comment puis-je vous aider aujourd'hui avec vos cultures ?"). Pas de longs monologues.
+2. ÉCOUTE D'ABORD : Attends que l'utilisateur expose son problème ou son projet avant de creuser.
+3. JAMAIS DE QUESTIONS MULTIPLES DANS LE TEXTE : Si l'utilisateur a exposé un problème et que tu as besoin de détails pour comprendre en profondeur, NE POSE AUCUNE QUESTION DANS LE TEXTE. Utilise STRICTEMENT le Widget Formulaire (bloc JSON) décrit ci-dessous. Ton texte d'accompagnement doit juste dire "J'ai besoin de quelques précisions pour bien analyser la situation :".
+
+LOGIQUE DU WIDGET FORMULAIRE (JSON) :
+Quand tu as besoin de creuser un problème ou un projet :
+1. Pose SEULEMENT les questions essentielles à la compréhension du contexte actuel.
+2. L'interface utilisateur ajoutera automatiquement un champ "Autre" pour l'utilisateur, ne t'en soucie pas.
+3. Rédige STRICTEMENT ce bloc JSON à la fin de ton message, sans aucun autre formatage autour :
 
 \`\`\`json
 {
   "type": "questionnaire",
   "questions": [
     {
-      "question": "[Ta première question logique (ex: Type d'activité précise)]",
-      "options": ["[Option 1]", "[Option 2]", "[Option 3]"]
-    },
-    {
-      "question": "[Ta deuxième question (ex: Échelle/Surface/Capacité)]",
-      "options": ["[Option A]", "[Option B]"]
+      "question": "[Question 1 (ex: Quel est votre type de sol ?)]",
+      "options": ["[Choix 1]", "[Choix 2]", "[Choix 3]"]
     }
   ]
 }
 \`\`\`
-*(Adapte le nombre d'objets dans le tableau "questions" selon le besoin réel).*
 
 RÉPONSE PERSONNALISÉE :
-Quand l'utilisateur te renvoie ses réponses sous forme de liste (ex: "Voici mes précisions..."), fournis-lui un plan d'action technique et financier SUR-MESURE, structuré de façon professionnelle, en tenant compte de CHAQUE réponse qu'il a donnée dans le questionnaire.
+Quand l'utilisateur valide le formulaire, fournis une analyse experte SUR-MESURE basée sur ses réponses.
 
-${contextText ? `\nDOCUMENTS DE RÉFÉRENCE :\n${contextText}` : ""}`;
+${contextText ? `\nDOCUMENTS DE RÉFÉRENCE (Issus de la Base de Données Cultiso) :\n${contextText}` : ""}`;
 
     const openrouter = new OpenAI({
       baseURL: "https://openrouter.ai/api/v1",
@@ -128,7 +161,7 @@ ${contextText ? `\nDOCUMENTS DE RÉFÉRENCE :\n${contextText}` : ""}`;
       model: model || "google/gemini-2.5-flash",
       messages: [
         { role: "system", content: systemPrompt },
-        { role: "user", content: message },
+        ...messages
       ],
       temperature: 0.3,
       stream: true,
@@ -149,7 +182,7 @@ ${contextText ? `\nDOCUMENTS DE RÉFÉRENCE :\n${contextText}` : ""}`;
           }
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "done" })}\n\n`));
         } catch (err) {
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "error", content: "Erreur de génération" })}\n\n`));
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "error", content: "Erreur de gÃ©nÃ©ration" })}\n\n`));
         }
         controller.close();
       },

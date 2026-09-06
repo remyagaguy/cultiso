@@ -9,7 +9,7 @@ import { MegaMenuSolutions } from './MegaMenuSolutions';
 
 export const Header = () => {
   const pathname = usePathname();
-  if (pathname === '/cultisia') return null;
+  if (pathname === '/cultisia' || pathname === '/cultiplan' || pathname === '/cultiseil') return null;
 
   return (
     <header className="bg-white/90 backdrop-blur-md border-b border-[rgba(5,40,33,0.06)] sticky top-0 z-50">

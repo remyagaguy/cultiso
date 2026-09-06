@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  serverExternalPackages: ['@xenova/transformers'],
 };
 
 export default nextConfig;

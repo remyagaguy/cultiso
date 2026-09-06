@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Unbounded, Manrope, Caveat } from "next/font/google";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
@@ -40,7 +40,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-manrope m-0 p-0 bg-[#ffffff] text-[#052821] selection:bg-[#f3fbe9] selection:text-[#052821]">
         <div dangerouslySetInnerHTML={{ __html: `<!--
 THESIS: Botanical greenhouse on warm parchment x Cultiso identity. A calm, editorial workspace.
-OWN-WORLD: Bright white canvas, warm parchment surfaces, very dark green text (Forest Ink), and vibrant brand accents (Orange Latérite).
+OWN-WORLD: Bright white canvas, warm parchment surfaces, very dark green text (Forest Ink), and vibrant brand accents (Orange LatÃ©rite).
 STORY: Users feel a calm, structured, and premium editorial environment while exploring agricultural market data.
 FIRST VIEWPORT: A clean minimal header, a parchment announcement pill, tight typography, and subtle hairline borders.
 FORM: The Botanical Greenhouse.

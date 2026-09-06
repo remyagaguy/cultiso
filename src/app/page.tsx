@@ -31,7 +31,7 @@ export default function Home() {
               
               <div className="pt-6 flex flex-col lg:flex-row lg:items-center gap-5">
                 <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto">
-                  <Link href="/simulateur" className="w-full sm:w-auto group">
+                  <Link href="/cultiplan" className="w-full sm:w-auto group">
                     <button className="w-full sm:w-auto px-8 h-[52px] text-[15.5px] font-semibold bg-[#22c55e] hover:bg-[#1fb254] text-white rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2.5">
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
                       Simuler mon business
@@ -122,7 +122,7 @@ export default function Home() {
                 </h2>
                 
                 <p className="text-[17px] text-gray-600 font-manrope mb-10 leading-relaxed max-w-lg">
-                  Analysez votre projet agro-pastoral ou agroalimentaire et générez un plan d'affaires clair pour accompagner vos décisions.
+                  Analysez la faisabilité et la rentabilité financière de votre projet agrobusiness. CultiPlan génère automatiquement votre plan d'affaires sur-mesure grâce à l'Intelligence Artificielle.
                 </p>
                 
                 {/* Checkmarks */}
@@ -132,32 +132,32 @@ export default function Home() {
                     <div className="w-6 h-6 rounded-full bg-[#22c55e] flex items-center justify-center flex-shrink-0 text-white">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     </div>
-                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Analyse de marché & Étude technique</span>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Génération automatique de Business Plan</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-[#22c55e] flex items-center justify-center flex-shrink-0 text-white">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     </div>
-                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Simulateur de rentabilité financière</span>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Simulateur de rentabilité financière IA</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-[#22c55e] flex items-center justify-center flex-shrink-0 text-white">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     </div>
-                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Génération de dossiers professionnels</span>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Export PDF professionnel</span>
                   </div>
                 </div>
                 
-                                {/* Buttons */}
+                {/* Buttons */}
                 <div className="flex flex-wrap items-center gap-4">
-                  <button className="bg-[#052821] hover:bg-[#0a4237] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#052821]/20 flex items-center justify-center gap-2">
+                  <Link href="/cultiplan" className="bg-[#052821] hover:bg-[#0a4237] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#052821]/20 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                    Créer mon CultiPlan
-                  </button>
-                  <button className="bg-transparent border-2 border-[#052821]/20 text-[#052821] hover:border-[#052821] px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 flex items-center justify-center gap-2">
+                    Lancer CultiPlan
+                  </Link>
+                  <Link href="/cultiplan" className="bg-transparent border-2 border-[#052821]/20 text-[#052821] hover:border-[#052821] px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
                     Gérer mon business
-                  </button>
+                  </Link>
                 </div>
               </div>
 
@@ -288,11 +288,11 @@ export default function Home() {
                 </div>
                 
                 <h2 className="text-[clamp(32px,4vw,48px)] font-unbounded font-bold text-[#052821] leading-[1.1] mb-6">
-                  Produisez sans improvisation
+                  Votre ingénieur agronome en poche
                 </h2>
                 
                 <p className="text-[17px] text-gray-600 font-manrope mb-10 leading-relaxed max-w-lg">
-                  Accédez à des recommandations expertes et des alertes marché en temps réel pour optimiser votre production ou transformation.
+                  Cultisia est l'intelligence artificielle au cœur de notre application. Posez-lui vos questions, parlez-lui de vos projets, et laissez-la vous guider simplement, étape par étape, sans jargon technique complexe.
                 </p>
                 
                 {/* Checkmarks */}
@@ -302,26 +302,26 @@ export default function Home() {
                     <div className="w-6 h-6 rounded-full bg-[#D35400] flex items-center justify-center flex-shrink-0 text-white">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     </div>
-                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Assistant expert intelligent (IA)</span>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Assistance disponible 24h/24 et 7j/7</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-[#D35400] flex items-center justify-center flex-shrink-0 text-white">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     </div>
-                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Recommandations basées sur l'IA</span>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Réponses simples et adaptées à votre réalité</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-[#D35400] flex items-center justify-center flex-shrink-0 text-white">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     </div>
-                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Alertes prix & marché</span>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Orientation vers les bons outils et experts</span>
                   </div>
                 </div>
                 
                 <div className="flex flex-wrap items-center gap-4">
                   <Link href="/cultisia" className="bg-[#D35400] hover:bg-[#b54700] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#D35400]/20 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                    Piloter mon exploitation avec l'IA
+                    Discuter avec Cultisia
                   </Link>
                 </div>
               </div>
@@ -465,11 +465,11 @@ export default function Home() {
                 </div>
                 
                 <h2 className="text-[clamp(32px,4vw,48px)] font-unbounded font-bold text-[#052821] leading-[1.1] mb-6">
-                  L'expertise à vos côtés
+                  Produisez avec précision
                 </h2>
                 
                 <p className="text-[17px] text-gray-600 font-manrope mb-10 leading-relaxed max-w-lg">
-                  Bénéficiez d'un accompagnement technique et de conseils pour sécuriser vos pratiques de production et de transformation.
+                  L'outil indispensable sur le terrain. Identifiez les maladies de vos plantes, analysez l'état de vos sols et adaptez vos traitements agricoles grâce à nos algorithmes et données météorologiques locales.
                 </p>
                 
                 {/* Checkmarks */}
@@ -479,32 +479,28 @@ export default function Home() {
                     <div className="w-6 h-6 rounded-full bg-[#22c55e] flex items-center justify-center flex-shrink-0 text-white">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     </div>
-                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Conseil en agrobusiness</span>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Diagnostic visuel des maladies et ravageurs</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-[#22c55e] flex items-center justify-center flex-shrink-0 text-white">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     </div>
-                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Accompagnement technique</span>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Analyse des sols et conseils de fertilisation</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-[#22c55e] flex items-center justify-center flex-shrink-0 text-white">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     </div>
-                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Assistance dans vos démarches</span>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Prévisions météo et alertes climatiques locales</span>
                   </div>
                 </div>
                 
-                                {/* Buttons */}
+                {/* Buttons */}
                 <div className="flex flex-wrap items-center gap-4">
-                  <button className="bg-[#052821] hover:bg-[#0a4237] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#052821]/20 flex items-center justify-center gap-2">
+                  <Link href="/cultiseil" className="bg-[#052821] hover:bg-[#0a4237] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#052821]/20 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                    Discuter avec nos experts
-                  </button>
-                  <button className="bg-transparent border-2 border-[#052821]/20 text-[#052821] hover:border-[#052821] px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /></svg>
-                    Rejoindre notre réseau d'expert
-                  </button>
+                    Démarrer un diagnostic
+                  </Link>
                 </div>
               </div>
 
@@ -676,14 +672,14 @@ export default function Home() {
                 
                                 {/* Buttons */}
                 <div className="flex flex-wrap items-center gap-4">
-                  <button className="bg-[#D35400] hover:bg-[#b54700] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#D35400]/20 flex items-center justify-center gap-2">
+                  <Link href="/cultishop" className="bg-[#D35400] hover:bg-[#b54700] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#D35400]/20 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
                     Acheter des intrants
-                  </button>
-                  <button className="bg-transparent border-2 border-[#D35400]/20 text-[#D35400] hover:border-[#D35400] px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 flex items-center justify-center gap-2">
+                  </Link>
+                  <Link href="/cultishop" className="bg-transparent border-2 border-[#D35400]/20 text-[#D35400] hover:border-[#D35400] px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     Vendre mes récoltes
-                  </button>
+                  </Link>
                 </div>
               </div>
 
@@ -804,7 +800,7 @@ export default function Home() {
               Découvrez la puissance de Cultiplan sans créer de compte. Calculez votre rentabilité en quelques minutes et prenez les bonnes décisions avant d'investir.
             </p>
             
-            <Link href="/simulateur" className="inline-block group">
+            <Link href="/cultiplan" className="inline-block group">
               <button className="px-10 h-[60px] text-[16px] font-bold bg-[#052821] hover:bg-[#0a3f34] text-white rounded-xl shadow-lg shadow-[#052821]/20 transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-3 mx-auto">
                 Démarrer une simulation
                 <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
