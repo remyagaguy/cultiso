@@ -292,7 +292,10 @@ export default function CultisiaChat() {
   return (
     <div className="fixed inset-0 z-[9999] flex bg-white font-manrope" style={{ margin: 0, padding: 0 }}>
       {/* ═══════ SIDEBAR ═══════ */}
-      <aside style={{ width: sidebarOpen ? 260 : 60 }} className="h-full bg-[#f9f8f6] flex flex-col flex-shrink-0 border-r border-gray-100 transition-all duration-300 ease-in-out">
+      <aside 
+        style={{ width: sidebarOpen ? 260 : 60 }} 
+        className={`h-full bg-[#f9f8f6] flex flex-col flex-shrink-0 border-r border-gray-100 transition-all duration-300 ease-in-out ${sidebarOpen ? 'absolute md:relative z-[1000] shadow-2xl md:shadow-none' : 'hidden md:flex'}`}
+      >
         <div className={`flex items-center ${sidebarOpen ? "justify-between pl-5 pr-3" : "justify-center"} h-[64px]`}>
           <Link href="/" className="flex items-center gap-2.5 hover:opacity-75 transition-opacity">
             <img src="/favicon.png" alt="Cultiso" className="w-7 h-7 object-contain flex-shrink-0" />
@@ -305,7 +308,7 @@ export default function CultisiaChat() {
           )}
         </div>
         <div className={`${sidebarOpen ? "px-3" : "px-2"} mb-4 mt-2`}>
-          <button onClick={() => { setMessages([]); setIsLoading(false); setIsThinking(false); }} className={`${sidebarOpen ? "w-full gap-2.5 px-4 py-2.5 text-[13px] justify-start" : "w-10 h-10 justify-center mx-auto"} flex items-center bg-white hover:bg-gray-50 border border-gray-200 rounded-xl font-medium text-gray-700 transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_2px_5px_rgba(0,0,0,0.05)] hover:border-[#0B5345]/20 active:scale-[0.98]`}>
+          <button onClick={() => { setMessages([]); setIsLoading(false); setIsThinking(false); setSidebarOpen(false); }} className={`${sidebarOpen ? "w-full gap-2.5 px-4 py-2.5 text-[13px] justify-start" : "w-10 h-10 justify-center mx-auto"} flex items-center bg-white hover:bg-gray-50 border border-gray-200 rounded-xl font-medium text-gray-700 transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_2px_5px_rgba(0,0,0,0.05)] hover:border-[#0B5345]/20 active:scale-[0.98]`}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-[#D35400]"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             {sidebarOpen && "Nouvelle discussion"}
           </button>
@@ -339,7 +342,18 @@ export default function CultisiaChat() {
       </aside>
 
       {/* ═══════ MAIN ═══════ */}
-      <main className="flex-1 flex flex-col h-full min-w-0 bg-white overflow-hidden">
+      <main className="flex-1 flex flex-col h-full min-w-0 bg-white overflow-hidden relative">
+        {/* Mobile menu toggle (visible only when sidebar is closed on small screens) */}
+        {!sidebarOpen && (
+          <button 
+            onClick={() => setSidebarOpen(true)}
+            className="md:hidden absolute top-4 left-4 z-50 w-10 h-10 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-gray-500 hover:text-gray-800"
+            aria-label="Ouvrir le menu"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        )}
+        
         {messages.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center px-6 pb-16">
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0B5345] to-[#148f6c] flex items-center justify-center mb-6 shadow-xl shadow-[#0B5345]/10 border border-[#0B5345]/10">

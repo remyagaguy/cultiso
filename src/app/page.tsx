@@ -20,9 +20,9 @@ export default function Home() {
           <div className="max-w-[1200px] w-full mx-auto relative z-20">
             <div className="max-w-[850px] space-y-8">
               
-              <h1 className="text-[clamp(22px,6vw,64px)] font-unbounded font-bold text-white leading-[1.1] tracking-[-0.02em]">
-                <span className="whitespace-nowrap">L'agribusiness africain,</span> <br />
-                <span className="text-[#D35400] whitespace-nowrap">sans improvisation.</span>
+              <h1 className="text-[clamp(28px,7vw,64px)] font-unbounded font-bold text-white leading-[1.1] tracking-[-0.02em]">
+                <span className="sm:whitespace-nowrap">L'agribusiness africain,</span> <br className="hidden sm:block" />
+                <span className="text-[#D35400] sm:whitespace-nowrap">sans improvisation.</span>
               </h1>
               
               <p className="text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope text-justify">

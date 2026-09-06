@@ -1,0 +1,1730 @@
+[
+  {
+    "date": "02/01/2026",
+    "produit": "Poussins Goliath",
+    "prix": "1000 fcfa",
+    "vendeur": "+228 91 88 84 65",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "05/01/2026",
+    "produit": "Guides en Agriculture & Élevage Biologiques",
+    "prix": "6 000 FCFA par guide",
+    "vendeur": "prendresonagricultureenmain",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "05/01/2026",
+    "produit": "Conception de Business Plan Agricole",
+    "prix": "50 000 FCFA",
+    "vendeur": "prendresonagricultureenmain",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "06/01/2026",
+    "produit": "Poussins Goliath",
+    "prix": "Inbox pour ton prix",
+    "vendeur": "+228 96 24 80 95",
+    "localisation": "Legbassito",
+    "type": "Vente"
+  },
+  {
+    "date": "06/01/2026",
+    "produit": "Poules Goliath",
+    "prix": "5000 fr",
+    "vendeur": "+228 96 24 80 95",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "06/01/2026",
+    "produit": "Sacs de piments secs",
+    "prix": null,
+    "vendeur": "+228 71 87 15 85",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "08/01/2026",
+    "produit": "Poussins Goliath",
+    "prix": "1800",
+    "vendeur": "+228 98 15 98 88",
+    "localisation": "Lome",
+    "type": "Vente"
+  },
+  {
+    "date": "13/01/2026",
+    "produit": "Ouvrier de ferme",
+    "prix": "35.000 FCFA/mois",
+    "vendeur": "+228 96 06 63 37",
+    "localisation": "Zanguéra (UCAO)",
+    "type": "Achat"
+  },
+  {
+    "date": "14/01/2026",
+    "produit": "Motobineuses multifonctions avec accessoires",
+    "prix": null,
+    "vendeur": "Remyaga Guy",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "15/01/2026",
+    "produit": "Couveuse d’occasion (880 œufs)",
+    "prix": "à discuter",
+    "vendeur": "+228 96 06 63 37",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "16/01/2026",
+    "produit": "Pintades",
+    "prix": "5000",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "17/01/2026",
+    "produit": "Poussins Goliath",
+    "prix": "500f l'unité",
+    "vendeur": "+228 90 39 71 71",
+    "localisation": "Adidogome Segbe",
+    "type": "Vente"
+  },
+  {
+    "date": "18/01/2026",
+    "produit": "Machine à couper des herbes pour le bétail",
+    "prix": "intéressant",
+    "vendeur": "+228 90 00 66 33",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "18/01/2026",
+    "produit": "Ouvrier agricole",
+    "prix": "50.000 FCFA par mois",
+    "vendeur": "+228 90 81 41 12",
+    "localisation": "Kpimé (Kpalimé)",
+    "type": "Achat"
+  },
+  {
+    "date": "19/01/2026",
+    "produit": "Plateaux d'œufs fécondés",
+    "prix": "5000 F le plateau",
+    "vendeur": "+228 91 33 88 64",
+    "localisation": "Lomé",
+    "type": "Vente"
+  },
+  {
+    "date": "19/01/2026",
+    "produit": "Plateaux d'œufs fécondés Goliath",
+    "prix": "5000 F le plateau",
+    "vendeur": "+228 91 33 88 64",
+    "localisation": "Lomé",
+    "type": "Vente"
+  },
+  {
+    "date": "21/01/2026",
+    "produit": "Sacs de piments secs",
+    "prix": null,
+    "vendeur": "+228 71 87 15 85",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "24/01/2026",
+    "produit": "Alevins de silures / clarias",
+    "prix": "125fr l'unité",
+    "vendeur": "+228 99 82 07 72",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "24/01/2026",
+    "produit": "Aliments pour poissons silures",
+    "prix": null,
+    "vendeur": "+228 99 82 07 72",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "26/01/2026",
+    "produit": "Mangeoires 1er âge",
+    "prix": null,
+    "vendeur": "+228 90 42 76 71",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "26/01/2026",
+    "produit": "Mangeoires 2eme âge",
+    "prix": null,
+    "vendeur": "+228 90 42 76 71",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "26/01/2026",
+    "produit": "Abreuvoir 1er âge",
+    "prix": null,
+    "vendeur": "+228 90 42 76 71",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "26/01/2026",
+    "produit": "Abreuvoir 2eme âge",
+    "prix": null,
+    "vendeur": "+228 90 42 76 71",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "27/01/2026",
+    "produit": "COMPOST SAVANNA",
+    "prix": "3500 F le sac de 50 Kg",
+    "vendeur": "+228 90 24 36 69",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "29/01/2026",
+    "produit": null,
+    "prix": "1200 le kg",
+    "vendeur": "+228 92 19 57 46",
+    "localisation": "Akepe",
+    "type": "Vente"
+  },
+  {
+    "date": "31/01/2026",
+    "produit": "Pompe",
+    "prix": "300 000 FCFA",
+    "vendeur": "+228 92 56 38 70",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "02/02/2026",
+    "produit": "Maïs",
+    "prix": "150000 la tonne",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": "Lomé",
+    "type": "Vente"
+  },
+  {
+    "date": "02/02/2026",
+    "produit": "Goliath mâles",
+    "prix": "6000",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "02/02/2026",
+    "produit": "Goliath femelles",
+    "prix": "5000",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "03/02/2026",
+    "produit": "Dindes (femelles pour reproduction)",
+    "prix": "15000f la femelle",
+    "vendeur": "+228 90 39 71 71",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "03/02/2026",
+    "produit": "Dindes (mâles pour reproduction)",
+    "prix": "25000f le male",
+    "vendeur": "+228 90 39 71 71",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "03/02/2026",
+    "produit": "Plateaux d'oeufs de Goliaths",
+    "prix": "5000f",
+    "vendeur": "+228 96 14 36 26",
+    "localisation": "Notsè",
+    "type": "Vente"
+  },
+  {
+    "date": "05/02/2026",
+    "produit": "Maïs hybride semax 6",
+    "prix": "bon prix",
+    "vendeur": "+228 92 63 20 91",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "05/02/2026",
+    "produit": "Engrais biologique foliaire et ionique 4tree",
+    "prix": "bon prix",
+    "vendeur": "+228 92 63 20 91",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "05/02/2026",
+    "produit": null,
+    "prix": "4000 l'unité",
+    "vendeur": "+228 92 19 57 46",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "06/02/2026",
+    "produit": "Maïs",
+    "prix": "150000 la tonne",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "07/02/2026",
+    "produit": "Carton de coquelets blanc",
+    "prix": "8500f",
+    "vendeur": "+228 91 66 09 59",
+    "localisation": "Agoe Logope",
+    "type": "Vente"
+  },
+  {
+    "date": "08/02/2026",
+    "produit": "Pintadeaux d'un jour",
+    "prix": null,
+    "vendeur": "+228 93 92 25 07",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "08/02/2026",
+    "produit": "Maïs blanc",
+    "prix": "150 f kg",
+    "vendeur": "+228 98 27 42 08",
+    "localisation": "Lomé",
+    "type": "Vente"
+  },
+  {
+    "date": "09/02/2026",
+    "produit": "Plateaux d'oeuf de table",
+    "prix": "2300",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "12/02/2026",
+    "produit": "Super pommes de terre",
+    "prix": null,
+    "vendeur": "+228 98 63 91 23",
+    "localisation": "Djougou, Bénin (livraison Togo)",
+    "type": "Vente"
+  },
+  {
+    "date": "12/02/2026",
+    "produit": "Machine à préparer",
+    "prix": "moins chère",
+    "vendeur": "+228 96 04 94 83",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "12/02/2026",
+    "produit": "Poulets pondeuses",
+    "prix": "Bon prix",
+    "vendeur": "+228 90 20 30 35",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "12/02/2026",
+    "produit": "Poulets Goliath",
+    "prix": "Bon prix",
+    "vendeur": "+228 90 20 30 35",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "12/02/2026",
+    "produit": "Poulets fumés",
+    "prix": "Bon prix",
+    "vendeur": "+228 90 20 30 35",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "13/02/2026",
+    "produit": "Goliaths de 1kg à 1kg 500",
+    "prix": null,
+    "vendeur": "+228 98 76 88 54",
+    "localisation": "Kpogan",
+    "type": "Vente"
+  },
+  {
+    "date": "15/02/2026",
+    "produit": "Dindons (mâles)",
+    "prix": "110.000f le tout",
+    "vendeur": "+228 97 91 10 10",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "16/02/2026",
+    "produit": "PC",
+    "prix": "80000F",
+    "vendeur": "+228 92 63 20 91",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "18/02/2026",
+    "produit": "Technicien d'élevage avicole",
+    "prix": "60 000 FCFA / mois",
+    "vendeur": "+228 96 06 63 37",
+    "localisation": "Akata – Kpalimé",
+    "type": "Achat"
+  },
+  {
+    "date": "18/02/2026",
+    "produit": "Dindons mâles adultes",
+    "prix": "45.000f les 2",
+    "vendeur": "+228 97 91 10 10",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "18/02/2026",
+    "produit": "Poussins d'un mois (Goliath)",
+    "prix": "1500f",
+    "vendeur": "+228 90 39 71 71",
+    "localisation": "Agoe Philo Parc",
+    "type": "Vente"
+  },
+  {
+    "date": "20/02/2026",
+    "produit": "Œufs fécondés de Goliaths",
+    "prix": "5 000 fr le plateau",
+    "vendeur": "+228 90 01 44 92",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "20/02/2026",
+    "produit": "Graines de munkuna",
+    "prix": null,
+    "vendeur": "+228 91 42 36 39",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "21/02/2026",
+    "produit": "Poussins d'un mois Choco choco",
+    "prix": "1500 f l'unité",
+    "vendeur": "+228 90 39 71 71",
+    "localisation": "Agoe Philo Parc",
+    "type": "Vente"
+  },
+  {
+    "date": "27/02/2026",
+    "produit": "Pintadeau local de 2mois",
+    "prix": "1300f l'unité",
+    "vendeur": "+228 97 92 35 98",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "27/02/2026",
+    "produit": "Poussins goliath d'un jour",
+    "prix": "500",
+    "vendeur": "+228 90 39 71 71",
+    "localisation": "Segbe",
+    "type": "Vente"
+  },
+  {
+    "date": "28/02/2026",
+    "produit": "Maïs",
+    "prix": "abordable",
+    "vendeur": "+228 96 04 94 83",
+    "localisation": "Nord",
+    "type": "Vente"
+  },
+  {
+    "date": "05/03/2026",
+    "produit": "Terrain agricole",
+    "prix": "1,5 millions (pour 4h)",
+    "vendeur": "+228 96 22 30 20",
+    "localisation": "Vodje (préf de Vo dans le canton de Hahotoe)",
+    "type": "Vente"
+  },
+  {
+    "date": "05/03/2026",
+    "produit": "Intrants agricoles",
+    "prix": null,
+    "vendeur": "+228 92 71 35 64",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "06/03/2026",
+    "produit": "Mâle de barbarie",
+    "prix": "15000f l'unité",
+    "vendeur": "+228 79 59 51 49",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "07/03/2026",
+    "produit": "Poussins Sasso",
+    "prix": null,
+    "vendeur": "+228 92 88 83 99",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "07/03/2026",
+    "produit": "Canard barbarie",
+    "prix": "7500f",
+    "vendeur": "+228 92 81 46 72",
+    "localisation": "Agoe carrefour commando",
+    "type": "Vente"
+  },
+  {
+    "date": "08/03/2026",
+    "produit": "Goliath de 5 mois",
+    "prix": "4500",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "08/03/2026",
+    "produit": "Goliath de 11 mois",
+    "prix": "5000, 6000",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "08/03/2026",
+    "produit": "Poulettes noilers",
+    "prix": "2000",
+    "vendeur": "+228 92 10 23 69",
+    "localisation": "Yidavé",
+    "type": "Vente"
+  },
+  {
+    "date": "10/03/2026",
+    "produit": "Terrain agricole",
+    "prix": "50 000 F / hectare / an",
+    "vendeur": "+228 99 35 10 54",
+    "localisation": "Azahoun – Afiadégnigban",
+    "type": "Vente"
+  },
+  {
+    "date": "11/03/2026",
+    "produit": "Goliath de 3 mois",
+    "prix": "3000f l'unité",
+    "vendeur": "+228 70 43 05 62",
+    "localisation": "Avedji à Lomé",
+    "type": "Vente"
+  },
+  {
+    "date": "11/03/2026",
+    "produit": "Corymed",
+    "prix": null,
+    "vendeur": "+228 92 10 23 69",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "12/03/2026",
+    "produit": "Trio (2 femelles et 1 mâle)",
+    "prix": "170 000f",
+    "vendeur": "+228 90 39 71 71",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "13/03/2026",
+    "produit": "Dindons matures",
+    "prix": "30 000 F l’unité",
+    "vendeur": "+228 99 59 90 81",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "16/03/2026",
+    "produit": "Terrain agricole",
+    "prix": "1,5 millions (pour 4h)",
+    "vendeur": "+228 96 22 30 20",
+    "localisation": "Vodje (préf de Vo dans le canton de Hahotoe)",
+    "type": "Vente"
+  },
+  {
+    "date": "16/03/2026",
+    "produit": "Poulets goliath de 5 à 10 mois",
+    "prix": "4 000 à 9 500F",
+    "vendeur": "+228 91 33 88 64",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "16/03/2026",
+    "produit": "Dindon bleu de Suède pure sang importé",
+    "prix": "100.000f",
+    "vendeur": "+228 97 91 10 10",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "18/03/2026",
+    "produit": "Coques",
+    "prix": null,
+    "vendeur": "+228 97 53 58 35",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "18/03/2026",
+    "produit": "Dindonneaux d'un jour",
+    "prix": "1800",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "20/03/2026",
+    "produit": "Pectomech tomate",
+    "prix": null,
+    "vendeur": "+228 91 75 14 96",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "23/03/2026",
+    "produit": "Oeufs fécondés de caille",
+    "prix": "2000f le plateau",
+    "vendeur": "+228 96 14 36 26",
+    "localisation": "Notsè",
+    "type": "Vente"
+  },
+  {
+    "date": "24/03/2026",
+    "produit": "Hectares de terrain",
+    "prix": "2 millions l'hectare",
+    "vendeur": "+228 96 22 30 20",
+    "localisation": "Vodje",
+    "type": "Vente"
+  },
+  {
+    "date": "24/03/2026",
+    "produit": "Hectares de terrain",
+    "prix": "1,5 millions à l'hectare",
+    "vendeur": "+228 96 22 30 20",
+    "localisation": "Vodje",
+    "type": "Vente"
+  },
+  {
+    "date": "24/03/2026",
+    "produit": "Lots de terrain",
+    "prix": "600mille le lot",
+    "vendeur": "+228 96 22 30 20",
+    "localisation": "Vogan",
+    "type": "Vente"
+  },
+  {
+    "date": "27/03/2026",
+    "produit": null,
+    "prix": "40.000 f cfa pour 2",
+    "vendeur": "+228 92 10 08 16",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Poules goliaths femelles",
+    "prix": "4000f",
+    "vendeur": "+228 71 14 57 75",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Poules goliaths mâles",
+    "prix": "5000f",
+    "vendeur": "+228 71 14 57 75",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Poussins (51 par carton)",
+    "prix": "10.000 FRS CFA (coquelets)",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Pondeuses noires (Harco)",
+    "prix": "42.500 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Coquelets noirs",
+    "prix": "25.000 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Pintadeaux",
+    "prix": "37.000 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Dindonneaux",
+    "prix": "95.000 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Goliath pur",
+    "prix": "35.000 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Cailleteaux",
+    "prix": "12.500 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Canards barbaries",
+    "prix": "1300 unité (65000 FRS CFA)",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Aliment poussin",
+    "prix": "300 FRS CFA / KG",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Œufs de cailles",
+    "prix": "2.500 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Œufs de Goliath",
+    "prix": "6.000 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Œufs de Brahma métissé",
+    "prix": "7.500 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Œufs de pintades ghanéennes hybrides",
+    "prix": "7.500 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Œufs de dinde",
+    "prix": "19.000 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Œufs de poules locales",
+    "prix": "6.000 FRS CFA",
+    "vendeur": "INSTITUT POLYSERVICE AGROTROK- BOREVA",
+    "localisation": "LOMÉ TOGO (KEGUE-ECHANGEUR)",
+    "type": "Vente"
+  },
+  {
+    "date": "30/03/2026",
+    "produit": "Manioc frais",
+    "prix": null,
+    "vendeur": "+228 91 05 70 35",
+    "localisation": "Agbandi",
+    "type": "Vente"
+  },
+  {
+    "date": "01/04/2026",
+    "produit": "Coquelet blanc",
+    "prix": "1300",
+    "vendeur": "+228 93 60 89 64",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "02/04/2026",
+    "produit": "Hectares de terrain",
+    "prix": "1000000 FCFA les deux",
+    "vendeur": "+228 90 42 76 71",
+    "localisation": "SOKODE dans le canton de SOBOUA",
+    "type": "Vente"
+  },
+  {
+    "date": "03/04/2026",
+    "produit": "Hectare de terrain agricole",
+    "prix": "2,2 millions",
+    "vendeur": "+228 96 22 30 20",
+    "localisation": "Vodje",
+    "type": "Vente"
+  },
+  {
+    "date": "03/04/2026",
+    "produit": "Hectare et 3 lots de terrain agricole",
+    "prix": "2,7 millions",
+    "vendeur": "+228 96 22 30 20",
+    "localisation": "Animabio sur la voie Akoumape-Tchekpo",
+    "type": "Vente"
+  },
+  {
+    "date": "03/04/2026",
+    "produit": "Hectares de terrain agricole",
+    "prix": "1,3 millions l'hectare",
+    "vendeur": "+228 96 22 30 20",
+    "localisation": "Vodje",
+    "type": "Vente"
+  },
+  {
+    "date": "03/04/2026",
+    "produit": "Logement (une pièce avec WC douche interne)",
+    "prix": "Entre 15 000 FCFA et 20 000 FCFA / mois",
+    "vendeur": "+228 71 39 20 54",
+    "localisation": "Agbavi – Togokomé et environs",
+    "type": "Achat"
+  },
+  {
+    "date": "07/04/2026",
+    "produit": null,
+    "prix": "1500 fr",
+    "vendeur": "+228 92 33 46 54",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "07/04/2026",
+    "produit": null,
+    "prix": "8000f",
+    "vendeur": "+228 93 60 89 64",
+    "localisation": "CeG kossigan",
+    "type": "Vente"
+  },
+  {
+    "date": "08/04/2026",
+    "produit": "Maïs",
+    "prix": "150f le kg",
+    "vendeur": "+228 90 39 71 71",
+    "localisation": "Lomé",
+    "type": "Vente"
+  },
+  {
+    "date": "10/04/2026",
+    "produit": "ECLABOOST (Pré-démarrage)",
+    "prix": "30.500f",
+    "vendeur": "+228 92 81 51 17",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "10/04/2026",
+    "produit": "PRÉMIX DEMARRAGE 2,5%",
+    "prix": "61.500f",
+    "vendeur": "+228 92 81 51 17",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "10/04/2026",
+    "produit": "PRÉMIX CROISSANCE 1,5%",
+    "prix": "50.500f",
+    "vendeur": "+228 92 81 51 17",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "10/04/2026",
+    "produit": "PRÉMIX TRUIE 2,5%",
+    "prix": "49.500f",
+    "vendeur": "+228 92 81 51 17",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "10/04/2026",
+    "produit": "ATOFIRST",
+    "prix": "31.500f",
+    "vendeur": "+228 92 81 51 17",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "10/04/2026",
+    "produit": "PRÉMIX CHAIR 1%",
+    "prix": "66.500f",
+    "vendeur": "+228 92 81 51 17",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "10/04/2026",
+    "produit": "PRÉMIX PONTE 2,5%",
+    "prix": "42.500f",
+    "vendeur": "+228 92 81 51 17",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "10/04/2026",
+    "produit": "Coq Goliath",
+    "prix": "8k",
+    "vendeur": "+228 90 05 09 60",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "11/04/2026",
+    "produit": "Poussins locales d'un jour",
+    "prix": "400f l'unité",
+    "vendeur": "+228 96 14 36 26",
+    "localisation": "Notsè",
+    "type": "Vente"
+  },
+  {
+    "date": "11/04/2026",
+    "produit": null,
+    "prix": "2000 fr",
+    "vendeur": "+228 92 33 46 54",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "11/04/2026",
+    "produit": "Poulets noilers (1100)",
+    "prix": null,
+    "vendeur": "+228 92 10 23 69",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "11/04/2026",
+    "produit": "Mâle Goliath",
+    "prix": "16000 f le tout",
+    "vendeur": "+228 78 95 54 29",
+    "localisation": "Lome Togo",
+    "type": "Vente"
+  },
+  {
+    "date": "11/04/2026",
+    "produit": "Femelles Goliath",
+    "prix": "16000 f le tout",
+    "vendeur": "+228 78 95 54 29",
+    "localisation": "Lome Togo",
+    "type": "Vente"
+  },
+  {
+    "date": "12/04/2026",
+    "produit": "Dindonneaux de 3 mois",
+    "prix": "12500",
+    "vendeur": "+228 93 92 50 72",
+    "localisation": "Davie derrière l'école de police",
+    "type": "Vente"
+  },
+  {
+    "date": "13/04/2026",
+    "produit": "Mâle Goliath",
+    "prix": "16000 f le tout",
+    "vendeur": "+228 78 95 54 29",
+    "localisation": "Lome Togo",
+    "type": "Vente"
+  },
+  {
+    "date": "13/04/2026",
+    "produit": "Femelles Goliath",
+    "prix": "16000 f le tout",
+    "vendeur": "+228 78 95 54 29",
+    "localisation": "Lome Togo",
+    "type": "Vente"
+  },
+  {
+    "date": "14/04/2026",
+    "produit": "Poussins Goliath d'un jour",
+    "prix": "27 500 FCFA / carton de 51 poussins",
+    "vendeur": "+228 93 60 89 64",
+    "localisation": "Agoè Dikamé",
+    "type": "Vente"
+  },
+  {
+    "date": "16/04/2026",
+    "produit": "Sucre ICUMSA 45 HT",
+    "prix": "350.000 FCFA",
+    "vendeur": "Kossi Prince",
+    "localisation": "Lomé",
+    "type": "Vente"
+  },
+  {
+    "date": "16/04/2026",
+    "produit": null,
+    "prix": "50.000f l'unité",
+    "vendeur": "+228 97 91 10 10",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "17/04/2026",
+    "produit": "Pondeuses",
+    "prix": "3500F l'unité (négociable)",
+    "vendeur": "+228 91 99 72 59",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "18/04/2026",
+    "produit": "Carton de poussins goliath de 3 jours",
+    "prix": "22000f (550 f/unité)",
+    "vendeur": "+228 90 05 09 60",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "19/04/2026",
+    "produit": "Essences forestières et fruitiers",
+    "prix": "abordables",
+    "vendeur": "+228 92 71 35 64",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "20/04/2026",
+    "produit": "Poulets goliaths de trois mois",
+    "prix": "4000 par tête",
+    "vendeur": "+228 92 45 05 38",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "20/04/2026",
+    "produit": "Isa Brown de belgique de 2 mois 2 semaines",
+    "prix": "2700",
+    "vendeur": "+228 92 19 57 46",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "20/04/2026",
+    "produit": "Hectares de terrain",
+    "prix": "1500000",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": "Gape",
+    "type": "Vente"
+  },
+  {
+    "date": "21/04/2026",
+    "produit": "Poussins d'un mois",
+    "prix": "1400",
+    "vendeur": "+228 93 60 89 64",
+    "localisation": "Agoe Dikame",
+    "type": "Vente"
+  },
+  {
+    "date": "21/04/2026",
+    "produit": "Hectares de terrain agricole",
+    "prix": "1 million l'hectare",
+    "vendeur": "+228 96 22 30 20",
+    "localisation": "Vodje",
+    "type": "Vente"
+  },
+  {
+    "date": "22/04/2026",
+    "produit": "Pigeons",
+    "prix": null,
+    "vendeur": "+228 99 56 80 24",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "23/04/2026",
+    "produit": "Lots de terrain",
+    "prix": "3million le lot",
+    "vendeur": "+228 96 22 30 20",
+    "localisation": "Vogan",
+    "type": "Vente"
+  },
+  {
+    "date": "24/04/2026",
+    "produit": "Chèvres",
+    "prix": null,
+    "vendeur": "+228 90 91 85 94",
+    "localisation": "Sanguera UCAO",
+    "type": "Vente"
+  },
+  {
+    "date": "24/04/2026",
+    "produit": "Boucs castrés",
+    "prix": null,
+    "vendeur": "+228 90 91 85 94",
+    "localisation": "Sanguera UCAO",
+    "type": "Vente"
+  },
+  {
+    "date": "24/04/2026",
+    "produit": "Boucs non castrés",
+    "prix": null,
+    "vendeur": "+228 90 91 85 94",
+    "localisation": "Sanguera UCAO",
+    "type": "Vente"
+  },
+  {
+    "date": "25/04/2026",
+    "produit": "Pintadeaux",
+    "prix": "800f l'unité",
+    "vendeur": "+228 90 39 71 71",
+    "localisation": "Segbe",
+    "type": "Vente"
+  },
+  {
+    "date": "25/04/2026",
+    "produit": "Pintadeaux d'un jour",
+    "prix": "800f l'unité",
+    "vendeur": "+228 90 41 88 46",
+    "localisation": "Notsè",
+    "type": "Vente"
+  },
+  {
+    "date": "26/04/2026",
+    "produit": "Poulets de chair cobbs",
+    "prix": "1500 le kilo",
+    "vendeur": "+228 90 20 89 79",
+    "localisation": "Dangbessito",
+    "type": "Vente"
+  },
+  {
+    "date": "27/04/2026",
+    "produit": "Son du blé",
+    "prix": null,
+    "vendeur": "+228 92 31 34 03",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "29/04/2026",
+    "produit": "Pintadeaux d'un mois et demi",
+    "prix": "1700f l'unité",
+    "vendeur": "+228 90 41 88 46",
+    "localisation": "Notsè",
+    "type": "Vente"
+  },
+  {
+    "date": "30/04/2026",
+    "produit": null,
+    "prix": "800 fr l'unité",
+    "vendeur": "+228 90 01 44 92",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "05/05/2026",
+    "produit": "Maïs blanc",
+    "prix": null,
+    "vendeur": "+228 98 66 53 74",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "05/05/2026",
+    "produit": "Lexique du Fermier Africain (ebook)",
+    "prix": "1500 Fr",
+    "vendeur": "+228 92 33 46 54",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "05/05/2026",
+    "produit": "Cailles de 2 mois et demi",
+    "prix": "1500f",
+    "vendeur": "+228 71 73 39 57",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "06/05/2026",
+    "produit": "Canards de race barbarie",
+    "prix": null,
+    "vendeur": "+228 98 76 88 54",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "06/05/2026",
+    "produit": "Jeunes porcins race White Large",
+    "prix": null,
+    "vendeur": "+228 92 10 23 69",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "06/05/2026",
+    "produit": "Truie",
+    "prix": null,
+    "vendeur": "+228 92 10 23 69",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "07/05/2026",
+    "produit": null,
+    "prix": "7000F l'unité",
+    "vendeur": "+228 90 05 09 60",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "08/05/2026",
+    "produit": "Guide Complet des Maladies de l’Élevage (ebook)",
+    "prix": "2 000 FCFA",
+    "vendeur": "+228 92 33 46 54",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "08/05/2026",
+    "produit": "Plateau d'oeufs",
+    "prix": "2300",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "09/05/2026",
+    "produit": "Guide pratique avicole (ebook)",
+    "prix": null,
+    "vendeur": "+228 92 33 46 54",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "09/05/2026",
+    "produit": "Son poudre",
+    "prix": "bon prix",
+    "vendeur": "+228 70 54 15 21",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "09/05/2026",
+    "produit": "Maïs",
+    "prix": "abordable",
+    "vendeur": "+228 70 54 15 21",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "09/05/2026",
+    "produit": "Concentré ponte koudijs 5%",
+    "prix": "très bon prix",
+    "vendeur": "+228 70 54 15 21",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "09/05/2026",
+    "produit": "Maïs blanc",
+    "prix": "150f le kilo",
+    "vendeur": "+228 90 70 50 09",
+    "localisation": "Adetikope",
+    "type": "Vente"
+  },
+  {
+    "date": "11/05/2026",
+    "produit": "Plateaux d'oeufs",
+    "prix": "2400",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": "Léo 2000 derière le cap",
+    "type": "Vente"
+  },
+  {
+    "date": "11/05/2026",
+    "produit": "Poulet goliath de 1,2 kilo",
+    "prix": "vil prix",
+    "vendeur": "+228 97 71 50 00",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "11/05/2026",
+    "produit": "Canard Pékin",
+    "prix": null,
+    "vendeur": "+228 97 71 50 00",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "12/05/2026",
+    "produit": "Guide Pratique de Rédaction de Projet Agropastoral (ebook)",
+    "prix": null,
+    "vendeur": "+228 92 33 46 54",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "12/05/2026",
+    "produit": "Poussins Goliath d’un jour",
+    "prix": "27 500 F CFA le carton de 51 poussins",
+    "vendeur": "+228 93 60 89 64",
+    "localisation": "Bernard Copé, non loin de l’échangeur d’Agoè",
+    "type": "Vente"
+  },
+  {
+    "date": "15/05/2026",
+    "produit": "Maïs",
+    "prix": "130f le kilo et la tonne a 130000f",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": "Lome agoe zogo",
+    "type": "Vente"
+  },
+  {
+    "date": "16/05/2026",
+    "produit": "Seringue automatique pour volaille",
+    "prix": null,
+    "vendeur": "+228 91 98 95 89",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "17/05/2026",
+    "produit": "Porcelets mâles F3 (Piétrains, Duroc, Landrace allemand)",
+    "prix": "60.000 F L'UNITÉ (100.000F les 2)",
+    "vendeur": "+228 92 81 51 17",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "18/05/2026",
+    "produit": "Poussin Goliath",
+    "prix": "27500",
+    "vendeur": "+228 93 60 89 64",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "19/05/2026",
+    "produit": "Couveuse automatique de 64 œufs",
+    "prix": "70 000",
+    "vendeur": "+228 99 66 21 57",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "19/05/2026",
+    "produit": "Poulets Goliaths (1,3 et 2kg)",
+    "prix": null,
+    "vendeur": "+228 92 99 54 69",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "19/05/2026",
+    "produit": null,
+    "prix": "20000f",
+    "vendeur": "+228 91 74 14 07",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "22/05/2026",
+    "produit": "Sacs de fiente des cailles",
+    "prix": "intéressant",
+    "vendeur": "+228 90 00 66 33",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "22/05/2026",
+    "produit": "Sacs de fiente de poulets",
+    "prix": "intéressant",
+    "vendeur": "+228 90 00 66 33",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "24/05/2026",
+    "produit": "Plateaux d'oeuf fécondé de pintade",
+    "prix": "7500f le plateau",
+    "vendeur": "+228 90 41 88 46",
+    "localisation": "Notsè",
+    "type": "Vente"
+  },
+  {
+    "date": "24/05/2026",
+    "produit": "Pintadeaux d'un mois une semaine",
+    "prix": "1500f l'unité",
+    "vendeur": "+228 90 41 88 46",
+    "localisation": "Notsè",
+    "type": "Vente"
+  },
+  {
+    "date": "25/05/2026",
+    "produit": "Plateaux d'oeuf fécondé de pintade",
+    "prix": "6500f le plateau",
+    "vendeur": "+228 90 41 88 46",
+    "localisation": "Notsè",
+    "type": "Vente"
+  },
+  {
+    "date": "25/05/2026",
+    "produit": "Pintadeaux d'un mois",
+    "prix": "1500f l'unité",
+    "vendeur": "+228 90 41 88 46",
+    "localisation": "Notsè",
+    "type": "Vente"
+  },
+  {
+    "date": "25/05/2026",
+    "produit": "Maïs",
+    "prix": "130 kg",
+    "vendeur": "+228 90 39 71 71",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "26/05/2026",
+    "produit": "Pondeuses réformées",
+    "prix": "2700",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": "Gbodjome",
+    "type": "Vente"
+  },
+  {
+    "date": "26/05/2026",
+    "produit": "Oie blanc",
+    "prix": null,
+    "vendeur": "+228 92 19 57 46",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "26/05/2026",
+    "produit": "Pintadeaux d'un mois",
+    "prix": "1500f l'unité",
+    "vendeur": "+228 90 41 88 46",
+    "localisation": "Notsè",
+    "type": "Vente"
+  },
+  {
+    "date": "27/05/2026",
+    "produit": null,
+    "prix": "35000 le carton",
+    "vendeur": "+228 90 05 09 60",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "27/05/2026",
+    "produit": "Pondeuses réformées",
+    "prix": "2700",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": "Gbodjome",
+    "type": "Vente"
+  },
+  {
+    "date": "28/05/2026",
+    "produit": "Goliath mâles",
+    "prix": "4500",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "28/05/2026",
+    "produit": "Goliath femelles",
+    "prix": "4000",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "01/06/2026",
+    "produit": "Livres numériques (3 au choix) et application professionnelle de formulation d'aliment",
+    "prix": "10 000 FCFA",
+    "vendeur": "+228 92 33 46 54",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "02/06/2026",
+    "produit": "Bouc Boer",
+    "prix": null,
+    "vendeur": "+228 90 64 40 83",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "02/06/2026",
+    "produit": "Formation pratique en élevage",
+    "prix": "50.000f CFA",
+    "vendeur": "Ferme Mariam",
+    "localisation": "Lomé",
+    "type": "Vente"
+  },
+  {
+    "date": "03/06/2026",
+    "produit": "Canards",
+    "prix": "6500",
+    "vendeur": "+228 70 20 51 42",
+    "localisation": "Segbé",
+    "type": "Vente"
+  },
+  {
+    "date": "05/06/2026",
+    "produit": "Lapins",
+    "prix": null,
+    "vendeur": "+228 98 50 69 74",
+    "localisation": "Agoè",
+    "type": "Vente"
+  },
+  {
+    "date": "07/06/2026",
+    "produit": "Poussins Goliath J1",
+    "prix": "27 500 FCFA le carton de 51 poussins (600fr l’unité)",
+    "vendeur": "+228 90 98 07 37",
+    "localisation": "Lomé - Agoè camp fir",
+    "type": "Vente"
+  },
+  {
+    "date": "08/06/2026",
+    "produit": "Pondeuses réforme",
+    "prix": "2800",
+    "vendeur": "+228 70 03 55 63",
+    "localisation": "Boga (Agbelouve)",
+    "type": "Vente"
+  },
+  {
+    "date": "08/06/2026",
+    "produit": "Business Plans Agricoles et d'Élevage sur mesure",
+    "prix": "50 000 FCFA",
+    "vendeur": "prendresonagricultureenmain",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "09/06/2026",
+    "produit": "Lapin pour la consommation",
+    "prix": "À partir de 5000fr",
+    "vendeur": "+228 90 42 41 57",
+    "localisation": "Lomé - Togo / Demakpoè",
+    "type": "Vente"
+  },
+  {
+    "date": "09/06/2026",
+    "produit": "Pintadeaux",
+    "prix": "750 francs l'unité",
+    "vendeur": "+228 90 06 84 04",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "10/06/2026",
+    "produit": "Cage de 12 loges",
+    "prix": "75.000fr",
+    "vendeur": "+228 92 42 17 06",
+    "localisation": "Atiégou",
+    "type": "Vente"
+  },
+  {
+    "date": "10/06/2026",
+    "produit": null,
+    "prix": "2000f le kilo",
+    "vendeur": "+228 96 10 22 39",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "11/06/2026",
+    "produit": null,
+    "prix": "2000",
+    "vendeur": "+228 99 66 21 57",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "11/06/2026",
+    "produit": "Maïs frais",
+    "prix": null,
+    "vendeur": "+228 92 19 57 46",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "11/06/2026",
+    "produit": "Lapereaux hybrides GDF",
+    "prix": "10.000f l'unité",
+    "vendeur": "+228 97 91 10 10",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "12/06/2026",
+    "produit": "Poulets Goliath de trois mois et demi",
+    "prix": "4 000 f l'unité",
+    "vendeur": "+228 92 91 50 18",
+    "localisation": "Lomé-Togblekopé",
+    "type": "Vente"
+  },
+  {
+    "date": "25/02/2026",
+    "produit": "Plateau d’œufs",
+    "prix": "7500f",
+    "vendeur": "+228 90 41 88 46",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "28/02/2026",
+    "produit": "Poussins Goliath",
+    "prix": null,
+    "vendeur": "+228 92 97 43 99",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "14/03/2026",
+    "produit": "Poussins de un mois",
+    "prix": "50k le couple",
+    "vendeur": "+228 92 50 20 13",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "04/04/2026",
+    "produit": "Terrain agricole",
+    "prix": "1million /ha",
+    "vendeur": "Franc SEGBEFIA",
+    "localisation": "Kpalimé/Kati",
+    "type": "Vente"
+  },
+  {
+    "date": "20/04/2026",
+    "produit": "Isa Brown de belgique de 2 mois 2 semaines",
+    "prix": "2700",
+    "vendeur": "+228 92 19 57 46",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "25/04/2026",
+    "produit": "Pintadeaux",
+    "prix": "800f l'unité",
+    "vendeur": "+228 90 64 63 82",
+    "localisation": "Segbe",
+    "type": "Vente"
+  },
+  {
+    "date": "09/05/2026",
+    "produit": "Maïs blanc",
+    "prix": "150f le kilo",
+    "vendeur": "+228 90 70 50 09",
+    "localisation": "Adetikope",
+    "type": "Vente"
+  },
+  {
+    "date": "18/05/2026",
+    "produit": "Maïs",
+    "prix": "145f le kilos",
+    "vendeur": "+228 71 09 20 70",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "23/05/2026",
+    "produit": "Terrain de production agricole",
+    "prix": "950.000 par hectare",
+    "vendeur": "+228 97 70 95 11",
+    "localisation": "PATATOUKOU - Kado asso",
+    "type": "Vente"
+  },
+  {
+    "date": "24/05/2026",
+    "produit": "Plateau d’œufs de cailles",
+    "prix": "2500 fr",
+    "vendeur": "+228 96 66 92 43",
+    "localisation": "Lomé",
+    "type": "Vente"
+  },
+  {
+    "date": "26/05/2026",
+    "produit": "Oie blanc",
+    "prix": null,
+    "vendeur": "+228 92 19 57 46",
+    "localisation": null,
+    "type": "Achat"
+  },
+  {
+    "date": "28/05/2026",
+    "produit": "Pintadeaux",
+    "prix": "750f",
+    "vendeur": "+228 92 97 43 99",
+    "localisation": null,
+    "type": "Vente"
+  },
+  {
+    "date": "10/06/2026",
+    "produit": "Cage de 12 loges",
+    "prix": "75.000fr",
+    "vendeur": "+228 92 42 17 06",
+    "localisation": "Atiégou",
+    "type": "Vente"
+  },
+  {
+    "date": "11/06/2026",
+    "produit": "Maïs frais",
+    "prix": null,
+    "vendeur": "+228 92 19 57 46",
+    "localisation": null,
+    "type": "Vente"
+  }
+]

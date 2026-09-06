@@ -119,15 +119,14 @@ export default function CultiPlanPage() {
   }
 
   return (
-    <div className="flex h-screen w-full bg-[#FAFAFA] font-manrope text-[#111111] overflow-hidden absolute top-0 left-0 z-50">
-      
+    <div className="fixed inset-0 z-[9999] flex flex-col md:flex-row bg-white font-manrope">
       {/* 1. LEFT SIDEBAR (Ultra Minimalist / Swiss Style) */}
-      <aside className="w-[72px] bg-white border-r border-gray-200 flex flex-col items-center py-6 gap-8 flex-shrink-0 z-20">
+      <aside className="hidden md:flex w-[72px] bg-white border-r border-gray-200 flex-col items-center py-6 gap-8 flex-shrink-0 z-20">
         <Link href="/" className="opacity-80 hover:opacity-100 transition-opacity">
           <img src="/logo.png" alt="Cultiso" className="w-8 h-8 object-contain" />
         </Link>
-        <nav className="flex flex-col gap-4 mt-4 w-full px-3">
-          <Link href="/" className="w-full aspect-square rounded-xl flex items-center justify-center text-gray-400 hover:text-[#0B5345] hover:bg-gray-50 transition-colors">
+        <nav className="flex flex-col gap-4 w-full px-3">
+          <Link href="/cultisia" className="w-full aspect-square rounded-xl flex items-center justify-center text-gray-400 hover:text-[#0B5345] hover:bg-gray-50 transition-colors">
             <AppstoreOutlined style={{fontSize:"20px"}} />
           </Link>
           <div className="relative w-full aspect-square rounded-xl flex items-center justify-center bg-[#0B5345] text-white shadow-sm cursor-default">
@@ -140,17 +139,22 @@ export default function CultiPlanPage() {
       </aside>
 
       {/* 2. MAIN WORKSPACE */}
-      <main className="flex-1 flex flex-col min-w-0 bg-[#FAFAFA] relative overflow-hidden">
+      <main className="flex-1 flex flex-col min-w-0 bg-[#FAFAFA] relative overflow-hidden md:h-auto h-[50vh]">
         {/* Header */}
-        <header className="px-10 py-8 shrink-0 flex justify-between items-end border-b border-gray-100 bg-white/50 backdrop-blur-sm z-10">
+        <header className="px-6 md:px-10 py-4 md:py-8 shrink-0 flex justify-between items-end border-b border-gray-100 bg-white/50 backdrop-blur-sm z-10">
           <div>
-            <h1 className="font-unbounded text-2xl font-bold text-[#0B5345] tracking-tight">CultiPlan</h1>
-            <p className="text-gray-500 font-medium text-sm mt-1">Espace de Modélisation Financière</p>
+            <div className="flex items-center gap-3">
+              <Link href="/" className="md:hidden">
+                <img src="/favicon.png" alt="Cultiso" className="w-6 h-6 object-contain" />
+              </Link>
+              <h1 className="font-unbounded text-xl md:text-2xl font-bold text-[#0B5345] tracking-tight">CultiPlan</h1>
+            </div>
+            <p className="text-gray-500 font-medium text-xs md:text-sm mt-1">Espace de Modélisation Financière</p>
           </div>
         </header>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-10 flex flex-col [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-gray-200 [&::-webkit-scrollbar-thumb]:rounded-full">
+        <div className="flex-1 overflow-y-auto p-6 md:p-10 flex flex-col [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-gray-200 [&::-webkit-scrollbar-thumb]:rounded-full">
           {!appMode ? (
             /* SELECTION DU MODE */
             <div className="max-w-4xl mx-auto w-full h-full flex flex-col justify-center items-center text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -300,8 +304,8 @@ export default function CultiPlanPage() {
       </main>
 
       {/* 3. RIGHT PANEL (Chatbot) */}
-      <aside className="w-[380px] bg-white border-l border-gray-200 flex flex-col flex-shrink-0 z-20 shadow-[-10px_0_30px_rgba(0,0,0,0.02)]">
-        <div className="py-6 shrink-0 border-b border-gray-100 flex items-center px-6 gap-4">
+      <aside className="w-full md:w-[380px] flex-1 md:flex-none bg-white border-t md:border-t-0 md:border-l border-gray-200 flex flex-col flex-shrink-0 z-20 shadow-[-10px_0_30px_rgba(0,0,0,0.02)]">
+        <div className="py-4 md:py-6 shrink-0 border-b border-gray-100 flex items-center px-6 gap-4">
           <div className="w-11 h-11 shrink-0 rounded-xl bg-[#0B5345] flex items-center justify-center text-white font-unbounded font-bold text-lg">
             C
           </div>
