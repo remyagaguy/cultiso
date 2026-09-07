@@ -40,13 +40,6 @@ const SuggestDroplet = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
 );
 
-const SUGGESTIONS = [
-  { icon: <SuggestLeaf />, label: "Analyser ma culture", prompt: "Quels sont les besoins nutritifs et les conditions idÃ©ales pour cultiver la tomate en zone tropicale ?" },
-  { icon: <SuggestSearch />, label: "Diagnostiquer une maladie", prompt: "Comment diagnostiquer et traiter le mildiou sur les plants de tomate ?" },
-  { icon: <SuggestChart />, label: "Calculer ma rentabilitÃ©", prompt: "Quelle est la rentabilitÃ© d'un hectare de maÃ¯s au Cameroun ?" },
-  { icon: <SuggestDroplet />, label: "Optimiser l'irrigation", prompt: "Quelles sont les meilleures pratiques d'irrigation pour le maraÃ®chage en Afrique de l'Ouest ?" },
-];
-
 /* â”€â”€â”€ Thinking Animation â”€â”€â”€ */
 const ThinkingIndicator = () => (
   <div className="flex items-center gap-3 py-4">
@@ -157,8 +150,9 @@ interface SharedChatProps {
 }
 
 export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsÃ© par l'IA", icon, isEmbedded = false, hideSidebar = false, onSimulationComplete }: SharedChatProps) {
+  const [activeMode, setActiveMode] = useState<"cultisia" | "cultiplan" | "cultiseil">(toolContext);
   const [messages, setMessages] = useState<ChatMessage[]>(
-    toolContext === "cultiplan" 
+    activeMode === "cultiplan" 
       ? [{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }] 
       : []
   );
@@ -167,6 +161,16 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
   const [isThinking, setIsThinking] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  useEffect(() => {
+    if (messages.length <= 1 && !messages.some(m => m.role === 'user')) {
+      if (activeMode === "cultiplan") {
+        setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }]);
+      } else {
+        setMessages([]);
+      }
+    }
+  }, [activeMode]);
+
   const [userId, setUserId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -211,7 +215,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
           .order("created_at", { ascending: true });
 
         if (history && history.length > 0) {
-          if (toolContext === "cultiplan" && history[0].role !== "assistant") {
+          if (activeMode === "cultiplan" && history[0].role !== "assistant") {
             setMessages([
               { id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." },
               ...(history as ChatMessage[])
@@ -219,7 +223,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
           } else {
             setMessages(history as ChatMessage[]);
           }
-        } else if (toolContext === "cultiplan") {
+        } else if (activeMode === "cultiplan") {
           setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }]);
         }
       }
@@ -231,7 +235,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
     if (sessionId) {
       await supabase.from("chat_messages").delete().eq("session_id", sessionId);
     }
-    if (toolContext === "cultiplan") {
+    if (activeMode === "cultiplan") {
       setMessages([{ role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }]);
     } else {
       setMessages([]);
@@ -249,7 +253,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       if (newSession) setSessionId(newSession.id);
     }
     
-    if (toolContext === "cultiplan") {
+    if (activeMode === "cultiplan") {
       setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }]);
     } else {
       setMessages([]);
@@ -300,7 +304,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         // On envoie tout l'historique pour la mÃ©moire temporelle, et l'outil courant !
-        body: JSON.stringify({ messages: newMessages, mode: "Chat", toolContext, model: "google/gemini-2.5-flash" }),
+        body: JSON.stringify({ messages: newMessages, mode: "Chat", toolContext: activeMode, model: "google/gemini-2.5-flash" }),
       });
 
       if (!res.ok || !res.body) throw new Error("Response error");
@@ -397,12 +401,22 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         />
       </div>
       <div className={`flex items-center justify-between ${large ? "px-5 pb-3.5 pt-1" : "px-4 pb-2.5 pt-0.5"}`}>
-        <div className="flex items-center bg-[#f9f8f6] rounded-full p-[3px] border border-gray-100">
-          <span className="px-3 py-[4px] text-[12px] font-semibold rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] text-[#0B5345] cursor-default select-none">Chat</span>
-          <Tooltip title="BientÃ´t disponible" placement="top">
-            <span className="px-3 py-[4px] text-[12px] font-medium rounded-full text-gray-400 cursor-not-allowed select-none hover:text-gray-500 transition-colors" onClick={() => antMessage.info("Le mode Premium (IoT) sera bientÃ´t disponible !")}>Premium</span>
-          </Tooltip>
-        </div>
+        <div className="flex items-center">
+            {!isEmbedded && (
+               <div className="relative">
+                 <select
+                   value={activeMode}
+                   onChange={(e) => setActiveMode(e.target.value as any)}
+                   className="text-[12px] font-semibold bg-white border border-gray-200 text-[#0B5345] rounded-full pl-3 pr-7 py-[5px] focus:outline-none focus:border-[#0B5345]/40 hover:border-[#0B5345]/30 appearance-none cursor-pointer shadow-sm transition-all"
+                 >
+                   <option value="cultisia">✨ Cultisia Général</option>
+                   <option value="cultiplan">📊 Mode CultiPlan</option>
+                   <option value="cultiseil">🌿 Mode Cultiseil</option>
+                 </select>
+                 <svg className="w-3.5 h-3.5 text-[#0B5345] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+               </div>
+            )}
+          </div>
         <button
           onClick={handleSend}
           disabled={isLoading || !input.trim()}
@@ -492,7 +506,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
               {icon || <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.5 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>}
             </div>
             <h1 className="font-unbounded text-3xl sm:text-[34px] font-bold text-[#052821] mb-3 text-center leading-tight tracking-tight">
-              {toolContext === "cultiplan" ? (
+              {activeMode === "cultiplan" ? (
                 <>Cultisia Business Plan<br className="hidden sm:block" /> PrÃªt pour ton projet ?</>
               ) : (
                 <>Bonjour, comment puis-je<br className="hidden sm:block" /> vous aider ?</>
@@ -500,14 +514,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
             </h1>
             <p className="text-[15px] text-gray-400 mb-10 text-center font-medium">{subtitle}</p>
             <div className="w-full max-w-2xl">{renderInputBar(`Posez votre question Ã  ${title}...`, true)}</div>
-            <div className="flex flex-wrap justify-center gap-3 mt-8 max-w-2xl">
-              {SUGGESTIONS.map((s) => (
-                <button key={s.label} onClick={() => handleSuggestion(s.prompt)} className="flex items-center gap-2.5 px-5 py-3.5 bg-[#f9f8f6] border border-gray-100 rounded-2xl text-[13.5px] font-semibold text-gray-600 hover:bg-white hover:border-[#0B5345]/30 hover:text-[#0B5345] hover:shadow-sm transition-all duration-200 active:scale-[0.98]">
-                  {s.icon}
-                  {s.label}
-                </button>
-              ))}
-            </div>
+            
           </div>
         ) : (
           <>
