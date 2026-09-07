@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { message as antMessage, Tooltip } from "antd";
@@ -52,7 +52,7 @@ const ThinkingIndicator = () => (
         <span className="w-1.5 h-1.5 bg-[#D35400] rounded-full animate-bounce opacity-80" style={{ animationDelay: "150ms" }} />
         <span className="w-1.5 h-1.5 bg-[#D35400] rounded-full animate-bounce opacity-80" style={{ animationDelay: "300ms" }} />
       </div>
-      <span className="text-[13.5px] text-gray-500 font-medium italic">Cultisia rÃ©flÃ©chit...</span>
+      <span className="text-[13.5px] text-gray-500 font-medium italic">Cultisia réfléchit...</span>
     </div>
   </div>
 );
@@ -86,7 +86,7 @@ const QuestionnaireWidget = ({
   };
 
   const handleSkip = () => {
-    const newAnswers = { ...answers, [step]: "Non spÃ©cifiÃ©" };
+    const newAnswers = { ...answers, [step]: "Non spécifié" };
     setAnswers(newAnswers);
     if (step < data.questions.length - 1) {
       setStep(step + 1);
@@ -125,7 +125,7 @@ const QuestionnaireWidget = ({
             disabled={step === 0} 
             className="text-[13px] font-medium text-gray-400 hover:text-gray-700 disabled:opacity-0 transition-colors px-2 py-1"
           >
-            â† PrÃ©cÃ©dent
+            â† Précédent
           </button>
           <button 
             onClick={handleSkip} 
@@ -149,8 +149,9 @@ interface SharedChatProps {
   onSimulationComplete?: (data: any) => void;
 }
 
-export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsÃ© par l'IA", icon, isEmbedded = false, hideSidebar = false, onSimulationComplete }: SharedChatProps) {
+export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon, isEmbedded = false, hideSidebar = false, onSimulationComplete }: SharedChatProps) {
   const [activeMode, setActiveMode] = useState<"cultisia" | "cultiplan" | "cultiseil">(toolContext);
+  const [isModeMenuOpen, setIsModeMenuOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(
     activeMode === "cultiplan" 
       ? [{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }] 
@@ -240,7 +241,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
     } else {
       setMessages([]);
     }
-    antMessage.success("Historique effacÃ©");
+    antMessage.success("Historique effacé");
   };
 
   const startNewDiscussion = async () => {
@@ -294,7 +295,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
     setIsLoading(true);
     setIsThinking(true);
 
-    // Sauvegarde en DB (si connectÃ©)
+    // Sauvegarde en DB (si connecté)
     if (sessionId) {
       await supabase.from("chat_messages").insert({ session_id: sessionId, role: "user", content: text });
     }
@@ -303,7 +304,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // On envoie tout l'historique pour la mÃ©moire temporelle, et l'outil courant !
+        // On envoie tout l'historique pour la mémoire temporelle, et l'outil courant !
         body: JSON.stringify({ messages: newMessages, mode: "Chat", toolContext: activeMode, model: "google/gemini-2.5-flash" }),
       });
 
@@ -354,7 +355,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                 }
                 return updated;
               });
-              // Sauvegarde de la rÃ©ponse finale en DB
+              // Sauvegarde de la réponse finale en DB
               if (sessionId) {
                 supabase.from("chat_messages").insert({ session_id: sessionId, role: "assistant", content: assistantContent }).then();
               }
@@ -367,11 +368,11 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
 
       if (!assistantMsgAdded) {
         setIsThinking(false);
-        setMessages((p) => [...p, { role: "assistant", content: "DÃ©solÃ©, une erreur s'est produite." }]);
+        setMessages((p) => [...p, { role: "assistant", content: "Désolé, une erreur s'est produite." }]);
       }
     } catch {
       setIsThinking(false);
-      setMessages((p) => [...p, { role: "assistant", content: "DÃ©solÃ©, le service est temporairement indisponible. Veuillez rÃ©essayer." }]);
+      setMessages((p) => [...p, { role: "assistant", content: "Désolé, le service est temporairement indisponible. Veuillez réessayer." }]);
     }
     setIsLoading(false);
     setIsThinking(false);
@@ -403,18 +404,40 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       <div className={`flex items-center justify-between ${large ? "px-5 pb-3.5 pt-1" : "px-4 pb-2.5 pt-0.5"}`}>
         <div className="flex items-center">
             {!isEmbedded && (
+               
                <div className="relative">
-                 <select
-                   value={activeMode}
-                   onChange={(e) => setActiveMode(e.target.value as any)}
-                   className="text-[12px] font-semibold bg-white border border-gray-200 text-[#0B5345] rounded-full pl-3 pr-7 py-[5px] focus:outline-none focus:border-[#0B5345]/40 hover:border-[#0B5345]/30 appearance-none cursor-pointer shadow-sm transition-all"
+                 <button
+                   onClick={() => setIsModeMenuOpen(!isModeMenuOpen)}
+                   className="flex items-center gap-1.5 text-[12.5px] font-semibold bg-white border border-gray-200 text-[#0B5345] rounded-full pl-3 pr-2.5 py-[5px] hover:border-[#0B5345]/30 shadow-sm transition-all focus:outline-none"
                  >
-                   <option value="cultisia">✨ Cultisia Général</option>
-                   <option value="cultiplan">📊 Mode CultiPlan</option>
-                   <option value="cultiseil">🌿 Mode Cultiseil</option>
-                 </select>
-                 <svg className="w-3.5 h-3.5 text-[#0B5345] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                   {activeMode === "cultisia" && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.5 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>}
+                   {activeMode === "cultiplan" && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>}
+                   {activeMode === "cultiseil" && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
+                   <span>{activeMode === "cultisia" ? "Cultisia Général" : activeMode === "cultiplan" ? "Mode CultiPlan" : "Mode Cultiseil"}</span>
+                   <svg className="w-3.5 h-3.5 text-[#0B5345]/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                 </button>
+                 
+                 {isModeMenuOpen && (
+                   <>
+                     <div className="fixed inset-0 z-40" onClick={() => setIsModeMenuOpen(false)} />
+                     <div className="absolute left-0 bottom-full mb-2 w-48 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden py-1 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                       <button onClick={() => { setActiveMode("cultisia"); setIsModeMenuOpen(false); }} className={`w-full flex items-center gap-2.5 px-3 py-2 text-[13px] font-medium hover:bg-gray-50 transition-colors ${activeMode === "cultisia" ? "text-[#0B5345] bg-[#0B5345]/5" : "text-gray-700"}`}>
+                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.5 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                         Cultisia Général
+                       </button>
+                       <button onClick={() => { setActiveMode("cultiplan"); setIsModeMenuOpen(false); }} className={`w-full flex items-center gap-2.5 px-3 py-2 text-[13px] font-medium hover:bg-gray-50 transition-colors ${activeMode === "cultiplan" ? "text-[#0B5345] bg-[#0B5345]/5" : "text-gray-700"}`}>
+                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                         Mode CultiPlan
+                       </button>
+                       <button onClick={() => { setActiveMode("cultiseil"); setIsModeMenuOpen(false); }} className={`w-full flex items-center gap-2.5 px-3 py-2 text-[13px] font-medium hover:bg-gray-50 transition-colors ${activeMode === "cultiseil" ? "text-[#0B5345] bg-[#0B5345]/5" : "text-gray-700"}`}>
+                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                         Mode Cultiseil
+                       </button>
+                     </div>
+                   </>
+                 )}
                </div>
+
             )}
           </div>
         <button
@@ -447,7 +470,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
             {sidebarOpen && <span className="font-unbounded font-bold text-[16px] text-[#052821]">{title}</span>}
           </Link>
           {sidebarOpen && (
-            <button onClick={() => setSidebarOpen(false)} className="w-8 h-8 rounded-lg hover:bg-black/5 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors" aria-label="RÃ©duire">
+            <button onClick={() => setSidebarOpen(false)} className="w-8 h-8 rounded-lg hover:bg-black/5 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors" aria-label="Réduire">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
             </button>
           )}
@@ -470,8 +493,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         ) : (
           <>
             <div className="flex-1 overflow-y-auto px-3 mt-1 custom-scrollbar">
-              <p className="text-[11px] font-medium text-gray-400 tracking-wide px-3 mb-2">RÃ©cents</p>
-              <p className="text-[13px] text-gray-400 px-3 py-4 leading-relaxed">Aucune discussion rÃ©cente</p>
+              <p className="text-[11px] font-medium text-gray-400 tracking-wide px-3 mb-2">Récents</p>
+              <p className="text-[13px] text-gray-400 px-3 py-4 leading-relaxed">Aucune discussion récente</p>
             </div>
             <div className="p-4 border-t border-gray-200/50">
               <div className="flex items-center justify-between rounded-xl px-3 py-3 hover:bg-white hover:shadow-sm transition-all cursor-pointer group">
@@ -507,18 +530,18 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
             </div>
             <h1 className="font-unbounded text-3xl sm:text-[34px] font-bold text-[#052821] mb-3 text-center leading-tight tracking-tight">
               {activeMode === "cultiplan" ? (
-                <>Cultisia Business Plan<br className="hidden sm:block" /> PrÃªt pour ton projet ?</>
+                <>Cultisia Business Plan<br className="hidden sm:block" /> Prêt pour ton projet ?</>
               ) : (
                 <>Bonjour, comment puis-je<br className="hidden sm:block" /> vous aider ?</>
               )}
             </h1>
             <p className="text-[15px] text-gray-400 mb-10 text-center font-medium">{subtitle}</p>
-            <div className="w-full max-w-2xl">{renderInputBar(`Posez votre question Ã  ${title}...`, true)}</div>
+            <div className="w-full max-w-2xl">{renderInputBar(`Posez votre question à ${title}...`, true)}</div>
             
           </div>
         ) : (
           <>
-            {/* EntÃªte du chat (Actions) */}
+            {/* Entête du chat (Actions) */}
             <div className="w-full h-14 border-b border-gray-100 flex items-center justify-end px-6 flex-shrink-0 bg-white/80 backdrop-blur-md sticky top-0 z-10">
               {messages.length > 0 && (
                 <Tooltip title="Effacer la discussion">
@@ -584,8 +607,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                                     next[idx].questionnaireCompleted = true;
                                     return next;
                                   });
-                                  const lines = questionnaireData!.questions.map((q, i) => `â€¢ ${q.question} : ${answers[i] || "Non spÃ©cifiÃ©"}`);
-                                  doSend("Voici mes prÃ©cisions pour affiner mon projet :\n" + lines.join("\n"));
+                                  const lines = questionnaireData!.questions.map((q, i) => `â€¢ ${q.question} : ${answers[i] || "Non spécifié"}`);
+                                  doSend("Voici mes précisions pour affiner mon projet :\n" + lines.join("\n"));
                                 }}
                               />
                             )}
@@ -611,8 +634,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
             </div>
             <div className="flex-shrink-0 px-6 pb-6 pt-2 bg-gradient-to-t from-white via-white to-white/0">
               <div className="max-w-[760px] mx-auto">
-                {renderInputBar("RÃ©pondre Ã  Cultisia...")}
-                <p className="text-center mt-3.5 text-[11.5px] font-medium text-gray-400">Cultisia peut faire des erreurs. VÃ©rifiez les informations agronomiques avant toute action.</p>
+                {renderInputBar("Répondre à Cultisia...")}
+                <p className="text-center mt-3.5 text-[11.5px] font-medium text-gray-400">Cultisia peut faire des erreurs. Vérifiez les informations agronomiques avant toute action.</p>
               </div>
             </div>
           </>
