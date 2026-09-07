@@ -151,9 +151,12 @@ interface SharedChatProps {
   title?: string;
   subtitle?: string;
   icon?: React.ReactNode;
+  isEmbedded?: boolean;
+  hideSidebar?: boolean;
+  onSimulationComplete?: (data: any) => void;
 }
 
-export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon }: SharedChatProps) {
+export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon, isEmbedded = false, hideSidebar = false, onSimulationComplete }: SharedChatProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -367,13 +370,10 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           )}
         </button>
-      </div>
-    </div>
-  );
-
   return (
-    <div className="fixed inset-0 z-[9999] flex bg-white font-manrope" style={{ margin: 0, padding: 0 }}>
+    <div className={isEmbedded ? "w-full h-full flex bg-white font-manrope relative" : "fixed inset-0 z-[9999] flex bg-white font-manrope"} style={!isEmbedded ? { margin: 0, padding: 0 } : {}}>
       {/* ═══════ SIDEBAR ═══════ */}
+      {!hideSidebar && (
       <aside 
         style={{ width: sidebarOpen ? 260 : 60 }} 
         className={`h-full bg-[#f9f8f6] flex flex-col flex-shrink-0 border-r border-gray-100 transition-all duration-300 ease-in-out ${sidebarOpen ? 'absolute md:relative z-[1000] shadow-2xl md:shadow-none' : 'hidden md:flex'}`}
@@ -422,6 +422,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
           </>
         )}
       </aside>
+      )}
 
       {/* ═══════ MAIN ═══════ */}
       <main className="flex-1 flex flex-col h-full min-w-0 bg-white overflow-hidden relative">
