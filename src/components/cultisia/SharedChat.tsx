@@ -157,7 +157,11 @@ interface SharedChatProps {
 }
 
 export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon, isEmbedded = false, hideSidebar = false, onSimulationComplete }: SharedChatProps) {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>(
+    toolContext === "cultiplan" 
+      ? [{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia, ton expert agrobusiness. Prête à simuler et transformer ton idée en un projet agricole hautement rentable ? Décris-moi ton projet (ex: élevage de 50 poulets à Kpalimé)." }] 
+      : []
+  );
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
@@ -207,9 +211,16 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
           .order("created_at", { ascending: true });
 
         if (history && history.length > 0) {
-          setMessages(history as ChatMessage[]);
+          if (toolContext === "cultiplan" && history[0].role !== "assistant") {
+            setMessages([
+              { id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia, ton expert agrobusiness. Prête à simuler et transformer ton idée en un projet agricole hautement rentable ? Décris-moi ton projet (ex: élevage de 50 poulets à Kpalimé)." },
+              ...(history as ChatMessage[])
+            ]);
+          } else {
+            setMessages(history as ChatMessage[]);
+          }
         } else if (toolContext === "cultiplan") {
-          setMessages([{ role: "assistant", content: "Bonjour ! Je suis Cultisia, ton expert agrobusiness. Prête à simuler et transformer ton idée en un projet agricole hautement rentable ? Décris-moi ton projet (ex: élevage de 50 poulets à Kpalimé)." }]);
+          setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia, ton expert agrobusiness. Prête à simuler et transformer ton idée en un projet agricole hautement rentable ? Décris-moi ton projet (ex: élevage de 50 poulets à Kpalimé)." }]);
         }
       }
     };
