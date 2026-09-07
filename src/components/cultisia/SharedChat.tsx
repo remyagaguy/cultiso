@@ -386,7 +386,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
 
   /* â”€â”€â”€ Input Bar â”€â”€â”€ */
   const renderInputBar = (placeholder: string, large?: boolean) => (
-    <div className={`w-full bg-white border border-gray-200 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)] focus-within:shadow-[0_4px_24px_rgba(0,0,0,0.12)] focus-within:border-[#0B5345]/40 transition-all duration-300 overflow-hidden`}>
+    <div className={`w-full bg-white border border-gray-200 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)] focus-within:shadow-[0_4px_24px_rgba(0,0,0,0.12)] focus-within:border-[#0B5345]/40 transition-all duration-300`}>
       <div className={`flex items-start gap-3 ${large ? "px-5 pt-4 pb-2" : "px-4 pt-3 pb-1"}`}>
         <button className="flex-shrink-0 w-8 h-8 mt-0.5 rounded-full border border-gray-200 hover:bg-[#f9f8f6] flex items-center justify-center text-gray-400 hover:text-[#D35400] transition-colors" aria-label="Ajouter un fichier">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
