@@ -30,7 +30,7 @@ export default function CultiPlanPage() {
         <header className="h-[72px] shrink-0 bg-white border-b border-gray-200 flex items-center px-8 sticky top-0 z-10">
           <div>
             <h1 className="font-unbounded font-bold text-2xl text-gray-900 tracking-tight">CultiPlan</h1>
-            <p className="text-[13px] text-gray-500 font-medium">Espace de Modélisation de Business Agricole</p>
+            <p className="text-[13px] text-gray-500 font-medium">Espace de ModÃ©lisation de Business Agricole</p>
           </div>
         </header>
         
@@ -40,7 +40,7 @@ export default function CultiPlanPage() {
               <h2 className="text-2xl font-bold font-unbounded text-[#0B5345] mb-4">Projet : {simulationData.nom_projet}</h2>
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold text-lg border-b pb-2 mb-2">Résumé Exécutif</h3>
+                  <h3 className="font-bold text-lg border-b pb-2 mb-2">RÃ©sumÃ© ExÃ©cutif</h3>
                   <p className="text-gray-700 whitespace-pre-wrap">{simulationData.resume}</p>
                 </div>
                 <div>
@@ -59,23 +59,23 @@ export default function CultiPlanPage() {
                 <CalculatorOutlined style={{fontSize:"28px", color:"#0B5345"}} />
               </div>
               <h2 className="font-unbounded text-3xl font-bold text-gray-900 mb-4">
-                Prêt pour la simulation
+                PrÃªt pour la simulation
               </h2>
               <p className="text-gray-500 text-[15px] max-w-lg mx-auto mb-12">
-                Commencez par discuter avec l'Expert Agrobusiness dans le panneau latéral. Le système générera automatiquement les études de marché, techniques et financières ici.
+                Commencez par discuter avec l'Expert Agrobusiness dans le panneau latÃ©ral. Le systÃ¨me gÃ©nÃ©rera automatiquement les Ã©tudes de marchÃ©, techniques et financiÃ¨res ici.
               </p>
               
               <div className="flex gap-4 opacity-70">
                 <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm w-48 text-left">
-                  <span className="text-[#0B5345] font-bold text-sm block mb-1">01. Étude de marché</span>
+                  <span className="text-[#0B5345] font-bold text-sm block mb-1">01. Ã‰tude de marchÃ©</span>
                   <span className="text-xs text-gray-500">Marketing, PESTEL, Porter, SMART</span>
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm w-48 text-left">
-                  <span className="text-[#0B5345] font-bold text-sm block mb-1">02. Étude Technique</span>
+                  <span className="text-[#0B5345] font-bold text-sm block mb-1">02. Ã‰tude Technique</span>
                   <span className="text-xs text-gray-500">Besoins et processus de production</span>
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm w-48 text-left">
-                  <span className="text-[#0B5345] font-bold text-sm block mb-1">03. Étude Financière</span>
+                  <span className="text-[#0B5345] font-bold text-sm block mb-1">03. Ã‰tude FinanciÃ¨re</span>
                   <span className="text-xs text-gray-500">Fonds propres, CAPEX, Bilan, ROI</span>
                 </div>
               </div>
