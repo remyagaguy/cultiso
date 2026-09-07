@@ -140,7 +140,7 @@ const QuestionnaireWidget = ({
 };
 
 interface SharedChatProps {
-  toolContext: "cultisia" | "cultiplan" | "cultiseil";
+  toolContext: "cultisia" | "cultiplan" | "cultiseil" | "cultima";
   title?: string;
   subtitle?: string;
   icon?: React.ReactNode;
@@ -150,7 +150,7 @@ interface SharedChatProps {
 }
 
 export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon, isEmbedded = false, hideSidebar = false, onSimulationComplete }: SharedChatProps) {
-  const [activeMode, setActiveMode] = useState<"cultisia" | "cultiplan" | "cultiseil">(toolContext);
+  const [activeMode, setActiveMode] = useState<"cultisia" | "cultiplan" | "cultiseil" | "cultima">(toolContext);
   const [messages, setMessages] = useState<ChatMessage[]>(
     activeMode === "cultiplan" 
       ? [{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }] 
