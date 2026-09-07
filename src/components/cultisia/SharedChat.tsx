@@ -263,6 +263,15 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isThinking]);
 
+  useEffect(() => {
+    if (!isLoading && textareaRef.current) {
+      // Small timeout to ensure DOM is ready and we don't aggressively steal focus if the user clicked elsewhere
+      setTimeout(() => {
+        textareaRef.current?.focus();
+      }, 50);
+    }
+  }, [isLoading]);
+
   const autoResize = useCallback(() => {
     const el = textareaRef.current;
     if (!el) return;
@@ -384,8 +393,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
           onKeyDown={handleKey}
           placeholder={placeholder}
           rows={large ? 2 : 1}
-          disabled={isLoading}
-          className={`flex-1 resize-none bg-transparent ${large ? "text-[16px]" : "text-[15.5px]"} text-gray-800 placeholder:text-gray-400 focus:outline-none leading-relaxed max-h-[200px] py-1 disabled:opacity-50`}
+          className={`flex-1 resize-none bg-transparent ${large ? "text-[16px]" : "text-[15.5px]"} text-gray-800 placeholder:text-gray-400 focus:outline-none leading-relaxed max-h-[200px] py-1`}
         />
       </div>
       <div className={`flex items-center justify-between ${large ? "px-5 pb-3.5 pt-1" : "px-4 pb-2.5 pt-0.5"}`}>
