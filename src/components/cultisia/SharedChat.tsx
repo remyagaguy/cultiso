@@ -370,6 +370,10 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           )}
         </button>
+      </div>
+    </div>
+  );
+
   return (
     <div className={isEmbedded ? "w-full h-full flex bg-white font-manrope relative" : "fixed inset-0 z-[9999] flex bg-white font-manrope"} style={!isEmbedded ? { margin: 0, padding: 0 } : {}}>
       {/* ═══════ SIDEBAR ═══════ */}
