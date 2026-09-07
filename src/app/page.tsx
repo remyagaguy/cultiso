@@ -154,7 +154,7 @@ export default function Home() {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     Lancer CultiPlan
                   </Link>
-                  <Link href="/cultiplan" className="bg-transparent border-2 border-[#052821]/20 text-[#052821] hover:border-[#052821] px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 flex items-center justify-center gap-2">
+                  <Link href="/cultima" className="bg-transparent border-2 border-[#052821]/20 text-[#052821] hover:border-[#052821] px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
                     Gérer mon business
                   </Link>
@@ -452,7 +452,114 @@ export default function Home() {
           </div>
         </section>
 
-{/* --- 4.3 CULTISEIL (VERT) --- */}
+        {/* --- 4.3 CULTIMA (BEIGE) --- */}
+        <section className="w-full bg-[#fdf8f5] px-6 py-20 lg:py-32 overflow-hidden border-t border-[#D35400]/10">
+          <div className="max-w-[1200px] mx-auto">
+            <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20">
+              {/* Content Column */}
+              <div className="w-full lg:w-[45%] flex flex-col items-start text-left z-10">
+                <div className="flex items-center gap-2 mb-6">
+                  <img src="/favicon.png" alt="Cultiso" className="w-10 h-10 object-contain" />
+                  <span className="font-unbounded font-bold text-[#D35400] text-lg tracking-tight">Cultima</span>
+                </div>
+                
+                <h2 className="text-[clamp(32px,4vw,48px)] font-unbounded font-bold text-[#052821] leading-[1.1] mb-6">
+                  Gérez votre ferme au quotidien
+                </h2>
+                
+                <p className="text-[17px] text-gray-600 font-manrope mb-10 leading-relaxed max-w-lg">
+                  Prenez le contrôle total de votre exploitation agricole. De la gestion des finances à la formulation de provendes en passant par le calendrier des semis, Cultima est votre tableau de bord ERP complet.
+                </p>
+                
+                {/* Checkmarks */}
+                <div className="flex flex-col gap-5 mb-10 w-full">
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-[#D35400] flex items-center justify-center flex-shrink-0 text-white">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Suivi financier & Trésorerie</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-[#D35400] flex items-center justify-center flex-shrink-0 text-white">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Calendrier de Semis & Récoltes</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-[#D35400] flex items-center justify-center flex-shrink-0 text-white">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <span className="text-[#052821] font-bold text-[15px] leading-tight">Formulation de Provendes (Élevage)</span>
+                  </div>
+                </div>
+                
+                {/* Buttons */}
+                <div className="flex flex-wrap items-center gap-4">
+                  <Link href="/cultima" className="bg-[#D35400] hover:bg-[#b54700] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#D35400]/20 flex items-center justify-center gap-2">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                    Lancer Cultima
+                  </Link>
+                </div>
+              </div>
+
+              {/* 3D Mockup Column */}
+              <div className="w-full lg:w-[55%] relative min-h-[500px] lg:min-h-[600px] flex items-center justify-center" style={{ perspective: '1200px' }}>
+                <div className="w-full max-w-[680px] transition-transform duration-700 ease-out" 
+                     style={{ transform: 'rotateY(8deg) rotateX(4deg)', transformStyle: 'preserve-3d' }}>
+                  
+                  {/* Cultima ERP Dashboard */}
+                  <div className="bg-white rounded-2xl border border-[#D35400]/20 shadow-2xl shadow-[#D35400]/10 w-full flex flex-col overflow-hidden">
+                    {/* Top Bar */}
+                    <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-white to-[#fdf8f5]">
+                      <div className="flex items-center gap-3">
+                        <span className="font-unbounded font-bold text-[#D35400] text-sm">Cultima</span>
+                        <span className="text-[10px] text-gray-500 font-medium">Tableau de bord</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-full bg-[#D35400]/10 text-[#D35400] flex items-center justify-center text-[10px] font-bold">KA</div>
+                      </div>
+                    </div>
+                    {/* Dashboard Content */}
+                    <div className="p-5 flex flex-col gap-4 bg-gray-50/50">
+                      <div className="grid grid-cols-3 gap-3">
+                        <div className="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+                          <div className="text-[10px] text-gray-500 font-bold mb-1 uppercase tracking-wider">Trésorerie</div>
+                          <div className="text-[18px] font-bold text-[#052821]">1,250,000 F</div>
+                        </div>
+                        <div className="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+                          <div className="text-[10px] text-gray-500 font-bold mb-1 uppercase tracking-wider">Dépenses (Mois)</div>
+                          <div className="text-[18px] font-bold text-red-500">- 450,000 F</div>
+                        </div>
+                        <div className="bg-[#D35400]/10 p-3 rounded-xl border border-[#D35400]/20 shadow-sm">
+                          <div className="text-[10px] text-[#D35400] font-bold mb-1 uppercase tracking-wider">Ventes (Mois)</div>
+                          <div className="text-[18px] font-bold text-[#D35400]">+ 800,000 F</div>
+                        </div>
+                      </div>
+                      
+                      {/* Tâches du jour */}
+                      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+                        <h4 className="text-[13px] font-bold text-[#052821] mb-3">Tâches du jour (Semis)</h4>
+                        <div className="flex flex-col gap-2">
+                          <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg">
+                            <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#D35400]" />
+                            <span className="text-[12px] font-medium text-gray-700">Semer Tomate (Parcelle A)</span>
+                            <span className="ml-auto text-[10px] font-bold px-2 py-1 bg-green-100 text-green-700 rounded">Urgent</span>
+                          </div>
+                          <div className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg">
+                            <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#D35400]" />
+                            <span className="text-[12px] font-medium text-gray-700">Vérifier système d'irrigation</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* --- 4.4 CULTISEIL (VERT) --- */}
         <section className="w-full bg-[#DEF7F2] px-6 py-20 lg:py-32 overflow-hidden">
           <div className="max-w-[1200px] mx-auto">
             <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
@@ -627,7 +734,7 @@ export default function Home() {
           </div>
         </section>
 
-{/* --- 4.4 CULTISHOP (ORANGE) --- */}
+{/* --- 4.5 CULTISHOP (ORANGE) --- */}
         <section className="w-full bg-white px-6 py-20 lg:py-32 overflow-hidden">
           <div className="max-w-[1200px] mx-auto">
             <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20">
