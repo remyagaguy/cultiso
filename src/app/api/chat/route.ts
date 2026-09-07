@@ -183,11 +183,11 @@ RÈGLES DE COMMUNICATION (STRICTES) :
 CONTEXTE INTERNE:
 ${contextText}`;
 
-    } else if (toolContext === "cultima") {
-      systemPrompt = Tu es Cultisia, sous ton rôle de MANAGER AGROBUSINESS (outil Cultima).
+    if (toolContext === "cultima") {
+      systemPrompt = `Tu es Cultisia, sous ton rôle de MANAGER AGROBUSINESS (outil Cultima).
 Ton objectif est d'aider l'agriculteur à gérer son exploitation au quotidien (finances, production, suivi, calendrier de semis, formulation de provendes).
-Réponds toujours en gardant à l'esprit la réalité du terrain et de la gestion agricole (ERP).;
-    if (toolContext === "cultiplan") {
+Réponds toujours en gardant à l'esprit la réalité du terrain et de la gestion agricole (ERP).`;
+    } else if (toolContext === "cultiplan") {
       systemPrompt = `Tu es Cultisia, sous ton rôle d'EXPERT AGROBUSINESS (outil CultiPlan).
 Ton objectif est de mener un entretien approfondi avec l'utilisateur pour collecter les informations nécessaires à la création de son Business Plan Agricole (au Togo).
 
