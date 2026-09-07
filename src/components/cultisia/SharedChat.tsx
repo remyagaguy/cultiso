@@ -208,6 +208,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
 
         if (history && history.length > 0) {
           setMessages(history as ChatMessage[]);
+        } else if (toolContext === "cultiplan") {
+          setMessages([{ role: "assistant", content: "Bonjour ! Je suis Cultisia, ton expert agrobusiness. Prête à simuler et transformer ton idée en un projet agricole hautement rentable ? Décris-moi ton projet (ex: élevage de 50 poulets à Kpalimé)." }]);
         }
       }
     };
@@ -218,8 +220,32 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
     if (sessionId) {
       await supabase.from("chat_messages").delete().eq("session_id", sessionId);
     }
-    setMessages([]);
+    if (toolContext === "cultiplan") {
+      setMessages([{ role: "assistant", content: "Bonjour ! Je suis Cultisia, ton expert agrobusiness. Prête à simuler et transformer ton idée en un projet agricole hautement rentable ? Décris-moi ton projet (ex: élevage de 50 poulets à Kpalimé)." }]);
+    } else {
+      setMessages([]);
+    }
     antMessage.success("Historique effacé");
+  };
+
+  const startNewDiscussion = async () => {
+    if (userId) {
+      const { data: newSession } = await supabase
+        .from("chat_sessions")
+        .insert({ user_id: userId, title: "Discussion Cultisia" })
+        .select("id")
+        .single();
+      if (newSession) setSessionId(newSession.id);
+    }
+    
+    if (toolContext === "cultiplan") {
+      setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia, ton expert agrobusiness. Prête à simuler et transformer ton idée en un projet agricole hautement rentable ? Décris-moi ton projet (ex: élevage de 50 poulets à Kpalimé)." }]);
+    } else {
+      setMessages([]);
+    }
+    setIsLoading(false); 
+    setIsThinking(false); 
+    setSidebarOpen(false);
   };
 
   useEffect(() => {
@@ -394,11 +420,11 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
           )}
         </div>
         <div className={`${sidebarOpen ? "px-3" : "px-2"} mb-4 mt-2`}>
-          <button onClick={() => { setMessages([]); setIsLoading(false); setIsThinking(false); setSidebarOpen(false); }} className={`${sidebarOpen ? "w-full gap-2.5 px-4 py-2.5 text-[13px] justify-start" : "w-10 h-10 justify-center mx-auto"} flex items-center bg-white hover:bg-gray-50 border border-gray-200 rounded-xl font-medium text-gray-700 transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_2px_5px_rgba(0,0,0,0.05)] hover:border-[#0B5345]/20 active:scale-[0.98]`}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-[#D35400]"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            {sidebarOpen && "Nouvelle discussion"}
-          </button>
-        </div>
+            <button onClick={startNewDiscussion} className={`${sidebarOpen ? "w-full gap-2.5 px-4 py-2.5 text-[13px] justify-start" : "w-10 h-10 justify-center mx-auto"} flex items-center bg-white hover:bg-gray-50 border border-gray-200 rounded-xl font-medium text-gray-700 transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_2px_5px_rgba(0,0,0,0.05)] hover:border-[#0B5345]/20 active:scale-[0.98]`}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-[#D35400]"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              {sidebarOpen && "Nouvelle discussion"}
+            </button>
+          </div>
         {!sidebarOpen ? (
           <div className="flex flex-col items-center gap-2 mt-2">
             <Tooltip title="Ouvrir le menu" placement="right">
