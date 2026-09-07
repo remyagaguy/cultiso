@@ -388,9 +388,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
   const renderInputBar = (placeholder: string, large?: boolean) => (
     <div className={`w-full bg-white border border-gray-200 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)] focus-within:shadow-[0_4px_24px_rgba(0,0,0,0.12)] focus-within:border-[#0B5345]/40 transition-all duration-300`}>
       <div className={`flex items-start gap-3 ${large ? "px-5 pt-4 pb-2" : "px-4 pt-3 pb-1"}`}>
-        <button className="flex-shrink-0 w-8 h-8 mt-0.5 rounded-full border border-gray-200 hover:bg-[#f9f8f6] flex items-center justify-center text-gray-400 hover:text-[#D35400] transition-colors" aria-label="Ajouter un fichier">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
+        
         <textarea
           ref={textareaRef}
           value={input}
@@ -472,11 +470,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
             <img src="/favicon.png" alt="Cultiso" className="w-7 h-7 object-contain flex-shrink-0" />
             {sidebarOpen && <span className="font-unbounded font-bold text-[16px] text-[#052821]">{title}</span>}
           </Link>
-          {sidebarOpen && (
-            <button onClick={() => setSidebarOpen(false)} className="w-8 h-8 rounded-lg hover:bg-black/5 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors" aria-label="Réduire">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-            </button>
-          )}
+          
         </div>
         <div className={`${sidebarOpen ? "px-3" : "px-2"} mb-4 mt-2`}>
             <button onClick={startNewDiscussion} className={`${sidebarOpen ? "w-full gap-2.5 px-4 py-2.5 text-[13px] justify-start" : "w-10 h-10 justify-center mx-auto"} flex items-center bg-white hover:bg-gray-50 border border-gray-200 rounded-xl font-medium text-gray-700 transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_2px_5px_rgba(0,0,0,0.05)] hover:border-[#0B5345]/20 active:scale-[0.98]`}>
@@ -496,8 +490,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         ) : (
           <>
             <div className="flex-1 overflow-y-auto px-3 mt-1 custom-scrollbar">
-              <p className="text-[11px] font-medium text-gray-400 tracking-wide px-3 mb-2">Récents</p>
-              <p className="text-[13px] text-gray-400 px-3 py-4 leading-relaxed">Aucune discussion récente</p>
+              
             </div>
             <div className="p-4 border-t border-gray-200/50">
               <div className="flex items-center justify-between rounded-xl px-3 py-3 hover:bg-white hover:shadow-sm transition-all cursor-pointer group">
@@ -528,9 +521,9 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         
         {messages.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center px-6 pb-16">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0B5345] to-[#148f6c] flex items-center justify-center mb-6 shadow-xl shadow-[#0B5345]/10 border border-[#0B5345]/10">
-              {icon || <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.5 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>}
-            </div>
+            <div className="w-16 h-16 flex items-center justify-center mb-6">
+                <img src="/favicon.png" alt="Cultiso" className="w-full h-full object-contain drop-shadow-xl" />
+              </div>
             <h1 className="font-unbounded text-3xl sm:text-[34px] font-bold text-[#052821] mb-3 text-center leading-tight tracking-tight">
               {activeMode === "cultiplan" ? (
                 <>Cultisia Business Plan<br className="hidden sm:block" /> Prêt pour ton projet ?</>
