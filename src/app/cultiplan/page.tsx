@@ -1,12 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { AppstoreOutlined, CalculatorOutlined, CheckCircleFilled } from "@ant-design/icons";
 import { SharedChat } from "@/components/cultisia/SharedChat";
 
 export default function CultiPlanPage() {
   const [simulationData, setSimulationData] = useState<any>(null);
+  useEffect(() => {
+    const saved = localStorage.getItem("cultiplan_latest");
+    if (saved) {
+      try {
+        setSimulationData(JSON.parse(saved));
+      } catch(e) {}
+    }
+  }, []);
   
   return (
     <div className="fixed inset-0 z-[9999] flex flex-col md:flex-row bg-white font-manrope">
@@ -92,7 +100,7 @@ export default function CultiPlanPage() {
           subtitle="Analyste de Business Agricole" 
           isEmbedded={true}
           hideSidebar={true}
-          onSimulationComplete={(data) => setSimulationData(data)}
+          onSimulationComplete={(data) => { setSimulationData(data); localStorage.setItem("cultiplan_latest", JSON.stringify(data)); }}
         />
       </aside>
     </div>

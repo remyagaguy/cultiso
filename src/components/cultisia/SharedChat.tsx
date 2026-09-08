@@ -602,20 +602,39 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                   let displayContent = msg.content;
                   let questionnaireData: QuestionnaireData | null = null;
 
+                  let simulationData: any = null;
                   if (msg.role === "assistant") {
-                    const jsonMatch = displayContent.match(/```json\n([\s\S]*?)\n```/);
-                    if (jsonMatch) {
+                    // Try to match fenced JSON first, then fallback to raw JSON block containing action complete_simulation
+                    let jsonString = null;
+                    let matchToRemove = null;
+                    
+                    const fencedMatch = displayContent.match(/```json\s+([\s\S]*?)\s+```/);
+                    if (fencedMatch) {
+                      jsonString = fencedMatch[1];
+                      matchToRemove = fencedMatch[0];
+                    } else {
+                      const rawMatch = displayContent.match(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*\}/);
+                      if (rawMatch) {
+                        jsonString = rawMatch[0];
+                        matchToRemove = rawMatch[0];
+                      }
+                    }
+
+                    if (jsonString) {
                       try {
-                        const parsed = JSON.parse(jsonMatch[1]);
+                        const parsed = JSON.parse(jsonString);
                         if (parsed.type === "questionnaire" && parsed.questions) {
                           questionnaireData = parsed;
-                          displayContent = displayContent.replace(jsonMatch[0], "").trim();
+                          displayContent = displayContent.replace(matchToRemove as string, "").trim();
+                        } else if (parsed.action === "complete_simulation" || parsed.payload) {
+                          simulationData = parsed;
+                          displayContent = displayContent.replace(matchToRemove as string, "").trim();
                         }
                       } catch (e) {
                         // ignore JSON parse errors
                       }
                     } else if (msg.isStreaming) {
-                      displayContent = displayContent.replace(/```json\n[^`]*$/, "").trim();
+                      displayContent = displayContent.replace(/```json\s+[^`]*$/, "").replace(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*$/, "").trim();
                     }
                   }
 
