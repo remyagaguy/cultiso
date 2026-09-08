@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <main className="flex-grow flex flex-col items-center">
         {/* --- 1. HERO SECTION --- */}
-        <section className="relative w-full px-6 py-16 md:py-24 lg:py-28 flex items-center bg-[#052821] overflow-hidden">
+        <section className="relative w-full px-6 pt-28 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-28 flex items-center bg-[#052821] overflow-hidden">
           {/* Background Image with Gradient Overlay */}
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-r from-[#052821] via-[#052821]/90 to-[#052821]/20 z-10"></div>
@@ -20,7 +20,7 @@ export default function Home() {
           <div className="max-w-[1200px] w-full mx-auto relative z-20">
             <div className="max-w-[850px] space-y-8">
               
-              <h1 className="text-[clamp(28px,7vw,64px)] font-unbounded font-bold text-white leading-[1.1] tracking-[-0.02em]">
+              <h1 className="text-[clamp(40px,9vw,72px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
                 <span className="sm:whitespace-nowrap">L'agribusiness africain,</span> <br className="hidden sm:block" />
                 <span className="text-[#D35400] sm:whitespace-nowrap">sans improvisation.</span>
               </h1>
