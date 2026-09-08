@@ -83,7 +83,7 @@ export const Header = () => {
             
             {/* Sign Up is visible everywhere */}
             <Link href="/register">
-              <Button type="primary" className="font-bold text-[13px] sm:text-[14px] px-4 sm:px-5 h-[34px] sm:h-[40px] bg-[#1A1A1A] hover:bg-[#333333] border-none shadow-sm text-white rounded-[6px] sm:rounded-[8px] flex items-center justify-center transition-all">
+              <Button className="font-bold text-[13px] sm:text-[14px] px-4 sm:px-5 h-[34px] sm:h-[40px] bg-[#1A1A1A] hover:bg-[#333333] hover:text-white border-none shadow-sm text-white rounded-[6px] sm:rounded-[8px] flex items-center justify-center transition-all">
                 S'inscrire
               </Button>
             </Link>
