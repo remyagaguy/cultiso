@@ -51,47 +51,74 @@ export default function Home() {
         </section>
 
         {/* --- 2. WORKFLOW SECTION --- */}
-        <section className="w-full bg-white px-6 py-20 lg:py-32 border-t border-[#052821]/10">
+        <section className="w-full bg-[#fcfcfc] px-6 py-20 lg:py-24 border-t border-[#052821]/10">
           <div className="max-w-[1200px] mx-auto">
-            <div className="text-center max-w-[700px] mx-auto mb-20">
-              <h2 className="text-[clamp(28px,3vw,40px)] font-unbounded font-bold text-[#052821] mb-6 tracking-[-0.02em]">
+            <div className="text-center max-w-[700px] mx-auto mb-16">
+              <h2 className="text-[clamp(28px,3vw,40px)] font-unbounded font-bold text-[#052821] mb-4 tracking-[-0.02em]">
                 De l'idée à la commercialisation
               </h2>
-              <p className="text-[17px] text-gray-600 font-manrope text-justify">
-                Un flux de travail continu pour sécuriser chaque étape de votre production.
+              <p className="text-[16px] md:text-[17px] text-gray-500 font-manrope">
+                Un processus structuré étape par étape pour sécuriser chaque aspect de votre production agricole.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-              {/* Connecting Line (desktop only) */}
-              <div className="hidden md:block absolute top-[28px] left-[12.5%] right-[12.5%] h-[2px] bg-gray-200 z-0"></div>
+            <div className="max-w-[900px] mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-[1px] bg-gray-200 border border-gray-200 rounded-[20px] overflow-hidden shadow-sm">
+                
+                {/* Step 1 */}
+                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
+                  <div className="absolute top-3 sm:top-4 bg-gray-100 group-hover:bg-gray-200 transition-colors text-gray-500 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Étape 1</div>
+                  <div className="w-12 h-12 rounded-[14px] bg-blue-50 text-blue-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                  </div>
+                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Étude de marché</h4>
+                </div>
 
-              {/* Step 1 */}
-              <div className="relative z-10 flex flex-col items-center text-center group cursor-default">
-                <div className="w-14 h-14 bg-[#052821] text-white rounded-xl flex items-center justify-center font-bold text-xl font-unbounded mb-6 shadow-md ring-4 ring-[#052821]/10">1</div>
-                <h4 className="font-bold text-[#052821] text-[18px] mb-2">Cultiplan</h4>
-                <p className="text-gray-600 text-[14px]">Étudiez le marché, évaluez la rentabilité et générez votre business plan avant d'investir.</p>
-              </div>
+                {/* Step 2 */}
+                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
+                  <div className="absolute top-3 sm:top-4 bg-gray-100 group-hover:bg-gray-200 transition-colors text-gray-500 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Étape 2</div>
+                  <div className="w-12 h-12 rounded-[14px] bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                  </div>
+                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Business Plan</h4>
+                </div>
 
-              {/* Step 2 (Highlighted) */}
-              <div className="relative z-10 flex flex-col items-center text-center group cursor-default">
-                <div className="w-14 h-14 bg-[#D35400] text-white rounded-xl flex items-center justify-center font-bold text-xl font-unbounded mb-6 shadow-md ring-4 ring-[#D35400]/20">2</div>
-                <h4 className="font-bold text-[#052821] text-[18px] mb-2">Cultisia</h4>
-                <p className="text-gray-600 text-[14px]">Bénéficiez de recommandations expertes via notre IA agronomique pour optimiser vos rendements.</p>
-              </div>
+                {/* Step 3 */}
+                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
+                  <div className="absolute top-3 sm:top-4 bg-gray-100 group-hover:bg-gray-200 transition-colors text-gray-500 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Étape 3</div>
+                  <div className="w-12 h-12 rounded-[14px] bg-orange-50 text-orange-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                  </div>
+                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Achat d'intrants</h4>
+                </div>
 
-              {/* Step 3 */}
-              <div className="relative z-10 flex flex-col items-center text-center group cursor-default">
-                <div className="w-14 h-14 bg-[#052821] text-white rounded-xl flex items-center justify-center font-bold text-xl font-unbounded mb-6 shadow-md ring-4 ring-[#052821]/10">3</div>
-                <h4 className="font-bold text-[#052821] text-[18px] mb-2">Cultiseil</h4>
-                <p className="text-gray-600 text-[14px]">Faites-vous accompagner par nos experts et consultants certifiés pour sécuriser vos pratiques.</p>
-              </div>
+                {/* Step 4 */}
+                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
+                  <div className="absolute top-3 sm:top-4 bg-gray-100 group-hover:bg-gray-200 transition-colors text-gray-500 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Étape 4</div>
+                  <div className="w-12 h-12 rounded-[14px] bg-purple-50 text-purple-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                  </div>
+                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Suivi Agronomique</h4>
+                </div>
 
-              {/* Step 4 */}
-              <div className="relative z-10 flex flex-col items-center text-center group cursor-default">
-                <div className="w-14 h-14 bg-[#D35400] text-white rounded-xl flex items-center justify-center font-bold text-xl font-unbounded mb-6 shadow-md ring-4 ring-[#D35400]/20">4</div>
-                <h4 className="font-bold text-[#052821] text-[18px] mb-2">Cultishop</h4>
-                <p className="text-gray-600 text-[14px]">Achetez vos intrants au meilleur prix et vendez vos récoltes directement sur notre marketplace.</p>
+                {/* Step 5 */}
+                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
+                  <div className="absolute top-3 sm:top-4 bg-gray-100 group-hover:bg-gray-200 transition-colors text-gray-500 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Étape 5</div>
+                  <div className="w-12 h-12 rounded-[14px] bg-rose-50 text-rose-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                  </div>
+                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Conseil Expert</h4>
+                </div>
+
+                {/* Step 6 */}
+                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
+                  <div className="absolute top-3 sm:top-4 bg-[#DEF7F2] text-[#22c55e] text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Objectif</div>
+                  <div className="w-12 h-12 rounded-[14px] bg-green-50 text-green-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  </div>
+                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Vente des récoltes</h4>
+                </div>
+
               </div>
             </div>
           </div>
