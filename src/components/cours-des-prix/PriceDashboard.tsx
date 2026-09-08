@@ -7,13 +7,7 @@ import MarketFilters from './MarketFilters';
 import PriceDataTable from './PriceDataTable';
 import MarketPulseStrip from './MarketPulseStrip';
 import TrendChart from './TrendChart';
-import { createClient } from '@supabase/supabase-js';
-
-// Configuration locale temporaire ou via vars d'env
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
-const supabase = createClient(supabaseUrl, supabaseKey);
-
+import { getFilteredPrices } from '@/app/actions/priceActions';
 import { ConfigProvider } from 'antd';
 
 interface PriceDashboardProps {
@@ -34,56 +28,20 @@ export default function PriceDashboard({
   const fetchFilteredData = useCallback(async () => {
     setLoading(true);
     try {
-      let query = supabase
-        .from('price_records')
-        .select(`
-          id,
-          price,
-          location,
-          country,
-          record_date,
-          product_id,
-          created_at,
-          product:products!inner (
-            id,
-            name,
-            category,
-            default_unit
-          )
-        `)
-        .order('record_date', { ascending: false });
-
-      if (filters.productId) {
-        query = query.eq('product_id', filters.productId);
-      }
-      
-      if (filters.location) {
-        query = query.eq('location', filters.location);
-      }
-      
-      if (filters.category) {
-        query = query.eq('product.category', filters.category);
-      }
-
-      const { data: records, error } = await query.limit(500);
+      const { data: records, error } = await getFilteredPrices({
+        productId: filters.productId,
+        location: filters.location,
+        category: filters.category
+      });
 
       if (error) {
-        console.error('Erreur Supabase:', error);
+        console.error('Erreur Action:', error);
         return;
       }
 
-      const hiddenCategories = ['SERVICE AGRICOLE', 'CHARGE FIXE', 'INTRANT', 'SEMENCE'];
-
-      let finalData = (records || []) as unknown as PriceRecord[];
-
-      // Filtrer les catégories qui n'ont rien à faire dans le dashboard des prix du marché
-      finalData = finalData.filter(r => r.product && !hiddenCategories.includes(r.product.category));
-
-      if (filters.category) {
-        finalData = finalData.filter(r => r.product && r.product.category === filters.category);
+      if (records) {
+        setData(records);
       }
-
-      setData(finalData);
     } catch (err) {
       console.error('Erreur inattendue:', err);
     } finally {
