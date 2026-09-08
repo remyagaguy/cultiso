@@ -65,32 +65,37 @@ export const Header = () => {
             </Link>
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
-            <Link href="/login">
-              <Button className="font-bold text-[14px] px-5 h-[40px] bg-[#F1F3F5] hover:bg-[#E5E7EB] border-none text-[#1F2937] rounded-[8px] flex items-center justify-center transition-all">
-                Se connecter
-              </Button>
-            </Link>
+          {/* CTA & Mobile Toggle */}
+          <div className="flex items-center gap-2 sm:gap-3 z-50">
+            {/* Login is hidden on mobile */}
+            <div className="hidden lg:block">
+              <Link href="/login">
+                <Button className="font-bold text-[14px] px-5 h-[40px] bg-[#F1F3F5] hover:bg-[#E5E7EB] border-none text-[#1F2937] rounded-[8px] flex items-center justify-center transition-all">
+                  Se connecter
+                </Button>
+              </Link>
+            </div>
+            
+            {/* Sign Up is visible everywhere */}
             <Link href="/register">
-              <Button type="primary" className="font-bold text-[14px] px-5 h-[40px] bg-[#1A1A1A] hover:bg-[#333333] border-none shadow-sm text-white rounded-[8px] flex items-center justify-center transition-all">
+              <Button type="primary" className="font-bold text-[13px] sm:text-[14px] px-4 sm:px-5 h-[34px] sm:h-[40px] bg-[#1A1A1A] hover:bg-[#333333] border-none shadow-sm text-white rounded-[6px] sm:rounded-[8px] flex items-center justify-center transition-all">
                 S'inscrire
               </Button>
             </Link>
-          </div>
 
-          {/* Mobile Menu Toggle */}
-          <button 
-            className="lg:hidden z-50 p-2 -mr-2 text-[#052821] hover:bg-[rgba(5,40,33,0.04)] rounded-lg transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? (
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-            ) : (
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
-            )}
-          </button>
+            {/* Mobile Menu Toggle */}
+            <button 
+              className="lg:hidden p-1.5 -mr-1.5 text-[#052821] hover:bg-[rgba(5,40,33,0.04)] rounded-lg transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -125,11 +130,6 @@ export const Header = () => {
             <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
               <Button className="w-full h-[48px] font-bold text-[15px] bg-[#F1F3F5] hover:bg-[#E5E7EB] border-none text-[#1F2937] rounded-[10px] flex items-center justify-center transition-all">
                 Se connecter
-              </Button>
-            </Link>
-            <Link href="/register" onClick={() => setMobileMenuOpen(false)}>
-              <Button type="primary" className="w-full h-[48px] font-bold text-[15px] bg-[#1A1A1A] hover:bg-[#333333] border-none text-white rounded-[10px] flex items-center justify-center transition-all">
-                S'inscrire
               </Button>
             </Link>
           </div>
