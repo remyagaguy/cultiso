@@ -8,8 +8,8 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Empêche Next.js de mettre en cache cette page statiquement (car les prix évoluent)
-export const dynamic = 'force-dynamic';
+// Cache la page (ISR) pendant 60 secondes au lieu de forcer le rendu dynamique à chaque visite
+export const revalidate = 60;
 
 export const metadata = {
   title: 'Cours des prix | Cultiso',
@@ -22,38 +22,11 @@ export default async function CoursDesPrixPage() {
   let initialData: PriceRecord[] = [];
 
   try {
-    // 1. Récupération des produits pour les filtres
-    const { data: productsData, error: productsError } = await supabase
-      .from('products')
-      .select('*')
-      .order('name');
-
-    if (productsError) {
-      console.error('Erreur récupération produits:', productsError);
-    } else {
-      products = (productsData || []) as Product[];
-    }
-
-    // 2. Récupération des localisations uniques pour les filtres
-    const { data: locationsData, error: locationsError } = await supabase
-      .from('price_records')
-      .select('location')
-      .not('location', 'is', null);
-
-    if (locationsError) {
-      console.error('Erreur récupération localisations:', locationsError);
-    } else if (locationsData) {
-      const locationsSet = new Set<string>();
-      locationsData.forEach(item => {
-        if (item.location) locationsSet.add(item.location);
-      });
-      locations = Array.from(locationsSet).sort();
-    }
-
-    // 3. Récupération des relevés initiaux (les 100 derniers)
-    const { data: initialRecords, error: recordsError } = await supabase
-      .from('price_records')
-      .select(`
+    // Exécution en parallèle des requêtes pour diviser le temps de chargement par 3
+    const [productsRes, locationsRes, recordsRes] = await Promise.all([
+      supabase.from('products').select('*').order('name'),
+      supabase.from('price_records').select('location').not('location', 'is', null).limit(2000), // Limite pour la RAM
+      supabase.from('price_records').select(`
         id,
         price,
         location,
@@ -65,26 +38,28 @@ export default async function CoursDesPrixPage() {
           category,
           default_unit
         )
-      `)
-      .order('record_date', { ascending: false })
-      .limit(100);
+      `).order('record_date', { ascending: false }).limit(100)
+    ]);
 
-    if (recordsError) {
-      console.error('Erreur récupération relevés:', recordsError);
-    } else if (initialRecords) {
+    if (productsRes.data) {
+      products = productsRes.data as Product[];
+    }
+
+    if (locationsRes.data) {
+      const locationsSet = new Set<string>();
+      locationsRes.data.forEach(item => {
+        if (item.location) locationsSet.add(item.location);
+      });
+      locations = Array.from(locationsSet).sort();
+    }
+
+    if (recordsRes.data) {
       const hiddenCategories = ['SERVICE AGRICOLE', 'CHARGE FIXE', 'INTRANT', 'SEMENCE'];
-      const filtered = (initialRecords as unknown as PriceRecord[]).filter(
+      const filtered = (recordsRes.data as unknown as PriceRecord[]).filter(
         r => r.product && !hiddenCategories.includes(r.product.category)
       );
       initialData = filtered;
     }
-
-    console.log('--- SERVER PAGE FETCH ---');
-    console.log('URL:', supabaseUrl ? 'OK' : 'MISSING');
-    console.log('KEY:', supabaseKey ? 'OK' : 'MISSING');
-    console.log('Products fetched:', products.length);
-    console.log('Locations fetched:', locations.length);
-    console.log('Records fetched:', initialData.length);
   } catch (err) {
     console.error('Erreur inattendue dans CoursDesPrixPage:', err);
   }
