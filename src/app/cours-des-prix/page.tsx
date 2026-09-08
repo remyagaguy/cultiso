@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import PriceDashboard from '@/components/cours-des-prix/PriceDashboard';
 import MarketTicker from '@/components/cours-des-prix/MarketTicker';
@@ -77,11 +78,13 @@ export default async function CoursDesPrixPage() {
           </p>
         </div>
 
-        <PriceDashboard 
-          initialProducts={products}
-          initialLocations={locations}
-          initialData={initialData}
-        />
+        <Suspense fallback={<div className="h-64 flex items-center justify-center text-gray-500">Chargement des données du marché...</div>}>
+          <PriceDashboard 
+            initialProducts={products}
+            initialLocations={locations}
+            initialData={initialData}
+          />
+        </Suspense>
       </div>
     </div>
   );
