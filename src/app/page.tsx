@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <main className="flex-grow flex flex-col items-center">
         {/* --- 1. HERO SECTION --- */}
-        <section className="relative w-full px-6 pt-24 pb-16 md:pt-32 lg:pt-36 lg:pb-24 flex items-center bg-[#052821] overflow-hidden">
+        <section className="relative w-full px-6 pt-24 pb-16 md:pt-32 lg:pt-28 lg:pb-24 flex items-center bg-[#052821] overflow-hidden">
           {/* Background Image with Gradient Overlay */}
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-r from-[#052821] via-[#052821]/90 to-[#052821]/20 z-10"></div>
@@ -18,11 +18,11 @@ export default function Home() {
           </div>
 
           <div className="max-w-[1200px] w-full mx-auto relative z-20">
-            <div className="max-w-[850px] space-y-8">
+            <div className="max-w-[850px] space-y-6 lg:space-y-7">
               
-              <h1 className="text-[clamp(40px,9vw,72px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
-                L'agribusiness africain, <br className="hidden lg:block" />
-                <span className="text-[#D35400]">sans improvisation.</span>
+              <h1 className="text-[clamp(36px,6vw,68px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
+                <span className="sm:whitespace-nowrap">L'agribusiness africain,</span> <br className="hidden sm:block" />
+                <span className="text-[#D35400] sm:whitespace-nowrap">sans improvisation.</span>
               </h1>
               
               <p className="text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope font-semibold">
@@ -32,14 +32,15 @@ export default function Home() {
                 </span>
               </p>
               
-              <div className="pt-8 flex flex-row items-center gap-4">
+              <div className="pt-6 flex flex-row items-center gap-5">
                 <Link href="/cultiplan" className="group">
-                  <button className="px-5 sm:px-8 h-[56px] sm:h-[60px] text-[15px] sm:text-[18px] font-extrabold bg-white hover:bg-gray-100 text-[#052821] rounded-[10px] shadow-xl transition-all duration-300 active:scale-[0.98] flex items-center justify-center">
-                    Simuler mon business. C'est GRATUIT
+                  <button className="px-6 sm:px-8 h-[54px] text-[15.5px] font-bold bg-white hover:bg-gray-50 text-[#052821] rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_30px_rgba(255,255,255,0.25)] transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2.5">
+                    <svg className="w-5 h-5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                    Simuler mon business
                   </button>
                 </Link>
                 
-                <div className="flex flex-col text-white/70 text-[12px] sm:text-[13px] font-medium leading-snug">
+                <div className="hidden sm:flex flex-col text-white/80 text-[13px] font-medium leading-snug">
                   <span>100% gratuit.</span>
                   <span>Sans carte bancaire.</span>
                 </div>
