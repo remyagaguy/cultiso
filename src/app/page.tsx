@@ -464,11 +464,11 @@ export default function Home() {
                 </div>
                 
                 <h2 className="text-[clamp(32px,4vw,48px)] font-unbounded font-bold text-[#052821] leading-[1.1] mb-6">
-                  Gérez votre ferme au quotidien
+                  Gérez votre business au quotidien
                 </h2>
                 
                 <p className="text-[17px] text-gray-600 font-manrope mb-10 leading-relaxed max-w-lg">
-                  Prenez le contrôle total de votre exploitation agricole. De la gestion des finances à la formulation de provendes en passant par le calendrier des semis, Cultima est votre tableau de bord ERP complet.
+                  Prenez le contrôle total de votre business agricole. De la gestion des finances à la formulation de provendes en passant par le calendrier des semis, Cultima est votre tableau de bord ERP complet.
                 </p>
                 
                 {/* Checkmarks */}
