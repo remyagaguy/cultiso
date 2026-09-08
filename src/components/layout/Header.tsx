@@ -57,13 +57,15 @@ export const Header = () => {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-6">
-            <Link href="/login" className="text-[#052821] hover:text-[#D35400] font-semibold text-[14.5px] transition-colors">
-              Connexion
+          <div className="hidden lg:flex items-center gap-3">
+            <Link href="/login">
+              <Button className="font-bold text-[14px] px-5 h-[40px] bg-[#F1F3F5] hover:bg-[#E5E7EB] border-none text-[#1F2937] rounded-[8px] flex items-center justify-center transition-all">
+                Se connecter
+              </Button>
             </Link>
-            <Link href="/simulateur" className="block group">
-              <Button type="primary" className="font-semibold text-[12.5px] px-5 h-[40px] bg-[#D35400] hover:bg-[#E67E22] border-none shadow-sm text-white rounded-[8px] uppercase tracking-[0.05em] flex items-center justify-center transition-transform active:scale-[0.98]">
-                Simuler mon business
+            <Link href="/register">
+              <Button type="primary" className="font-bold text-[14px] px-5 h-[40px] bg-[#1A1A1A] hover:bg-[#333333] border-none shadow-sm text-white rounded-[8px] flex items-center justify-center transition-all">
+                S'inscrire
               </Button>
             </Link>
           </div>
@@ -100,13 +102,19 @@ export const Header = () => {
           
           <Link href="/cours-des-prix" className="hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Cours des prix</Link>
           <Link href="/blog" className="hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
-          <Link href="/login" className="hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Connexion</Link>
           
-          <Link href="/simulateur" className="mt-4" onClick={() => setMobileMenuOpen(false)}>
-            <Button type="primary" className="w-full h-[50px] font-semibold text-[14px] bg-[#D35400] hover:bg-[#E67E22] border-none text-white rounded-[12px] uppercase tracking-[0.05em] flex items-center justify-center">
-              Simuler mon business
-            </Button>
-          </Link>
+          <div className="flex flex-col gap-3 mt-4">
+            <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+              <Button className="w-full h-[48px] font-bold text-[15px] bg-[#F1F3F5] hover:bg-[#E5E7EB] border-none text-[#1F2937] rounded-[10px] flex items-center justify-center transition-all">
+                Se connecter
+              </Button>
+            </Link>
+            <Link href="/register" onClick={() => setMobileMenuOpen(false)}>
+              <Button type="primary" className="w-full h-[48px] font-bold text-[15px] bg-[#1A1A1A] hover:bg-[#333333] border-none text-white rounded-[10px] flex items-center justify-center transition-all">
+                S'inscrire
+              </Button>
+            </Link>
+          </div>
         </nav>
       </div>
     </header>
