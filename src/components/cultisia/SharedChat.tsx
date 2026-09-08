@@ -147,6 +147,7 @@ interface SharedChatProps {
   isEmbedded?: boolean;
   hideSidebar?: boolean;
   onSimulationComplete?: (data: any) => void;
+  onConfigComplete?: (data: any) => void;
 }
 
 export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon, isEmbedded = false, hideSidebar = false, onSimulationComplete }: SharedChatProps) {
@@ -155,6 +156,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
   const [messages, setMessages] = useState<ChatMessage[]>(
     activeMode === "cultiplan" 
       ? [{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }] 
+      : activeMode === "cultima"
+      ? [{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia, votre assistant de configuration ERP. Parlez-moi de votre entreprise agricole. Quelle est votre activité principale ? (Ex: Elevage bovin, culture de maïs, etc.)" }]
       : []
   );
   const [input, setInput] = useState("");
@@ -166,6 +169,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
     if (messages.length <= 1 && !messages.some(m => m.role === 'user')) {
       if (activeMode === "cultiplan") {
         setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }]);
+      } else if (activeMode === "cultima") {
+        setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia, votre assistant de configuration ERP. Parlez-moi de votre entreprise agricole. Quelle est votre activité principale ? (Ex: Elevage bovin, culture de maïs, etc.)" }]);
       } else {
         setMessages([]);
       }
@@ -238,6 +243,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
     }
     if (activeMode === "cultiplan") {
       setMessages([{ role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }]);
+    } else if (activeMode === "cultima") {
+      setMessages([{ role: "assistant", content: "Bonjour ! Je suis Cultisia, votre assistant de configuration ERP. Parlez-moi de votre entreprise agricole. Quelle est votre activité principale ?" }]);
     } else {
       setMessages([]);
     }
@@ -346,6 +353,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                   return updated;
                 });
               }
+            } else if (data.type === "cultima_config" && onConfigComplete) {
+              onConfigComplete(data.config);
             } else if (data.type === "done") {
               setMessages((p) => {
                 const updated = [...p];
