@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <main className="flex-grow flex flex-col items-center">
         {/* --- 1. HERO SECTION --- */}
-        <section className="relative w-full px-6 pt-16 pb-16 md:pt-24 lg:pt-32 lg:pb-24 flex items-center bg-[#052821] overflow-hidden">
+        <section className="relative w-full px-6 pt-20 pb-16 md:pt-28 lg:pt-32 lg:pb-24 flex items-center bg-[#052821] overflow-hidden">
           {/* Background Image with Gradient Overlay */}
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-r from-[#052821] via-[#052821]/90 to-[#052821]/20 z-10"></div>
@@ -25,7 +25,7 @@ export default function Home() {
                 <span className="text-[#D35400]">sans improvisation.</span>
               </h1>
               
-              <p className="text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope text-justify">
+              <p className="text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope">
                 Repérer les meilleures <span className="text-[#F39C12] font-semibold">opportunités d'investissement</span>, stimuler la <span className="text-[#F39C12] font-semibold">rentabilité financière</span> de vos projets avant d'investir, produire <span className="text-[#F39C12] font-semibold">sans improvisation</span> et vendre vos récoltes au <span className="text-[#F39C12] font-semibold">meilleur prix</span>...
                 <span className="block mt-4 md:mt-0 md:inline">
                   {' '}C'est ce que <span className="text-[#F39C12] font-semibold">Cultiso</span> vous permet de faire grâce à un ensemble d'outils conçus pour vous <span className="text-[#F39C12] font-semibold">accompagner</span> dans la <span className="text-[#F39C12] font-semibold">mise en place</span> et <span className="text-[#F39C12] font-semibold">la gestion de vos projets agricoles</span>.
