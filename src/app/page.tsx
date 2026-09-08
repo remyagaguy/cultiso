@@ -25,8 +25,8 @@ export default function Home() {
                 <span className="text-[#D35400]">sans improvisation.</span>
               </h1>
               
-              <p className="text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope">
-                <span className="text-[#F39C12] font-semibold">Repérer</span> les meilleures <span className="text-[#F39C12] font-semibold">opportunités d'investissement</span>, stimuler la <span className="text-[#F39C12] font-semibold">rentabilité financière</span> de vos projets avant d'investir, <span className="text-[#F39C12] font-semibold">produire sans improvisation</span> et <span className="text-[#F39C12] font-semibold">vendre</span> vos récoltes au meilleur prix...
+              <p className="text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope font-medium">
+                Repérer les meilleures <span className="text-[#F39C12] font-semibold">opportunités d'investissement</span>, stimuler la <span className="text-[#F39C12] font-semibold">rentabilité financière</span> de vos projets avant d'investir, <span className="text-[#F39C12] font-semibold">produire sans improvisation</span> et <span className="text-[#F39C12] font-semibold">vendre</span> vos récoltes au meilleur prix...
                 <span className="block mt-4 md:mt-0 md:inline">
                   {' '}C'est ce que <span className="text-[#F39C12] font-semibold">Cultiso</span> vous permet de faire grâce à un ensemble d'outils conçus pour vous <span className="text-[#F39C12] font-semibold">accompagner</span> dans la <span className="text-[#F39C12] font-semibold">mise en place</span> et <span className="text-[#F39C12] font-semibold">la gestion de vos projets agricoles</span>.
                 </span>
