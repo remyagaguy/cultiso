@@ -21,8 +21,8 @@ export default function Home() {
             <div className="max-w-[850px] space-y-8">
               
               <h1 className="text-[clamp(40px,9vw,72px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
-                <span className="sm:whitespace-nowrap">L'agribusiness africain,</span> <br className="hidden sm:block" />
-                <span className="text-[#D35400] sm:whitespace-nowrap">sans improvisation.</span>
+                L'agribusiness africain, <br className="hidden lg:block" />
+                <span className="text-[#D35400]">sans improvisation.</span>
               </h1>
               
               <p className="text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope text-justify">
