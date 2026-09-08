@@ -21,6 +21,8 @@ interface ChatMessage {
   questionnaireCompleted?: boolean;
 }
 
+interface ChatSession { id: string; title: string; updated_at: string; }
+
 interface QuestionnaireData {
   type: string;
   questions: { question: string; options: string[] }[];
@@ -150,7 +152,7 @@ interface SharedChatProps {
   onConfigComplete?: (data: any) => void;
 }
 
-export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon, isEmbedded = false, hideSidebar = false, onSimulationComplete }: SharedChatProps) {
+export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon, isEmbedded = false, hideSidebar = false, onSimulationComplete, onConfigComplete }: SharedChatProps) {
   const [activeMode, setActiveMode] = useState<"cultisia" | "cultiplan" | "cultiseil" | "cultima">(toolContext);
   const [isModeMenuOpen, setIsModeMenuOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(
@@ -165,6 +167,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
   const [isThinking, setIsThinking] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sessionId, setSessionId] = useState<string | null>(null);
+  const [sessions, setSessions] = useState<ChatSession[]>([]);
   useEffect(() => {
     if (messages.length <= 1 && !messages.some(m => m.role === 'user')) {
       if (activeMode === "cultiplan") {
@@ -191,10 +194,19 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       // Find existing session or create one
       let { data: sessions } = await supabase
         .from("chat_sessions")
-        .select("id")
+        .select("id, title")
         .eq("user_id", user.id)
         .order("created_at", { ascending: false })
         .limit(1);
+
+      
+      let { data: allSessions } = await supabase
+        .from("chat_sessions")
+        .select("id, title, updated_at")
+        .eq("user_id", user.id)
+        .order("updated_at", { ascending: false });
+        
+      if (allSessions) setSessions(allSessions);
 
       let currentSessionId = null;
 
@@ -204,7 +216,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         const { data: newSession, error } = await supabase
           .from("chat_sessions")
           .insert({ user_id: user.id, title: "Discussion Cultisia" })
-          .select("id")
+          .select("id, title")
           .single();
         if (newSession && !error) {
           currentSessionId = newSession.id;
@@ -256,9 +268,12 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       const { data: newSession } = await supabase
         .from("chat_sessions")
         .insert({ user_id: userId, title: "Discussion Cultisia" })
-        .select("id")
+        .select("id, title")
         .single();
-      if (newSession) setSessionId(newSession.id);
+      if (newSession) {
+        setSessionId(newSession.id);
+        setSessions(prev => [{id: newSession.id, title: newSession.title, updated_at: new Date().toISOString()}, ...prev]);
+      }
     }
     
     if (activeMode === "cultiplan") {
@@ -498,9 +513,30 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
           </div>
         ) : (
           <>
-            <div className="flex-1 overflow-y-auto px-3 mt-1 custom-scrollbar">
-              
+            
+<div className="flex-1 overflow-y-auto px-3 mt-2 space-y-1 custom-scrollbar">
+              {sessions.map(s => (
+                <button
+                  key={s.id}
+                  onClick={async () => {
+                    setSessionId(s.id);
+                    setIsLoading(true);
+                    const { data: history } = await supabase
+                      .from("chat_messages")
+                      .select("id, role, content")
+                      .eq("session_id", s.id)
+                      .order("created_at", { ascending: true });
+                    if (history) setMessages(history as ChatMessage[]);
+                    if (window.innerWidth < 768) setSidebarOpen(false);
+                    setIsLoading(false);
+                  }}
+                  className={`w-full text-left px-3 py-2.5 rounded-xl text-[13px] font-medium transition-colors truncate ${s.id === sessionId ? "bg-[#0B5345]/10 text-[#0B5345] font-semibold" : "text-gray-600 hover:bg-gray-100"}`}
+                >
+                  {s.title}
+                </button>
+              ))}
             </div>
+
             <div className="p-4 border-t border-gray-200/50">
               <div className="flex items-center justify-between rounded-xl px-3 py-3 hover:bg-white hover:shadow-sm transition-all cursor-pointer group">
                 <div className="flex items-center gap-3">
