@@ -26,7 +26,10 @@ export default function Home() {
               </h1>
               
               <p className="text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope text-justify">
-                Repérer les meilleures <span className="text-[#F39C12] font-semibold">opportunités d'investissement</span>, stimuler la rentabilité financière de vos projets avant d'investir, produire sans improvisation et vendre vos récoltes au meilleur prix : c'est ce que Cultiso vous permet de faire grâce à un <span className="text-[#F39C12] font-semibold">ensemble d'outils</span> conçus pour vous accompagner dans la mise en place et la gestion de vos projets agricoles.
+                Repérer les meilleures <span className="text-[#F39C12] font-semibold">opportunités d'investissement</span>, stimuler la <span className="text-[#F39C12] font-semibold">rentabilité financière</span> de vos projets avant d'investir, produire <span className="text-[#F39C12] font-semibold">sans improvisation</span> et vendre vos récoltes au <span className="text-[#F39C12] font-semibold">meilleur prix</span> :
+                <span className="block mt-4 md:mt-0 md:inline">
+                  {' '}c'est ce que Cultiso vous permet de faire grâce à un <span className="text-[#F39C12] font-semibold">ensemble d'outils</span> conçus pour vous accompagner dans la mise en place et la gestion de vos projets agricoles.
+                </span>
               </p>
               
               <div className="pt-6 flex flex-col lg:flex-row lg:items-center gap-5">
