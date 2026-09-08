@@ -28,7 +28,7 @@ export default function Home() {
               <p className="text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope text-justify">
                 Repérer les meilleures <span className="text-[#F39C12] font-semibold">opportunités d'investissement</span>, stimuler la <span className="text-[#F39C12] font-semibold">rentabilité financière</span> de vos projets avant d'investir, produire <span className="text-[#F39C12] font-semibold">sans improvisation</span> et vendre vos récoltes au <span className="text-[#F39C12] font-semibold">meilleur prix</span>...
                 <span className="block mt-4 md:mt-0 md:inline">
-                  {' '}C'est ce que Cultiso vous permet de faire grâce à un <span className="text-[#F39C12] font-semibold">ensemble d'outils</span> conçus pour vous accompagner dans la mise en place et la gestion de vos projets agricoles.
+                  {' '}C'est ce que <span className="text-[#F39C12] font-semibold">Cultiso</span> vous permet de faire grâce à un ensemble d'outils conçus pour vous <span className="text-[#F39C12] font-semibold">accompagner</span> dans la <span className="text-[#F39C12] font-semibold">mise en place</span> et <span className="text-[#F39C12] font-semibold">la gestion de vos projets agricoles</span>.
                 </span>
               </p>
               
