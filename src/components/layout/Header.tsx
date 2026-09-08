@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Button } from 'antd';
 import { MegaMenuProducts } from './MegaMenuProducts';
 import { MegaMenuSolutions } from './MegaMenuSolutions';
+import { MegaMenuResources } from './MegaMenuResources';
 
 export const Header = () => {
   const pathname = usePathname();
@@ -51,8 +52,16 @@ export const Header = () => {
               Cours des prix
             </Link>
             
-            <Link href="/blog" className="text-[#052821] hover:bg-[rgba(5,40,33,0.04)] rounded-md font-medium px-3.5 py-2 text-[14.5px] flex items-center transition-colors">
-              Blog
+            <div className="group flex items-center">
+              <button className="text-[#052821] hover:bg-[rgba(5,40,33,0.04)] rounded-md font-medium px-3.5 py-2 text-[14.5px] flex items-center cursor-default transition-colors">
+                Ressources
+                <svg className="w-3.5 h-3.5 ml-1.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </button>
+              <MegaMenuResources />
+            </div>
+
+            <Link href="/contact" className="text-[#052821] hover:bg-[rgba(5,40,33,0.04)] rounded-md font-medium px-3.5 py-2 text-[14.5px] flex items-center transition-colors">
+              Nous contacter
             </Link>
           </nav>
 
@@ -101,7 +110,16 @@ export const Header = () => {
           <div className="w-full h-px bg-gray-100 my-2"></div>
           
           <Link href="/cours-des-prix" className="hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Cours des prix</Link>
-          <Link href="/blog" className="hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Blog</Link>
+          <div className="flex flex-col gap-3">
+            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-2 mb-1">Ressources</span>
+            <Link href="/blog" className="pl-3 py-2 border-l-2 border-transparent hover:border-[#D35400] hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Le Blog</Link>
+            <Link href="#" className="pl-3 py-2 border-l-2 border-transparent hover:border-[#D35400] hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Guides Agrobusiness</Link>
+            <Link href="#" className="pl-3 py-2 border-l-2 border-transparent hover:border-[#D35400] hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Académie Cultiso</Link>
+          </div>
+
+          <div className="w-full h-px bg-gray-100 my-2"></div>
+
+          <Link href="/contact" className="hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Nous contacter</Link>
           
           <div className="flex flex-col gap-3 mt-4">
             <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
