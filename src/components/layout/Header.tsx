@@ -11,11 +11,16 @@ import { MegaMenuResources } from './MegaMenuResources';
 export const Header = () => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
+
+  const toggleMobileSection = (section: string) => {
+    setOpenMobileSection(prev => prev === section ? null : section);
+  };
   
   if (pathname === '/cultisia' || pathname === '/cultiplan' || pathname === '/cultiseil') return null;
 
   return (
-    <header className="bg-white/90 backdrop-blur-md border-b border-[rgba(5,40,33,0.06)] sticky top-0 z-50">
+    <header className={`border-b border-[rgba(5,40,33,0.06)] sticky top-0 z-50 transition-colors duration-300 ${mobileMenuOpen ? 'bg-white' : 'bg-white/90 backdrop-blur-md'}`}>
       <div className="max-w-[1200px] mx-auto px-6">
         <div className="flex justify-between items-center py-4">
           
@@ -101,34 +106,76 @@ export const Header = () => {
 
       {/* Mobile Navigation Overlay */}
       <div 
-        className={`fixed inset-0 bg-white z-40 transition-transform duration-300 ease-in-out lg:hidden flex flex-col pt-24 px-6 pb-6 overflow-y-auto ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed inset-0 bg-white z-40 transition-transform duration-300 ease-in-out lg:hidden flex flex-col pt-[88px] px-6 pb-6 overflow-y-auto ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
-        <nav className="flex flex-col gap-6 text-lg font-medium text-[#052821]">
-          <div className="flex flex-col gap-3">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Produits</span>
-            <Link href="/cultisia" className="pl-3 py-2 border-l-2 border-transparent hover:border-[#D35400] hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>CultiSia (Agronome Virtuel)</Link>
-            <Link href="/cultiplan" className="pl-3 py-2 border-l-2 border-transparent hover:border-[#D35400] hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>CultiPlan (Business Plan)</Link>
-            <Link href="/cultiseil" className="pl-3 py-2 border-l-2 border-transparent hover:border-[#D35400] hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>CultiSeil (Agronomie Précise)</Link>
-            <span className="pl-3 py-2 text-gray-400">CultiShop (Bientôt)</span>
+        <nav className="flex flex-col text-[#052821]">
+          {/* Produits Accordion */}
+          <div className="border-b border-gray-100">
+            <button 
+              className="w-full flex justify-between items-center py-5 text-[22px] font-bold tracking-tight"
+              onClick={() => toggleMobileSection('produits')}
+            >
+              Produits
+              <svg className={`w-5 h-5 transition-transform duration-200 ${openMobileSection === 'produits' ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+            <div className={`overflow-hidden transition-all duration-300 ${openMobileSection === 'produits' ? 'max-h-[300px] mb-4' : 'max-h-0'}`}>
+              <div className="flex flex-col gap-4 pl-4 text-[17px] font-medium text-gray-600">
+                <Link href="/cultisia" onClick={() => setMobileMenuOpen(false)}>CultiSia</Link>
+                <Link href="/cultiplan" onClick={() => setMobileMenuOpen(false)}>CultiPlan</Link>
+                <Link href="/cultiseil" onClick={() => setMobileMenuOpen(false)}>CultiSeil</Link>
+                <span className="text-gray-400">CultiShop (Bientôt)</span>
+              </div>
+            </div>
           </div>
 
-          <div className="w-full h-px bg-gray-100 my-2"></div>
-          
-          <Link href="/cours-des-prix" className="hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Cours des prix</Link>
-          <div className="flex flex-col gap-3">
-            <span className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-2 mb-1">Ressources</span>
-            <Link href="/blog" className="pl-3 py-2 border-l-2 border-transparent hover:border-[#D35400] hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Le Blog</Link>
-            <Link href="#" className="pl-3 py-2 border-l-2 border-transparent hover:border-[#D35400] hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Guides Agrobusiness</Link>
-            <Link href="#" className="pl-3 py-2 border-l-2 border-transparent hover:border-[#D35400] hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Académie Cultiso</Link>
+          {/* Solutions Accordion */}
+          <div className="border-b border-gray-100">
+            <button 
+              className="w-full flex justify-between items-center py-5 text-[22px] font-bold tracking-tight"
+              onClick={() => toggleMobileSection('solutions')}
+            >
+              Solutions
+              <svg className={`w-5 h-5 transition-transform duration-200 ${openMobileSection === 'solutions' ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+            <div className={`overflow-hidden transition-all duration-300 ${openMobileSection === 'solutions' ? 'max-h-[300px] mb-4' : 'max-h-0'}`}>
+              <div className="flex flex-col gap-4 pl-4 text-[17px] font-medium text-gray-600">
+                <Link href="#" onClick={() => setMobileMenuOpen(false)}>Pour les agriculteurs</Link>
+                <Link href="#" onClick={() => setMobileMenuOpen(false)}>Pour les coopératives</Link>
+              </div>
+            </div>
           </div>
 
-          <div className="w-full h-px bg-gray-100 my-2"></div>
+          {/* Ressources Accordion */}
+          <div className="border-b border-gray-100">
+            <button 
+              className="w-full flex justify-between items-center py-5 text-[22px] font-bold tracking-tight"
+              onClick={() => toggleMobileSection('ressources')}
+            >
+              Ressources
+              <svg className={`w-5 h-5 transition-transform duration-200 ${openMobileSection === 'ressources' ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+            <div className={`overflow-hidden transition-all duration-300 ${openMobileSection === 'ressources' ? 'max-h-[300px] mb-4' : 'max-h-0'}`}>
+              <div className="flex flex-col gap-4 pl-4 text-[17px] font-medium text-gray-600">
+                <Link href="/blog" onClick={() => setMobileMenuOpen(false)}>Le Blog</Link>
+                <Link href="#" onClick={() => setMobileMenuOpen(false)}>Guides Agrobusiness</Link>
+                <Link href="#" onClick={() => setMobileMenuOpen(false)}>Académie Cultiso</Link>
+              </div>
+            </div>
+          </div>
 
-          <Link href="/contact" className="hover:text-[#D35400] transition-colors" onClick={() => setMobileMenuOpen(false)}>Nous contacter</Link>
+          {/* Simple Links */}
+          <Link href="/cours-des-prix" className="block py-5 text-[22px] font-bold tracking-tight border-b border-gray-100" onClick={() => setMobileMenuOpen(false)}>
+            Cours des prix
+          </Link>
           
-          <div className="flex flex-col gap-3 mt-4">
+          <Link href="/contact" className="block py-5 text-[22px] font-bold tracking-tight border-b border-gray-100" onClick={() => setMobileMenuOpen(false)}>
+            Nous contacter
+          </Link>
+          
+          {/* Bottom Login Button (Fixed at bottom or just at end of list) */}
+          <div className="mt-8">
             <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-              <Button className="w-full h-[48px] font-bold text-[15px] bg-[#F1F3F5] hover:bg-[#E5E7EB] border-none text-[#1F2937] rounded-[10px] flex items-center justify-center transition-all">
+              <Button className="w-full h-[56px] font-bold text-[16px] bg-[#F1F3F5] hover:bg-[#E5E7EB] border-none text-[#1F2937] rounded-[12px] flex items-center justify-center transition-all">
                 Se connecter
               </Button>
             </Link>
