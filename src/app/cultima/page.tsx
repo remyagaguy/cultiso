@@ -6,10 +6,13 @@ import { AppstoreOutlined, DashboardOutlined } from "@ant-design/icons";
 import { SharedChat } from "@/components/cultisia/SharedChat";
 import VegetalDashboard from "@/components/cultima/vegetal/VegetalDashboard";
 import AnimalDashboard from "@/components/cultima/animal/AnimalDashboard";
+import TransformationDashboard from "@/components/cultima/transformation/TransformationDashboard";
+import ServiceDashboard from "@/components/cultima/service/ServiceDashboard";
+import NegoceDashboard from "@/components/cultima/negoce/NegoceDashboard";
 import { BrainCircuit } from "lucide-react";
 
 export default function CultimaPage() {
-  const [config, setConfig] = useState<"vegetal" | "animal" | "mixte" | null>(null);
+  const [config, setConfig] = useState<"vegetal" | "animal" | "mixte" | "transformation" | "service" | "negoce" | null>(null);
 
   // Pour la démo, on simule l'activation d'un dashboard après que l'utilisateur ait cliqué sur un profil type
   // Idéalement cela viendrait de `onConfigComplete` du composant SharedChat.
@@ -59,6 +62,10 @@ export default function CultimaPage() {
                 <button onClick={() => setConfig("vegetal")} className="p-3 bg-white border border-[#DFE4DA] rounded-xl hover:border-[#0B5345] hover:shadow-sm transition-all text-sm font-medium">Charger le profil Végétal</button>
                 <button onClick={() => setConfig("animal")} className="p-3 bg-white border border-[#DFE4DA] rounded-xl hover:border-[#0B5345] hover:shadow-sm transition-all text-sm font-medium">Charger le profil Animal</button>
                 <button onClick={() => setConfig("mixte")} className="p-3 bg-[#0B5345] text-white border border-transparent rounded-xl hover:bg-[#072F27] transition-all text-sm font-medium shadow-md">Charger le profil Mixte (Recommandé)</button>
+                <div className="w-full h-[1px] bg-[#DFE4DA] my-2"></div>
+                <button onClick={() => setConfig("transformation")} className="p-3 bg-white border border-[#DFE4DA] rounded-xl hover:border-[#0B5345] hover:shadow-sm transition-all text-sm font-medium">Transformation Agroalimentaire</button>
+                <button onClick={() => setConfig("service")} className="p-3 bg-white border border-[#DFE4DA] rounded-xl hover:border-[#0B5345] hover:shadow-sm transition-all text-sm font-medium">Services Agricoles</button>
+                <button onClick={() => setConfig("negoce")} className="p-3 bg-white border border-[#DFE4DA] rounded-xl hover:border-[#0B5345] hover:shadow-sm transition-all text-sm font-medium">Agro-Commerce & Négoce</button>
               </div>
             </div>
           ) : (
@@ -91,6 +98,9 @@ export default function CultimaPage() {
                   </div>
                 </div>
               )}
+              {config === "transformation" && <TransformationDashboard />}
+              {config === "service" && <ServiceDashboard />}
+              {config === "negoce" && <NegoceDashboard />}
             </div>
           )}
         </div>
@@ -106,7 +116,7 @@ export default function CultimaPage() {
           hideSidebar={true}
           onConfigComplete={(data) => {
              // In a real scenario, Cultisia would emit { "type": "cultima_config", "config": "mixte" }
-             if (data && (data === "vegetal" || data === "animal" || data === "mixte")) {
+             if (data && (data === "vegetal" || data === "animal" || data === "mixte" || data === "transformation" || data === "service" || data === "negoce")) {
                 setConfig(data);
              }
           }}
