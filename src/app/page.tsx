@@ -63,60 +63,66 @@ export default function Home() {
             </div>
 
             <div className="max-w-[900px] mx-auto">
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-[1px] bg-gray-200 border border-gray-200 rounded-[20px] overflow-hidden shadow-sm">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-[1px] bg-gray-100 border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
                 
                 {/* Step 1 */}
-                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
-                  <div className="absolute top-3 sm:top-4 bg-gray-100 group-hover:bg-gray-200 transition-colors text-gray-500 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Étape 1</div>
-                  <div className="w-12 h-12 rounded-[14px] bg-blue-50 text-blue-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                <div className="bg-white p-6 sm:p-8 flex flex-col items-center justify-start text-center hover:bg-gray-50 transition-colors cursor-default relative group min-h-[200px] sm:min-h-[240px]">
+                  <div className="text-[10px] sm:text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-wider text-gray-400 bg-gray-50 group-hover:bg-gray-100 mb-6 transition-colors">Étape 1</div>
+                  <div className="text-blue-500 mb-4 transition-transform group-hover:scale-110">
+                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                   </div>
-                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Étude de marché</h4>
+                  <h4 className="font-extrabold text-[#052821] text-[15px] sm:text-[18px] mb-2">Opportunités</h4>
+                  <p className="text-[12px] sm:text-[14px] text-gray-500 font-medium leading-snug">Repérer les opportunités d'investissement.</p>
                 </div>
 
                 {/* Step 2 */}
-                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
-                  <div className="absolute top-3 sm:top-4 bg-gray-100 group-hover:bg-gray-200 transition-colors text-gray-500 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Étape 2</div>
-                  <div className="w-12 h-12 rounded-[14px] bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                <div className="bg-white p-6 sm:p-8 flex flex-col items-center justify-start text-center hover:bg-gray-50 transition-colors cursor-default relative group min-h-[200px] sm:min-h-[240px]">
+                  <div className="text-[10px] sm:text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-wider text-gray-400 bg-gray-50 group-hover:bg-gray-100 mb-6 transition-colors">Étape 2</div>
+                  <div className="text-emerald-500 mb-4 transition-transform group-hover:scale-110">
+                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                   </div>
-                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Business Plan</h4>
+                  <h4 className="font-extrabold text-[#052821] text-[15px] sm:text-[18px] mb-2">Rentabilité</h4>
+                  <p className="text-[12px] sm:text-[14px] text-gray-500 font-medium leading-snug">Simuler la rentabilité financière de votre projet.</p>
                 </div>
 
                 {/* Step 3 */}
-                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
-                  <div className="absolute top-3 sm:top-4 bg-gray-100 group-hover:bg-gray-200 transition-colors text-gray-500 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Étape 3</div>
-                  <div className="w-12 h-12 rounded-[14px] bg-orange-50 text-orange-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                <div className="bg-white p-6 sm:p-8 flex flex-col items-center justify-start text-center hover:bg-gray-50 transition-colors cursor-default relative group min-h-[200px] sm:min-h-[240px]">
+                  <div className="text-[10px] sm:text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-wider text-gray-400 bg-gray-50 group-hover:bg-gray-100 mb-6 transition-colors">Étape 3</div>
+                  <div className="text-orange-500 mb-4 transition-transform group-hover:scale-110">
+                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                   </div>
-                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Achat d'intrants</h4>
+                  <h4 className="font-extrabold text-[#052821] text-[15px] sm:text-[18px] mb-2">Mise en place</h4>
+                  <p className="text-[12px] sm:text-[14px] text-gray-500 font-medium leading-snug">Se faire accompagner par des experts qualifiés.</p>
                 </div>
 
                 {/* Step 4 */}
-                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
-                  <div className="absolute top-3 sm:top-4 bg-gray-100 group-hover:bg-gray-200 transition-colors text-gray-500 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Étape 4</div>
-                  <div className="w-12 h-12 rounded-[14px] bg-purple-50 text-purple-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                <div className="bg-white p-6 sm:p-8 flex flex-col items-center justify-start text-center hover:bg-gray-50 transition-colors cursor-default relative group min-h-[200px] sm:min-h-[240px]">
+                  <div className="text-[10px] sm:text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-wider text-gray-400 bg-gray-50 group-hover:bg-gray-100 mb-6 transition-colors">Étape 4</div>
+                  <div className="text-purple-500 mb-4 transition-transform group-hover:scale-110">
+                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                   </div>
-                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Suivi Agronomique</h4>
+                  <h4 className="font-extrabold text-[#052821] text-[15px] sm:text-[18px] mb-2">Pilotage IA</h4>
+                  <p className="text-[12px] sm:text-[14px] text-gray-500 font-medium leading-snug">Piloter son projet avec précision au quotidien.</p>
                 </div>
 
                 {/* Step 5 */}
-                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
-                  <div className="absolute top-3 sm:top-4 bg-gray-100 group-hover:bg-gray-200 transition-colors text-gray-500 text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Étape 5</div>
-                  <div className="w-12 h-12 rounded-[14px] bg-rose-50 text-rose-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <div className="bg-white p-6 sm:p-8 flex flex-col items-center justify-start text-center hover:bg-gray-50 transition-colors cursor-default relative group min-h-[200px] sm:min-h-[240px]">
+                  <div className="text-[10px] sm:text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-wider text-gray-400 bg-gray-50 group-hover:bg-gray-100 mb-6 transition-colors">Étape 5</div>
+                  <div className="text-amber-500 mb-4 transition-transform group-hover:scale-110">
+                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                   </div>
-                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Conseil Expert</h4>
+                  <h4 className="font-extrabold text-[#052821] text-[15px] sm:text-[18px] mb-2">Production</h4>
+                  <p className="text-[12px] sm:text-[14px] text-gray-500 font-medium leading-snug">Produire en quantité et en qualité.</p>
                 </div>
 
                 {/* Step 6 */}
-                <div className="bg-white p-6 flex flex-col items-center justify-center hover:bg-gray-50 transition-colors cursor-default aspect-square sm:aspect-auto sm:h-[180px] relative group">
-                  <div className="absolute top-3 sm:top-4 bg-[#DEF7F2] text-[#22c55e] text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md uppercase tracking-wider">Objectif</div>
-                  <div className="w-12 h-12 rounded-[14px] bg-green-50 text-green-600 flex items-center justify-center mb-3 mt-4 transition-transform group-hover:scale-110">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <div className="bg-white p-6 sm:p-8 flex flex-col items-center justify-start text-center hover:bg-gray-50 transition-colors cursor-default relative group min-h-[200px] sm:min-h-[240px]">
+                  <div className="text-[10px] sm:text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-wider text-[#22c55e] bg-[#DEF7F2] mb-6 transition-colors">Objectif</div>
+                  <div className="text-green-600 mb-4 transition-transform group-hover:scale-110">
+                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                   </div>
-                  <h4 className="font-bold text-[#052821] text-[14px] md:text-[16px] text-center">Vente des récoltes</h4>
+                  <h4 className="font-extrabold text-[#052821] text-[15px] sm:text-[18px] mb-2">Ventes</h4>
+                  <p className="text-[12px] sm:text-[14px] text-gray-500 font-medium leading-snug">Vendre vos récoltes au meilleur prix.</p>
                 </div>
 
               </div>
