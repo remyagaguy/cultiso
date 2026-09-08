@@ -32,28 +32,16 @@ export default function Home() {
                 </span>
               </p>
               
-              <div className="pt-6 flex flex-col lg:flex-row lg:items-center gap-5">
-                <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto">
-                  <Link href="/cultiplan" className="w-full sm:w-auto group">
-                    <button className="w-full sm:w-auto px-8 h-[52px] text-[15.5px] font-semibold bg-[#22c55e] hover:bg-[#1fb254] text-white rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:shadow-[0_0_30px_rgba(34,197,94,0.5)] transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2.5">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
-                      Simuler mon business
-                    </button>
-                  </Link>
-                  <Link href="/cours-des-prix" className="w-full sm:w-auto group">
-                    <button className="w-full sm:w-auto px-8 h-[52px] text-[15.5px] font-semibold bg-[rgba(17,70,51,0.5)] hover:bg-[rgba(17,70,51,0.8)] backdrop-blur-md text-white border border-white/10 rounded-xl transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2.5">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                      Voir le cours des prix
-                    </button>
-                  </Link>
-                </div>
+              <div className="pt-8 flex flex-row items-center gap-4">
+                <Link href="/cultiplan" className="group">
+                  <button className="px-5 sm:px-8 h-[56px] sm:h-[60px] text-[15px] sm:text-[18px] font-extrabold bg-white hover:bg-gray-100 text-[#052821] rounded-[10px] shadow-xl transition-all duration-300 active:scale-[0.98] flex items-center justify-center">
+                    Simuler mon business. C'est GRATUIT
+                  </button>
+                </Link>
                 
-                {/* Réassurance */}
-                <div className="flex items-center justify-center sm:justify-start gap-2.5 text-white/80 text-[14.5px] font-manrope font-medium mt-1 lg:mt-0">
-                  <div className="flex items-center justify-center w-6 h-6 rounded-xl bg-white/10 backdrop-blur-sm border border-white/5">
-                    <svg className="w-3.5 h-3.5 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
-                  </div>
-                  <span>Simulation 100% gratuite</span>
+                <div className="flex flex-col text-white/70 text-[12px] sm:text-[13px] font-medium leading-snug">
+                  <span>100% gratuit.</span>
+                  <span>Sans carte bancaire.</span>
                 </div>
               </div>
 
