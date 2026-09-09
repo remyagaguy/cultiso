@@ -26,9 +26,9 @@ export default function Home() {
               </h1>
               
               <p className="text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope font-semibold">
-                Repérer les meilleures <span className="text-[#F39C12] font-bold">opportunités d'investissement</span>, stimuler la <span className="text-[#F39C12] font-bold">rentabilité financière</span> de vos projets avant d'investir, <span className="text-[#F39C12] font-bold">produire sans improvisation</span> et <span className="text-[#F39C12] font-bold">vendre</span> vos récoltes au meilleur prix...
+                Repérer les meilleures <span className="text-[#F39C12] font-bold">opportunités</span> d'investissement, simuler la <span className="text-[#F39C12] font-bold">rentabilité</span> financière de vos projets avant d'<span className="text-[#F39C12] font-bold">investir</span>, <span className="text-[#F39C12] font-bold">produire</span> sans improvisation et <span className="text-[#F39C12] font-bold">vendre</span> vos récoltes au meilleur prix...
                 <span className="block mt-4 md:mt-0 md:inline">
-                  {' '}C'est ce que <span className="text-[#F39C12] font-bold">Cultiso</span> vous permet de faire grâce à un ensemble d'outils conçus pour vous <span className="text-[#F39C12] font-bold">accompagner</span> dans la <span className="text-[#F39C12] font-bold">mise en place</span> et <span className="text-[#F39C12] font-bold">la gestion de vos projets agricoles</span>.
+                  {' '}C'est ce que <span className="text-[#F39C12] font-bold">Cultiso</span> vous permet de faire grâce à un ensemble d'outils conçus pour vous <span className="text-[#F39C12] font-bold">accompagner</span> dans la <span className="text-[#F39C12] font-bold">mise en place</span> et la <span className="text-[#F39C12] font-bold">gestion</span> de vos <span className="text-[#F39C12] font-bold">projets agricoles</span>.
                 </span>
               </p>
               
@@ -1077,4 +1077,5 @@ export default function Home() {
     </>
   );
 }
+
 
