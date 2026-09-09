@@ -24,12 +24,12 @@ export default function RegisterPage() {
     
     // Insertion dans la table waitlist
     
-    const { error } = await supabase.from('waitlist' as any).insert([
+    const { error } = await (supabase as any).from('waitlist').insert([
       { 
         email: email, 
         full_name: nom, 
         project_description: projet 
-      } as any
+      }
     ]);
 
     if (error) {
@@ -146,6 +146,7 @@ export default function RegisterPage() {
     </div>
   );
 }
+
 
 
 
