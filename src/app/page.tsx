@@ -53,7 +53,7 @@ export default function Home() {
         {/* --- 2. WORKFLOW SECTION --- */}
         <section className="w-full bg-[#fcfcfc] px-6 py-20 lg:py-24 border-t border-[#052821]/10">
           <div className="max-w-[1200px] mx-auto">
-            <div className="text-center max-w-[700px] mx-auto mb-16">
+            <div className="text-center max-w-[1000px] mx-auto mb-16">
               <h2 className="text-[clamp(28px,3vw,40px)] font-unbounded font-bold text-[#052821] mb-4 tracking-[-0.02em]">
                 De l'idée à la commercialisation
               </h2>
@@ -80,7 +80,7 @@ export default function Home() {
                     <div className="pt-2">
                       <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">01.</div>
                       <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Opportunités</h4>
-                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Repérer les opportunités d'investissement.</p>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Identifiez et analysez les meilleures opportunités d'investissement agricole.</p>
                     </div>
                   </div>
 
@@ -93,7 +93,7 @@ export default function Home() {
                     <div className="pt-2">
                       <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">02.</div>
                       <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Rentabilité</h4>
-                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Simuler la rentabilité financière de votre projet.</p>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Simulez vos coûts et anticipez la rentabilité financière de votre projet.</p>
                     </div>
                   </div>
 
@@ -106,7 +106,7 @@ export default function Home() {
                     <div className="pt-2">
                       <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">03.</div>
                       <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Mise en place</h4>
-                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Se faire accompagner par des experts qualifiés.</p>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Faites-vous accompagner par des experts qualifiés pour un lancement réussi.</p>
                     </div>
                   </div>
                 </div>
@@ -125,7 +125,7 @@ export default function Home() {
                     <div className="pt-2">
                       <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">04.</div>
                       <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Pilotage IA</h4>
-                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Piloter son projet avec précision au quotidien.</p>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Pilotez vos cultures avec précision au quotidien grâce à nos algorithmes intelligents.</p>
                     </div>
                   </div>
 
@@ -138,7 +138,7 @@ export default function Home() {
                     <div className="pt-2">
                       <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">05.</div>
                       <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Production</h4>
-                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Produire en quantité et en qualité.</p>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Optimisez vos rendements pour produire en grande quantité avec une qualité irréprochable.</p>
                     </div>
                   </div>
 
@@ -151,7 +151,7 @@ export default function Home() {
                     <div className="pt-2">
                       <div className="text-[13px] font-extrabold text-[#22c55e]/60 tracking-wider mb-1 font-mono">06.</div>
                       <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Ventes</h4>
-                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Vendre vos récoltes au meilleur prix.</p>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Accédez aux marchés porteurs et vendez vos récoltes agricoles au meilleur prix.</p>
                     </div>
                   </div>
                 </div>
@@ -166,28 +166,28 @@ export default function Home() {
                   <div className="absolute top-[28px] left-[25%] right-[25%] h-[1px] bg-gray-200 z-0"></div>
 
                   {/* Step 1 */}
-                  <div className="flex flex-col items-start relative z-10">
+                  <div className="flex flex-col items-center text-center relative z-10">
                     <div className="w-14 h-14 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-10">
                       <svg className="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-gray-200 ml-7 relative z-0"></div>
-                    <div className="pt-1">
+                    <div className="w-[1px] h-6 bg-gray-200 mx-auto relative z-0"></div>
+                    <div className="pt-1 flex flex-col items-center">
                       <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">01.</div>
                       <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Opportunités</h4>
-                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Repérer les opportunités.</p>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Identifiez et analysez les meilleures opportunités d'investissement agricole.</p>
                     </div>
                   </div>
 
                   {/* Step 2 */}
-                  <div className="flex flex-col items-start relative z-10">
+                  <div className="flex flex-col items-center text-center relative z-10">
                     <div className="w-14 h-14 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-10">
                       <svg className="w-7 h-7 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-gray-200 ml-7 relative z-0"></div>
-                    <div className="pt-1">
+                    <div className="w-[1px] h-6 bg-gray-200 mx-auto relative z-0"></div>
+                    <div className="pt-1 flex flex-col items-center">
                       <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">02.</div>
                       <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Rentabilité</h4>
-                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Simuler le projet.</p>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Simulez vos coûts et anticipez la rentabilité de votre projet.</p>
                     </div>
                   </div>
                 </div>
@@ -197,28 +197,28 @@ export default function Home() {
                   <div className="absolute top-[28px] left-[25%] right-[25%] h-[1px] bg-gray-200 z-0"></div>
 
                   {/* Step 3 */}
-                  <div className="flex flex-col items-start relative z-10">
+                  <div className="flex flex-col items-center text-center relative z-10">
                     <div className="w-14 h-14 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-10">
                       <svg className="w-7 h-7 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-gray-200 ml-7 relative z-0"></div>
-                    <div className="pt-1">
+                    <div className="w-[1px] h-6 bg-gray-200 mx-auto relative z-0"></div>
+                    <div className="pt-1 flex flex-col items-center">
                       <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">03.</div>
                       <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Mise en place</h4>
-                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Se faire accompagner.</p>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Faites-vous accompagner par des experts qualifiés.</p>
                     </div>
                   </div>
 
                   {/* Step 4 */}
-                  <div className="flex flex-col items-start relative z-10">
+                  <div className="flex flex-col items-center text-center relative z-10">
                     <div className="w-14 h-14 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-10">
                       <svg className="w-7 h-7 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-gray-200 ml-7 relative z-0"></div>
-                    <div className="pt-1">
+                    <div className="w-[1px] h-6 bg-gray-200 mx-auto relative z-0"></div>
+                    <div className="pt-1 flex flex-col items-center">
                       <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">04.</div>
                       <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Pilotage IA</h4>
-                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Précision au quotidien.</p>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Pilotez vos cultures avec précision au quotidien.</p>
                     </div>
                   </div>
                 </div>
@@ -228,28 +228,28 @@ export default function Home() {
                   <div className="absolute top-[28px] left-[25%] right-[25%] h-[1px] bg-gray-200 z-0"></div>
 
                   {/* Step 5 */}
-                  <div className="flex flex-col items-start relative z-10">
+                  <div className="flex flex-col items-center text-center relative z-10">
                     <div className="w-14 h-14 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-10">
                       <svg className="w-7 h-7 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-gray-200 ml-7 relative z-0"></div>
-                    <div className="pt-1">
+                    <div className="w-[1px] h-6 bg-gray-200 mx-auto relative z-0"></div>
+                    <div className="pt-1 flex flex-col items-center">
                       <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">05.</div>
                       <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Production</h4>
-                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Quantité et qualité.</p>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Optimisez pour produire en grande quantité.</p>
                     </div>
                   </div>
 
                   {/* Step 6 */}
-                  <div className="flex flex-col items-start relative z-10">
+                  <div className="flex flex-col items-center text-center relative z-10">
                     <div className="w-14 h-14 bg-[#DEF7F2] rounded-2xl shadow-md border border-[#22c55e]/20 flex items-center justify-center relative z-10">
                       <svg className="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-green-200 ml-7 relative z-0"></div>
-                    <div className="pt-1">
+                    <div className="w-[1px] h-6 bg-green-200 mx-auto relative z-0"></div>
+                    <div className="pt-1 flex flex-col items-center">
                       <div className="text-[11px] font-extrabold text-[#22c55e]/60 tracking-wider mb-1 font-mono">06.</div>
                       <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Ventes</h4>
-                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Meilleur prix.</p>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Accédez aux marchés et vendez au meilleur prix.</p>
                     </div>
                   </div>
                 </div>
@@ -258,6 +258,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+
 
 
 
