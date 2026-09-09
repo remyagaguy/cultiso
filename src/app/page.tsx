@@ -24,19 +24,19 @@ export default function Home() {
                   <span className="text-[13px] md:text-[14px] text-white/90 font-medium tracking-wide">Le premier écosystème intelligent pour l'agriculture</span>
                 </Link>
               
-              <h1 className="mb-4 md:mb-5 text-[clamp(36px,6vw,68px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
+              <h1 className="mb-6 md:mb-5 text-[clamp(36px,6vw,68px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
                 <span className="sm:whitespace-nowrap">L'agribusiness africain,</span> <br className="hidden sm:block" />
                 <span className="text-[#D35400] sm:whitespace-nowrap">sans improvisation.</span>
               </h1>
               
-              <p className="mb-8 md:mb-10 text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope font-semibold">
+              <p className="mb-10 md:mb-10 text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope font-semibold">
                 Repérer les meilleures <span className="text-[#F39C12] font-bold">opportunités</span> d'investissement, simuler la <span className="text-[#F39C12] font-bold">rentabilité</span> financière de vos projets avant d'<span className="text-[#F39C12] font-bold">investir</span>, <span className="text-[#F39C12] font-bold">produire</span> sans improvisation et <span className="text-[#F39C12] font-bold">vendre</span> vos récoltes au meilleur prix...
                 <span className="block mt-4 md:mt-0 md:inline">
                   {' '}C'est ce que <span className="text-[#F39C12] font-bold">Cultiso</span> vous permet de faire grâce à un ensemble d'outils conçus pour vous <span className="text-[#F39C12] font-bold">accompagner</span> dans la <span className="text-[#F39C12] font-bold">mise en place</span> et la <span className="text-[#F39C12] font-bold">gestion</span> de vos <span className="text-[#F39C12] font-bold">projets agricoles</span>.
                 </span>
               </p>
               
-              <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+              <div className="pt-10 md:pt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
                   <Link href="/cultiplan" className="group">
                     <button className="px-6 sm:px-8 h-[54px] text-[15.5px] font-bold bg-[#22c55e] hover:bg-[#16a34a] text-white rounded-xl shadow-[0_6px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2.5">
                       <svg className="w-5 h-5 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
@@ -74,7 +74,7 @@ export default function Home() {
         <section className="w-full bg-[#fcfcfc] px-6 py-20 lg:py-24 border-t border-[#052821]/10">
           <div className="max-w-[1200px] mx-auto">
             <div className="text-center max-w-[1000px] mx-auto mb-16 md:mb-20">
-              <h2 className="text-[clamp(24px,3.5vw,36px)] font-unbounded font-bold text-[#052821] mb-6 tracking-[-0.02em] leading-[1.2]">
+              <h2 className="text-[20px] md:text-[clamp(28px,3.5vw,36px)] font-unbounded font-bold text-[#052821] mb-6 tracking-[-0.02em] leading-[1.2]">
                 L'improvisation ruine vos investissements <br className="hidden md:block" /> 
                 <span className="text-[#0B5345]">— <span className="text-[#D35400]">Cultiso</span> vous donne les outils pour les rentabiliser.</span>
               </h2>
