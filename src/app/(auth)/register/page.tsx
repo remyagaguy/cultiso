@@ -93,7 +93,7 @@ export default function RegisterPage() {
                   <Input 
                     prefix={<UserOutlined className="text-gray-400" />} 
                     placeholder="Ex: Jean Dupont" 
-                    className="rounded-lg h-12"
+                    className="rounded-lg py-2"
                   />
                 </Form.Item>
 
@@ -105,7 +105,7 @@ export default function RegisterPage() {
                   <Input 
                     prefix={<MailOutlined className="text-gray-400" />} 
                     placeholder="jean@agrobusiness.com" 
-                    className="rounded-lg h-12"
+                    className="rounded-lg py-2"
                   />
                 </Form.Item>
 
@@ -124,7 +124,7 @@ export default function RegisterPage() {
                   <Button 
                     type="primary" 
                     htmlType="submit" 
-                    className="w-full h-12 text-[16px] font-bold tracking-wide shadow-md rounded-lg"
+                    className="w-full py-3 text-[16px] font-bold tracking-wide shadow-md rounded-lg"
                     loading={loading}
                   >
                     Rejoindre la liste d'attente
@@ -145,3 +145,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+

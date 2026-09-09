@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { Form, Input, Button, Card, Typography, Alert, message, ConfigProvider, theme } from "antd";
@@ -121,7 +121,7 @@ export default function LoginPage() {
                 <Button 
                   type="primary" 
                   htmlType="submit" 
-                  className="w-full h-12 text-[15.5px] font-semibold bg-[#D35400] hover:bg-[#E67E22] border-none shadow-[0_0_20px_rgba(211,84,0,0.3)] hover:shadow-[0_0_30px_rgba(211,84,0,0.5)] transition-all duration-300 active:scale-[0.98] rounded-xl text-white"
+                  className="w-full py-3 text-[15.5px] font-semibold bg-[#D35400] hover:bg-[#E67E22] border-none shadow-[0_0_20px_rgba(211,84,0,0.3)] hover:shadow-[0_0_30px_rgba(211,84,0,0.5)] transition-all duration-300 active:scale-[0.98] rounded-xl text-white"
                   loading={loading}
                 >
                   Se connecter
@@ -141,3 +141,4 @@ export default function LoginPage() {
     </ConfigProvider>
   );
 }
+
