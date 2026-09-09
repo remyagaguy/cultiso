@@ -20,7 +20,7 @@ export default function Home() {
           <div className="max-w-[1200px] w-full mx-auto relative z-20">
             <div className="max-w-[850px] flex flex-col items-start">
               <Link href="#processus" className="group mb-5 md:mb-6 inline-flex items-center gap-3 pr-5 pl-1.5 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:border-white/20 transition-all duration-300 w-fit">
-                  <span className="bg-[#22c55e] text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.3)]">Nouveau</span>
+                  <span className="bg-[#22c55e] text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.3)]">Cultiso</span>
                   <span className="text-[13px] md:text-[14px] text-white/90 font-medium tracking-wide">Le premier écosystème intelligent pour l'agriculture</span>
                 </Link>
               
@@ -38,8 +38,8 @@ export default function Home() {
               
               <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
                   <Link href="/cultiplan" className="group relative">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-[#D35400] to-[#F39C12] rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
-                    <button className="relative px-6 sm:px-8 h-[54px] text-[15.5px] font-bold bg-[#D35400] hover:bg-[#E67E22] text-white rounded-xl shadow-[0_8px_20px_rgba(211,84,0,0.3)] transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2.5">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-[#22c55e] to-[#16a34a] rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
+                    <button className="relative px-6 sm:px-8 h-[54px] text-[15.5px] font-bold bg-[#22c55e] hover:bg-[#16a34a] text-white rounded-xl shadow-[0_8px_20px_rgba(34,197,94,0.3)] transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2.5">
                       <svg className="w-5 h-5 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
                       Simuler mon business
                       <svg className="w-4 h-4 ml-0.5 transform group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
