@@ -27,7 +27,6 @@ export default function Home() {
                     </span>
                     <span className="text-[13px] md:text-[14px] font-bold tracking-tight">Le premier écosystème intelligent pour l'agriculture</span>
                   </span>
-                  <svg className="w-4 h-4 text-[#052821]/50 ml-0.5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
                 </Link>
               
               <h1 className="mb-4 md:mb-5 text-[clamp(36px,6vw,68px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
