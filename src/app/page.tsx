@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <main className="flex-grow flex flex-col items-center">
         {/* --- 1. HERO SECTION --- */}
-        <section className="relative w-full px-6 pt-12 pb-16 md:pt-20 lg:pt-16 lg:pb-24 flex items-center bg-[#052821] overflow-hidden">
+        <section className="relative w-full px-6 pt-20 pb-16 md:pt-28 lg:pt-24 lg:pb-24 flex items-center bg-[#052821] overflow-hidden">
           {/* Background Image with Gradient Overlay */}
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-r from-[#052821] via-[#052821]/90 to-[#052821]/20 z-10"></div>
@@ -18,8 +18,8 @@ export default function Home() {
           </div>
 
           <div className="max-w-[1200px] w-full mx-auto relative z-20">
-            <div className="max-w-[850px] space-y-6 lg:space-y-7">
-              <Link href="#processus" className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white/90 text-[13px] md:text-[14px] font-medium hover:bg-white/10 hover:border-white/40 transition-all duration-300 w-fit">
+            <div className="max-w-[850px] flex flex-col items-start">
+              <Link href="#processus" className="mb-5 md:mb-6 inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white/90 text-[13px] md:text-[14px] font-medium hover:bg-white/10 hover:border-white/40 transition-all duration-300 w-fit">
                 <span className="flex items-center gap-2.5">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D35400] opacity-75"></span>
@@ -30,12 +30,12 @@ export default function Home() {
                 <svg className="w-4 h-4 text-white/60 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
               </Link>
               
-              <h1 className="text-[clamp(36px,6vw,68px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
+              <h1 className="mb-4 md:mb-5 text-[clamp(36px,6vw,68px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
                 <span className="sm:whitespace-nowrap">L'agribusiness africain,</span> <br className="hidden sm:block" />
                 <span className="text-[#D35400] sm:whitespace-nowrap">sans improvisation.</span>
               </h1>
               
-              <p className="text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope font-semibold">
+              <p className="mb-8 md:mb-10 text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope font-semibold">
                 Repérer les meilleures <span className="text-[#F39C12] font-bold">opportunités</span> d'investissement, simuler la <span className="text-[#F39C12] font-bold">rentabilité</span> financière de vos projets avant d'<span className="text-[#F39C12] font-bold">investir</span>, <span className="text-[#F39C12] font-bold">produire</span> sans improvisation et <span className="text-[#F39C12] font-bold">vendre</span> vos récoltes au meilleur prix...
                 <span className="block mt-4 md:mt-0 md:inline">
                   {' '}C'est ce que <span className="text-[#F39C12] font-bold">Cultiso</span> vous permet de faire grâce à un ensemble d'outils conçus pour vous <span className="text-[#F39C12] font-bold">accompagner</span> dans la <span className="text-[#F39C12] font-bold">mise en place</span> et la <span className="text-[#F39C12] font-bold">gestion</span> de vos <span className="text-[#F39C12] font-bold">projets agricoles</span>.
@@ -1088,6 +1088,8 @@ export default function Home() {
     </>
   );
 }
+
+
 
 
 
