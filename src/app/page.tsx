@@ -179,10 +179,6 @@ export default function Home() {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     Lancer CultiPlan
                   </Link>
-                  <Link href="/cultima" className="bg-transparent border-2 border-[#052821]/20 text-[#052821] hover:border-[#052821] px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
-                    Gérer mon business
-                  </Link>
                 </div>
               </div>
 
@@ -521,8 +517,8 @@ export default function Home() {
                 {/* Buttons */}
                 <div className="flex flex-wrap items-center gap-4">
                   <Link href="/cultima" className="bg-[#D35400] hover:bg-[#b54700] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#D35400]/20 flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-                    Lancer Cultima
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                    Gérer mon business
                   </Link>
                 </div>
               </div>
@@ -594,6 +590,7 @@ export default function Home() {
                 <div className="flex items-center gap-2 mb-6">
                   <img src="/favicon.png" alt="Cultiso" className="w-10 h-10 object-contain" />
                   <span className="font-unbounded font-bold text-[#052821] text-lg tracking-tight">Cultiseil</span>
+                  <span className="ml-2 px-2.5 py-1 bg-gray-100 text-gray-500 rounded-md text-[10px] font-bold uppercase tracking-wider border border-gray-200">Bientôt disponible</span>
                 </div>
                 
                 <h2 className="text-[clamp(32px,4vw,48px)] font-unbounded font-bold text-[#052821] leading-[1.1] mb-6">
@@ -625,13 +622,14 @@ export default function Home() {
                     </div>
                     <span className="text-[#052821] font-bold text-[15px] leading-tight">Prévisions météo et alertes climatiques locales</span>
                   </div>
+
                 </div>
                 
                 {/* Buttons */}
                 <div className="flex flex-wrap items-center gap-4">
-                  <Link href="/cultiseil" className="bg-[#052821] hover:bg-[#0a4237] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#052821]/20 flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                    Démarrer un diagnostic
+                  <Link href="#newsletter" className="bg-white border-2 border-[#052821]/20 text-[#052821] hover:border-[#052821] px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                    M'avertir du lancement
                   </Link>
                 </div>
               </div>
@@ -769,6 +767,7 @@ export default function Home() {
                 <div className="flex items-center gap-2 mb-6">
                   <img src="/favicon.png" alt="Cultiso" className="w-10 h-10 object-contain" />
                   <span className="font-unbounded font-bold text-[#D35400] text-lg tracking-tight">Cultishop</span>
+                  <span className="ml-2 px-2.5 py-1 bg-gray-100 text-gray-500 rounded-md text-[10px] font-bold uppercase tracking-wider border border-gray-200">Bientôt disponible</span>
                 </div>
                 
                 <h2 className="text-[clamp(32px,4vw,48px)] font-unbounded font-bold text-[#052821] leading-[1.1] mb-6">
