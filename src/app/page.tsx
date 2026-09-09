@@ -20,7 +20,7 @@ export default function Home() {
           <div className="max-w-[1200px] w-full mx-auto relative z-20">
             <div className="max-w-[850px] flex flex-col items-start">
               <Link href="#processus" className="group mb-5 md:mb-6 inline-flex items-center gap-3 pr-5 pl-1.5 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:border-white/20 transition-all duration-300 w-fit">
-                  <span className="bg-[#D35400] text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-[0_0_10px_rgba(211,84,0,0.3)]">Vision</span>
+                  <span className="bg-[#22c55e] text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.3)]">Nouveau</span>
                   <span className="text-[13px] md:text-[14px] text-white/90 font-medium tracking-wide">Le premier écosystème intelligent pour l'agriculture</span>
                 </Link>
               
