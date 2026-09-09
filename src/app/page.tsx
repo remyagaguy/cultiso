@@ -66,7 +66,7 @@ export default function Home() {
             <div className="text-center max-w-[1000px] mx-auto mb-16 md:mb-20">
               <h2 className="text-[clamp(24px,3.5vw,36px)] font-unbounded font-bold text-[#052821] mb-6 tracking-[-0.02em] leading-[1.2]">
                 L'improvisation ruine vos investissements <br className="hidden md:block" /> 
-                <span className="bg-gradient-to-r from-gray-400 to-gray-300 bg-clip-text text-transparent">— Cultiso vous donne les outils pour les rentabiliser.</span>
+                <span className="text-[#0B5345]">— <span className="text-[#D35400]">Cultiso</span> vous donne les outils pour les rentabiliser.</span>
               </h2>
               <p className="text-[16px] md:text-[18px] text-gray-500 font-manrope max-w-3xl mx-auto leading-relaxed">
                 Des outils intelligents pour gérer et sécuriser chaque aspect de votre agrobusiness, de l'idée jusqu'à la vente de vos produits.
