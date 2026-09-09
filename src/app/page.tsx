@@ -62,219 +62,194 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="max-w-[1000px] mx-auto mt-16 lg:mt-24 relative">
-              {/* Desktop layout */}
-              <div className="hidden md:flex flex-col gap-16 lg:gap-24 relative w-full">
+            <div className="max-w-[1100px] mx-auto mt-16 lg:mt-24">
+              {/* Desktop layout: 2 rows of 3 columns */}
+              <div className="hidden md:flex flex-col gap-16 lg:gap-20 w-full relative">
                 
-                {/* Desktop SVG Definitions */}
-                <svg width="0" height="0" className="absolute pointer-events-none">
-                  <defs>
-                    <linearGradient id="tubeGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#f8f9fa" />
-                      <stop offset="50%" stopColor="#e5e7eb" />
-                      <stop offset="100%" stopColor="#d1d5db" />
-                    </linearGradient>
-                    <filter id="tubeShadow" x="-20%" y="-20%" width="140%" height="140%">
-                      <feDropShadow dx="0" dy="8" stdDeviation="8" floodOpacity="0.15" />
-                      <feDropShadow dx="0" dy="2" stdDeviation="2" floodOpacity="0.05" />
-                    </filter>
-                  </defs>
-                </svg>
-
                 {/* Row 1 */}
-                <div className="relative grid grid-cols-3 gap-8 lg:gap-12 w-full">
-                  <svg className="absolute top-[40px] left-0 w-full h-[100px] -translate-y-1/2 z-0 overflow-visible pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
-                    <path d="M -10 50 L 16.6 50 Q 33.3 120, 50 50 Q 66.6 -20, 83.3 50 L 110 50" fill="none" stroke="url(#tubeGrad)" strokeWidth="18" vectorEffect="non-scaling-stroke" filter="url(#tubeShadow)" strokeLinecap="round" />
-                    <path d="M -10 48 L 16.6 48 Q 33.3 118, 50 48 Q 66.6 -22, 83.3 48 L 110 48" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="4" vectorEffect="non-scaling-stroke" strokeLinecap="round" />
-                  </svg>
+                <div className="relative grid grid-cols-3 gap-12 lg:gap-16 w-full">
+                  {/* Ligne horizontale de connexion (Row 1) */}
+                  <div className="absolute top-[32px] lg:top-[40px] left-[16.66%] right-[16.66%] h-[1px] bg-gray-200 z-0"></div>
 
                   {/* Step 1 */}
-                  <div className="flex flex-col items-center text-center relative z-10 group mt-0">
-                    <div className="w-20 h-20 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 flex items-center justify-center group-hover:-translate-y-2 transition-transform duration-500 relative z-20">
-                      <svg className="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                  <div className="flex flex-col items-start relative group z-10">
+                    <div className="w-16 h-16 lg:w-20 lg:h-20 bg-white rounded-2xl lg:rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 flex items-center justify-center relative z-10 group-hover:-translate-y-2 transition-transform duration-500">
+                      <svg className="w-8 h-8 lg:w-10 lg:h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
                     </div>
-                    <div className="w-[2px] h-10 bg-gradient-to-b from-gray-200 to-transparent my-4"></div>
-                    <div className="px-2">
-                      <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Étape 1</div>
-                      <h4 className="font-extrabold text-[#052821] text-[18px] mb-2 leading-tight">Opportunités</h4>
-                      <p className="text-[14px] text-gray-500 font-medium leading-relaxed">Repérer les opportunités d'investissement.</p>
+                    <div className="w-[1px] h-8 lg:h-12 bg-gray-200 ml-8 lg:ml-10 relative z-0"></div>
+                    <div className="pt-2">
+                      <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">01.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Opportunités</h4>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Repérer les opportunités d'investissement.</p>
                     </div>
                   </div>
 
                   {/* Step 2 */}
-                  <div className="flex flex-col items-center text-center relative z-10 group mt-0">
-                    <div className="w-20 h-20 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 flex items-center justify-center group-hover:-translate-y-2 transition-transform duration-500 relative z-20">
-                      <svg className="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                  <div className="flex flex-col items-start relative group z-10">
+                    <div className="w-16 h-16 lg:w-20 lg:h-20 bg-white rounded-2xl lg:rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 flex items-center justify-center relative z-10 group-hover:-translate-y-2 transition-transform duration-500">
+                      <svg className="w-8 h-8 lg:w-10 lg:h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     </div>
-                    <div className="w-[2px] h-10 bg-gradient-to-b from-gray-200 to-transparent my-4"></div>
-                    <div className="px-2">
-                      <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Étape 2</div>
-                      <h4 className="font-extrabold text-[#052821] text-[18px] mb-2 leading-tight">Rentabilité</h4>
-                      <p className="text-[14px] text-gray-500 font-medium leading-relaxed">Simuler la rentabilité financière de votre projet.</p>
+                    <div className="w-[1px] h-8 lg:h-12 bg-gray-200 ml-8 lg:ml-10 relative z-0"></div>
+                    <div className="pt-2">
+                      <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">02.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Rentabilité</h4>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Simuler la rentabilité financière de votre projet.</p>
                     </div>
                   </div>
 
                   {/* Step 3 */}
-                  <div className="flex flex-col items-center text-center relative z-10 group mt-0">
-                    <div className="w-20 h-20 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 flex items-center justify-center group-hover:-translate-y-2 transition-transform duration-500 relative z-20">
-                      <svg className="w-10 h-10 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                  <div className="flex flex-col items-start relative group z-10">
+                    <div className="w-16 h-16 lg:w-20 lg:h-20 bg-white rounded-2xl lg:rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 flex items-center justify-center relative z-10 group-hover:-translate-y-2 transition-transform duration-500">
+                      <svg className="w-8 h-8 lg:w-10 lg:h-10 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
                     </div>
-                    <div className="w-[2px] h-10 bg-gradient-to-b from-gray-200 to-transparent my-4"></div>
-                    <div className="px-2">
-                      <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Étape 3</div>
-                      <h4 className="font-extrabold text-[#052821] text-[18px] mb-2 leading-tight">Mise en place</h4>
-                      <p className="text-[14px] text-gray-500 font-medium leading-relaxed">Se faire accompagner par des experts qualifiés.</p>
+                    <div className="w-[1px] h-8 lg:h-12 bg-gray-200 ml-8 lg:ml-10 relative z-0"></div>
+                    <div className="pt-2">
+                      <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">03.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Mise en place</h4>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Se faire accompagner par des experts qualifiés.</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Row 2 */}
-                <div className="relative grid grid-cols-3 gap-8 lg:gap-12 w-full mt-4 lg:mt-8">
-                  <svg className="absolute top-[40px] left-0 w-full h-[100px] -translate-y-1/2 z-0 overflow-visible pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
-                    <path d="M -10 50 L 16.6 50 Q 33.3 -20, 50 50 Q 66.6 120, 83.3 50 L 110 50" fill="none" stroke="url(#tubeGrad)" strokeWidth="18" vectorEffect="non-scaling-stroke" filter="url(#tubeShadow)" strokeLinecap="round" />
-                    <path d="M -10 48 L 16.6 48 Q 33.3 -22, 50 48 Q 66.6 118, 83.3 48 L 110 48" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="4" vectorEffect="non-scaling-stroke" strokeLinecap="round" />
-                  </svg>
+                <div className="relative grid grid-cols-3 gap-12 lg:gap-16 w-full">
+                  {/* Ligne horizontale de connexion (Row 2) */}
+                  <div className="absolute top-[32px] lg:top-[40px] left-[16.66%] right-[16.66%] h-[1px] bg-gray-200 z-0"></div>
 
                   {/* Step 4 */}
-                  <div className="flex flex-col items-center text-center relative z-10 group mt-0">
-                    <div className="w-20 h-20 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 flex items-center justify-center group-hover:-translate-y-2 transition-transform duration-500 relative z-20">
-                      <svg className="w-10 h-10 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
+                  <div className="flex flex-col items-start relative group z-10">
+                    <div className="w-16 h-16 lg:w-20 lg:h-20 bg-white rounded-2xl lg:rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 flex items-center justify-center relative z-10 group-hover:-translate-y-2 transition-transform duration-500">
+                      <svg className="w-8 h-8 lg:w-10 lg:h-10 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
                     </div>
-                    <div className="w-[2px] h-10 bg-gradient-to-b from-gray-200 to-transparent my-4"></div>
-                    <div className="px-2">
-                      <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Étape 4</div>
-                      <h4 className="font-extrabold text-[#052821] text-[18px] mb-2 leading-tight">Pilotage IA</h4>
-                      <p className="text-[14px] text-gray-500 font-medium leading-relaxed">Piloter son projet avec précision au quotidien.</p>
+                    <div className="w-[1px] h-8 lg:h-12 bg-gray-200 ml-8 lg:ml-10 relative z-0"></div>
+                    <div className="pt-2">
+                      <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">04.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Pilotage IA</h4>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Piloter son projet avec précision au quotidien.</p>
                     </div>
                   </div>
 
                   {/* Step 5 */}
-                  <div className="flex flex-col items-center text-center relative z-10 group mt-0">
-                    <div className="w-20 h-20 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 flex items-center justify-center group-hover:-translate-y-2 transition-transform duration-500 relative z-20">
-                      <svg className="w-10 h-10 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+                  <div className="flex flex-col items-start relative group z-10">
+                    <div className="w-16 h-16 lg:w-20 lg:h-20 bg-white rounded-2xl lg:rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 flex items-center justify-center relative z-10 group-hover:-translate-y-2 transition-transform duration-500">
+                      <svg className="w-8 h-8 lg:w-10 lg:h-10 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                     </div>
-                    <div className="w-[2px] h-10 bg-gradient-to-b from-gray-200 to-transparent my-4"></div>
-                    <div className="px-2">
-                      <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Étape 5</div>
-                      <h4 className="font-extrabold text-[#052821] text-[18px] mb-2 leading-tight">Production</h4>
-                      <p className="text-[14px] text-gray-500 font-medium leading-relaxed">Produire en quantité et en qualité.</p>
+                    <div className="w-[1px] h-8 lg:h-12 bg-gray-200 ml-8 lg:ml-10 relative z-0"></div>
+                    <div className="pt-2">
+                      <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">05.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Production</h4>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Produire en quantité et en qualité.</p>
                     </div>
                   </div>
 
                   {/* Step 6 */}
-                  <div className="flex flex-col items-center text-center relative z-10 group mt-0">
-                    <div className="w-20 h-20 bg-[#DEF7F2] rounded-3xl shadow-[0_8px_30px_rgb(34,197,94,0.15)] border border-[#22c55e]/20 flex items-center justify-center group-hover:-translate-y-2 transition-transform duration-500 relative z-20">
-                      <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  <div className="flex flex-col items-start relative group z-10">
+                    <div className="w-16 h-16 lg:w-20 lg:h-20 bg-[#DEF7F2] rounded-2xl lg:rounded-3xl shadow-[0_8px_30px_rgb(34,197,94,0.15)] border border-[#22c55e]/20 flex items-center justify-center relative z-10 group-hover:-translate-y-2 transition-transform duration-500">
+                      <svg className="w-8 h-8 lg:w-10 lg:h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </div>
-                    <div className="w-[2px] h-10 bg-gradient-to-b from-green-200 to-transparent my-4"></div>
-                    <div className="px-2">
-                      <div className="text-[11px] font-bold text-[#22c55e] uppercase tracking-wider mb-2">Objectif</div>
-                      <h4 className="font-extrabold text-[#052821] text-[18px] mb-2 leading-tight">Ventes</h4>
-                      <p className="text-[14px] text-gray-500 font-medium leading-relaxed">Vendre vos récoltes au meilleur prix.</p>
+                    <div className="w-[1px] h-8 lg:h-12 bg-green-200 ml-8 lg:ml-10 relative z-0"></div>
+                    <div className="pt-2">
+                      <div className="text-[13px] font-extrabold text-[#22c55e]/60 tracking-wider mb-1 font-mono">06.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Ventes</h4>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Vendre vos récoltes au meilleur prix.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
 
-              {/* Mobile layout (2 columns, 3 rows) */}
-              <div className="flex md:hidden flex-col gap-12 relative w-full">
+              {/* Mobile layout: 3 rows of 2 columns */}
+              <div className="flex md:hidden flex-col gap-10 w-full relative">
                 
                 {/* Row 1 */}
-                <div className="relative grid grid-cols-2 gap-4 w-full">
-                  <svg className="absolute top-[32px] left-0 w-full h-[60px] -translate-y-1/2 z-0 overflow-visible pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
-                    <path d="M -10 50 L 25 50 Q 50 120, 75 50 L 110 50" fill="none" stroke="url(#tubeGrad)" strokeWidth="12" vectorEffect="non-scaling-stroke" strokeLinecap="round" filter="url(#tubeShadow)" />
-                  </svg>
-                  
+                <div className="relative grid grid-cols-2 gap-6 w-full">
+                  <div className="absolute top-[28px] left-[25%] right-[25%] h-[1px] bg-gray-200 z-0"></div>
+
                   {/* Step 1 */}
-                  <div className="flex flex-col items-center text-center relative z-10">
-                    <div className="w-16 h-16 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-20">
-                      <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
+                  <div className="flex flex-col items-start relative z-10">
+                    <div className="w-14 h-14 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-10">
+                      <svg className="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-gradient-to-b from-gray-200 to-transparent my-3"></div>
-                    <div className="px-1">
-                      <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Étape 1</div>
-                      <h4 className="font-extrabold text-[#052821] text-[15px] mb-1 leading-tight">Opportunités</h4>
-                      <p className="text-[12px] text-gray-500 font-medium leading-snug">Repérer les opportunités.</p>
+                    <div className="w-[1px] h-6 bg-gray-200 ml-7 relative z-0"></div>
+                    <div className="pt-1">
+                      <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">01.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Opportunités</h4>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Repérer les opportunités.</p>
                     </div>
                   </div>
 
                   {/* Step 2 */}
-                  <div className="flex flex-col items-center text-center relative z-10">
-                    <div className="w-16 h-16 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-20">
-                      <svg className="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                  <div className="flex flex-col items-start relative z-10">
+                    <div className="w-14 h-14 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-10">
+                      <svg className="w-7 h-7 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-gradient-to-b from-gray-200 to-transparent my-3"></div>
-                    <div className="px-1">
-                      <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Étape 2</div>
-                      <h4 className="font-extrabold text-[#052821] text-[15px] mb-1 leading-tight">Rentabilité</h4>
-                      <p className="text-[12px] text-gray-500 font-medium leading-snug">Simuler le projet.</p>
+                    <div className="w-[1px] h-6 bg-gray-200 ml-7 relative z-0"></div>
+                    <div className="pt-1">
+                      <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">02.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Rentabilité</h4>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Simuler le projet.</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Row 2 */}
-                <div className="relative grid grid-cols-2 gap-4 w-full mt-2">
-                  <svg className="absolute top-[32px] left-0 w-full h-[60px] -translate-y-1/2 z-0 overflow-visible pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
-                    <path d="M -10 50 L 25 50 Q 50 -20, 75 50 L 110 50" fill="none" stroke="url(#tubeGrad)" strokeWidth="12" vectorEffect="non-scaling-stroke" strokeLinecap="round" filter="url(#tubeShadow)" />
-                  </svg>
-                  
+                <div className="relative grid grid-cols-2 gap-6 w-full">
+                  <div className="absolute top-[28px] left-[25%] right-[25%] h-[1px] bg-gray-200 z-0"></div>
+
                   {/* Step 3 */}
-                  <div className="flex flex-col items-center text-center relative z-10">
-                    <div className="w-16 h-16 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-20">
-                      <svg className="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                  <div className="flex flex-col items-start relative z-10">
+                    <div className="w-14 h-14 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-10">
+                      <svg className="w-7 h-7 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-gradient-to-b from-gray-200 to-transparent my-3"></div>
-                    <div className="px-1">
-                      <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Étape 3</div>
-                      <h4 className="font-extrabold text-[#052821] text-[15px] mb-1 leading-tight">Mise en place</h4>
-                      <p className="text-[12px] text-gray-500 font-medium leading-snug">Se faire accompagner.</p>
+                    <div className="w-[1px] h-6 bg-gray-200 ml-7 relative z-0"></div>
+                    <div className="pt-1">
+                      <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">03.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Mise en place</h4>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Se faire accompagner.</p>
                     </div>
                   </div>
 
                   {/* Step 4 */}
-                  <div className="flex flex-col items-center text-center relative z-10">
-                    <div className="w-16 h-16 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-20">
-                      <svg className="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
+                  <div className="flex flex-col items-start relative z-10">
+                    <div className="w-14 h-14 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-10">
+                      <svg className="w-7 h-7 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-gradient-to-b from-gray-200 to-transparent my-3"></div>
-                    <div className="px-1">
-                      <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Étape 4</div>
-                      <h4 className="font-extrabold text-[#052821] text-[15px] mb-1 leading-tight">Pilotage IA</h4>
-                      <p className="text-[12px] text-gray-500 font-medium leading-snug">Précision au quotidien.</p>
+                    <div className="w-[1px] h-6 bg-gray-200 ml-7 relative z-0"></div>
+                    <div className="pt-1">
+                      <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">04.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Pilotage IA</h4>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Précision au quotidien.</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Row 3 */}
-                <div className="relative grid grid-cols-2 gap-4 w-full mt-2">
-                  <svg className="absolute top-[32px] left-0 w-full h-[60px] -translate-y-1/2 z-0 overflow-visible pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
-                    <path d="M -10 50 L 25 50 Q 50 120, 75 50 L 110 50" fill="none" stroke="url(#tubeGrad)" strokeWidth="12" vectorEffect="non-scaling-stroke" strokeLinecap="round" filter="url(#tubeShadow)" />
-                  </svg>
-                  
+                <div className="relative grid grid-cols-2 gap-6 w-full">
+                  <div className="absolute top-[28px] left-[25%] right-[25%] h-[1px] bg-gray-200 z-0"></div>
+
                   {/* Step 5 */}
-                  <div className="flex flex-col items-center text-center relative z-10">
-                    <div className="w-16 h-16 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-20">
-                      <svg className="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+                  <div className="flex flex-col items-start relative z-10">
+                    <div className="w-14 h-14 bg-white rounded-2xl shadow-lg border border-gray-100 flex items-center justify-center relative z-10">
+                      <svg className="w-7 h-7 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-gradient-to-b from-gray-200 to-transparent my-3"></div>
-                    <div className="px-1">
-                      <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Étape 5</div>
-                      <h4 className="font-extrabold text-[#052821] text-[15px] mb-1 leading-tight">Production</h4>
-                      <p className="text-[12px] text-gray-500 font-medium leading-snug">Quantité et qualité.</p>
+                    <div className="w-[1px] h-6 bg-gray-200 ml-7 relative z-0"></div>
+                    <div className="pt-1">
+                      <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">05.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Production</h4>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Quantité et qualité.</p>
                     </div>
                   </div>
 
                   {/* Step 6 */}
-                  <div className="flex flex-col items-center text-center relative z-10">
-                    <div className="w-16 h-16 bg-[#DEF7F2] rounded-2xl shadow-md border border-[#22c55e]/20 flex items-center justify-center relative z-20">
-                      <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  <div className="flex flex-col items-start relative z-10">
+                    <div className="w-14 h-14 bg-[#DEF7F2] rounded-2xl shadow-md border border-[#22c55e]/20 flex items-center justify-center relative z-10">
+                      <svg className="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </div>
-                    <div className="w-[1px] h-6 bg-gradient-to-b from-green-200 to-transparent my-3"></div>
-                    <div className="px-1">
-                      <div className="text-[10px] font-bold text-[#22c55e] uppercase tracking-wider mb-1">Objectif</div>
-                      <h4 className="font-extrabold text-[#052821] text-[15px] mb-1 leading-tight">Ventes</h4>
-                      <p className="text-[12px] text-gray-500 font-medium leading-snug">Meilleur prix.</p>
+                    <div className="w-[1px] h-6 bg-green-200 ml-7 relative z-0"></div>
+                    <div className="pt-1">
+                      <div className="text-[11px] font-extrabold text-[#22c55e]/60 tracking-wider mb-1 font-mono">06.</div>
+                      <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Ventes</h4>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Meilleur prix.</p>
                     </div>
                   </div>
                 </div>
@@ -283,6 +258,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+
 
 
         {/* --- 4.1 CULTIPLAN (VERT) --- */}
