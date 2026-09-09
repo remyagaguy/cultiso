@@ -54,7 +54,7 @@ export default function Home() {
         <section className="w-full bg-[#fcfcfc] px-6 py-20 lg:py-24 border-t border-[#052821]/10">
           <div className="max-w-[1200px] mx-auto">
             <div className="text-center max-w-[1000px] mx-auto mb-16 md:mb-20">
-              <h2 className="text-[clamp(30px,4vw,48px)] font-unbounded font-bold text-[#052821] mb-6 tracking-[-0.02em] leading-[1.1]">
+              <h2 className="text-[clamp(24px,3.5vw,36px)] font-unbounded font-bold text-[#052821] mb-6 tracking-[-0.02em] leading-[1.2]">
                 L'improvisation ruine vos investissements <br className="hidden md:block" /> 
                 <span className="bg-gradient-to-r from-gray-400 to-gray-300 bg-clip-text text-transparent">— Cultiso vous donne les outils pour les rentabiliser.</span>
               </h2>
@@ -1078,5 +1078,6 @@ export default function Home() {
     </>
   );
 }
+
 
 
