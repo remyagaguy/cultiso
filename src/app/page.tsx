@@ -69,7 +69,7 @@ export default function Home() {
                 <div className="bg-white p-6 sm:p-8 flex flex-col items-center justify-start text-center hover:bg-gray-50 transition-colors cursor-default relative group min-h-[200px] sm:min-h-[240px]">
                   <div className="text-[10px] sm:text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-wider text-gray-400 bg-gray-50 group-hover:bg-gray-100 mb-6 transition-colors">Étape 1</div>
                   <div className="text-blue-500 mb-4 transition-transform group-hover:scale-110">
-                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>
                   </div>
                   <h4 className="font-extrabold text-[#052821] text-[15px] sm:text-[18px] mb-2">Opportunités</h4>
                   <p className="text-[12px] sm:text-[14px] text-gray-500 font-medium leading-snug">Repérer les opportunités d'investissement.</p>
@@ -89,7 +89,7 @@ export default function Home() {
                 <div className="bg-white p-6 sm:p-8 flex flex-col items-center justify-start text-center hover:bg-gray-50 transition-colors cursor-default relative group min-h-[200px] sm:min-h-[240px]">
                   <div className="text-[10px] sm:text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-wider text-gray-400 bg-gray-50 group-hover:bg-gray-100 mb-6 transition-colors">Étape 3</div>
                   <div className="text-orange-500 mb-4 transition-transform group-hover:scale-110">
-                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
                   </div>
                   <h4 className="font-extrabold text-[#052821] text-[15px] sm:text-[18px] mb-2">Mise en place</h4>
                   <p className="text-[12px] sm:text-[14px] text-gray-500 font-medium leading-snug">Se faire accompagner par des experts qualifiés.</p>
@@ -99,7 +99,7 @@ export default function Home() {
                 <div className="bg-white p-6 sm:p-8 flex flex-col items-center justify-start text-center hover:bg-gray-50 transition-colors cursor-default relative group min-h-[200px] sm:min-h-[240px]">
                   <div className="text-[10px] sm:text-[11px] font-bold px-3 py-1 rounded-md uppercase tracking-wider text-gray-400 bg-gray-50 group-hover:bg-gray-100 mb-6 transition-colors">Étape 4</div>
                   <div className="text-purple-500 mb-4 transition-transform group-hover:scale-110">
-                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    <svg className="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
                   </div>
                   <h4 className="font-extrabold text-[#052821] text-[15px] sm:text-[18px] mb-2">Pilotage IA</h4>
                   <p className="text-[12px] sm:text-[14px] text-gray-500 font-medium leading-snug">Piloter son projet avec précision au quotidien.</p>
