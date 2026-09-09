@@ -24,7 +24,10 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   title: "Cultiso - Intelligence Agrobusiness",
-  description: "Plateforme d'Intelligence Agrobusiness",
+  description: "Plateforme d'Intelligence Agrobusiness pour la conquête de la souveraineté alimentaire africaine.",
+  openGraph: {
+    images: ['/hero-bg.jpeg'],
+  },
 };
 
 export default function RootLayout({
