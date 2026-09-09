@@ -19,14 +19,9 @@ export default function Home() {
 
           <div className="max-w-[1200px] w-full mx-auto relative z-20">
             <div className="max-w-[850px] flex flex-col items-start">
-              <Link href="#processus" className="group mb-5 md:mb-6 inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white text-[#052821] shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_25px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all duration-300 w-fit">
-                  <span className="flex items-center gap-2.5">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D35400] opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D35400]"></span>
-                    </span>
-                    <span className="text-[13px] md:text-[14px] font-bold tracking-tight">Le premier écosystème intelligent pour l'agriculture</span>
-                  </span>
+              <Link href="#processus" className="group mb-5 md:mb-6 inline-flex items-center gap-3 pr-5 pl-1.5 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:border-white/20 transition-all duration-300 w-fit">
+                  <span className="bg-[#D35400] text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-[0_0_10px_rgba(211,84,0,0.3)]">Vision</span>
+                  <span className="text-[13px] md:text-[14px] text-white/90 font-medium tracking-wide">Le premier écosystème intelligent pour l'agriculture</span>
                 </Link>
               
               <h1 className="mb-4 md:mb-5 text-[clamp(36px,6vw,68px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
