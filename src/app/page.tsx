@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <main className="flex-grow flex flex-col items-center">
         {/* --- 1. HERO SECTION --- */}
-        <section className="relative w-full px-6 pt-24 pb-16 md:pt-32 lg:pt-32 lg:pb-24 flex items-center bg-[#052821] overflow-hidden">
+        <section className="relative w-full px-6 pt-20 pb-16 md:pt-28 lg:pt-28 lg:pb-24 flex items-center bg-[#052821] overflow-hidden">
           {/* Background Image with Gradient Overlay */}
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-r from-[#052821] via-[#052821]/90 to-[#052821]/20 z-10"></div>
@@ -1088,6 +1088,7 @@ export default function Home() {
     </>
   );
 }
+
 
 
 
