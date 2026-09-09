@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+﻿import { Button } from 'antd';
 import Link from 'next/link';
 
 export default function Home() {
@@ -125,7 +125,7 @@ export default function Home() {
                     <div className="pt-2">
                       <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">04.</div>
                       <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Pilotage IA</h4>
-                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Pilotez vos cultures avec précision au quotidien grâce à nos algorithmes intelligents.</p>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Pilotez votre exploitation avec précision au quotidien grâce à nos algorithmes intelligents.</p>
                     </div>
                   </div>
 
@@ -138,7 +138,7 @@ export default function Home() {
                     <div className="pt-2">
                       <div className="text-[13px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">05.</div>
                       <h4 className="font-extrabold text-[#052821] text-[20px] lg:text-[22px] tracking-tight mb-2">Production</h4>
-                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Optimisez vos rendements pour produire en grande quantité avec une qualité irréprochable.</p>
+                      <p className="text-[14px] lg:text-[15px] text-gray-500 font-medium leading-relaxed">Menez à bien vos cycles agricoles et produisez en quantité ainsi qu'en qualité.</p>
                     </div>
                   </div>
 
@@ -218,7 +218,7 @@ export default function Home() {
                     <div className="pt-1 flex flex-col items-center">
                       <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">04.</div>
                       <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Pilotage IA</h4>
-                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Pilotez vos cultures avec précision au quotidien.</p>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Pilotez votre exploitation avec précision au quotidien.</p>
                     </div>
                   </div>
                 </div>
@@ -236,7 +236,7 @@ export default function Home() {
                     <div className="pt-1 flex flex-col items-center">
                       <div className="text-[11px] font-extrabold text-gray-300 tracking-wider mb-1 font-mono">05.</div>
                       <h4 className="font-extrabold text-[#052821] text-[16px] leading-tight mb-1">Production</h4>
-                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Optimisez pour produire en grande quantité.</p>
+                      <p className="text-[13px] text-gray-500 font-medium leading-snug">Menez à bien vos cycles et produisez en quantité et en qualité.</p>
                     </div>
                   </div>
 
@@ -1077,3 +1077,4 @@ export default function Home() {
     </>
   );
 }
+
