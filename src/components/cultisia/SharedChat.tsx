@@ -482,7 +482,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
   );
 
   return (
-    <div className={isEmbedded ? "w-full h-full flex bg-white font-manrope relative" : "fixed inset-0 z-[9999] flex bg-white font-manrope"} style={!isEmbedded ? { margin: 0, padding: 0 } : {}}>
+    <div className={isEmbedded ? "w-full h-full flex bg-white font-manrope relative" : "w-full h-full flex bg-white font-manrope relative"} style={{}}>
       {/* â•â•â•â•â•â•â• SIDEBAR â•â•â•â•â•â•â• */}
       {!hideSidebar && (
       <aside 

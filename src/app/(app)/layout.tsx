@@ -75,7 +75,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const sidebarWidth = collapsed ? "w-[72px]" : "w-[260px]";
 
   return (
-    <div className="h-screen overflow-hidden bg-[#F8F9FB] flex">
+    <div className="h-dvh overflow-hidden bg-[#F8F9FB] flex">
       {/* ══ MOBILE BACKDROP ══ */}
       {sidebarOpen && (
         <div
