@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -16,8 +16,10 @@ import {
   CloseOutlined,
   LogoutOutlined,
   ThunderboltOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
 } from "@ant-design/icons";
-import { Dropdown, Avatar, Badge } from "antd";
+import { Dropdown, Avatar, Badge, Tooltip } from "antd";
 import { createClient } from "@/lib/supabase/client";
 
 /* ─── Navigation items ─── */
@@ -26,32 +28,28 @@ const NAV_ITEMS = [
   { name: "Cultiplan", href: "/cultiplan", icon: LineChartOutlined },
   { name: "Cultima", href: "/cultima", icon: ThunderboltOutlined },
   { name: "Cultisia", href: "/cultisia", icon: RobotOutlined },
-  {
-    name: "Cultishop",
-    href: "/cultishop",
-    icon: ShopOutlined,
-    disabled: true,
-  },
-  {
-    name: "Cultiseil",
-    href: "/cultiseil",
-    icon: UserOutlined,
-    disabled: true,
-  },
+  { name: "Cultishop", href: "/cultishop", icon: ShopOutlined, disabled: true },
+  { name: "Cultiseil", href: "/cultiseil", icon: UserOutlined, disabled: true },
 ];
 
-/* ─── Sidebar width constant (keep in sync) ─── */
-const SIDEBAR_W = "w-[260px] min-w-[260px] max-w-[260px]";
-
-export default function AppLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
+
+  /* Persist collapsed state */
+  useEffect(() => {
+    const saved = localStorage.getItem("cultiso_sidebar_collapsed");
+    if (saved === "true") setCollapsed(true);
+  }, []);
+
+  const toggleCollapsed = () => {
+    const next = !collapsed;
+    setCollapsed(next);
+    localStorage.setItem("cultiso_sidebar_collapsed", String(next));
+  };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -74,11 +72,11 @@ export default function AppLayout({
     ],
   };
 
+  const sidebarWidth = collapsed ? "w-[72px]" : "w-[260px]";
+
   return (
     <div className="h-screen overflow-hidden bg-[#F8F9FB] flex">
-      {/* ════════════════════════════════════════════════════
-          MOBILE BACKDROP
-         ════════════════════════════════════════════════════ */}
+      {/* ══ MOBILE BACKDROP ══ */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
@@ -86,39 +84,31 @@ export default function AppLayout({
         />
       )}
 
-      {/* ════════════════════════════════════════════════════
-          SIDEBAR — fixed on mobile, static on lg+
-         ════════════════════════════════════════════════════ */}
+      {/* ══ SIDEBAR ══ */}
       <aside
         className={[
-          // Base
           "fixed inset-y-0 left-0 z-50 flex flex-col bg-[#052821]",
-          // Fixed width — never shrink, never grow
-          SIDEBAR_W,
-          // Transform for mobile slide-in
-          "transform transition-transform duration-300 ease-in-out",
-          sidebarOpen ? "translate-x-0" : "-translate-x-full",
-          // On lg+: always visible, static in flow
-          "lg:translate-x-0 lg:static",
+          "transform transition-all duration-300 ease-in-out",
+          // Mobile: always full-width sidebar when open
+          sidebarOpen ? "translate-x-0 w-[260px]" : "-translate-x-full w-[260px]",
+          // Desktop: static, respect collapsed state
+          "lg:translate-x-0 lg:static lg:shrink-0",
+          collapsed ? "lg:w-[72px] lg:min-w-[72px]" : "lg:w-[260px] lg:min-w-[260px]",
         ].join(" ")}
       >
-        {/* Logo */}
-        <div className="flex h-16 items-center justify-between px-5 border-b border-white/10">
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-2.5 no-underline"
-          >
-            <div className="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center border border-white/15">
-              <img
-                src="/favicon.png"
-                alt="Cultiso"
-                className="w-5 h-5 object-contain"
-              />
+        {/* Logo row */}
+        <div className="flex h-16 items-center justify-between px-4 border-b border-white/10 shrink-0">
+          <Link href="/dashboard" className="flex items-center gap-2.5 no-underline overflow-hidden">
+            <div className="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center border border-white/15 shrink-0">
+              <img src="/favicon.png" alt="Cultiso" className="w-5 h-5 object-contain" />
             </div>
-            <span className="font-unbounded font-bold text-white text-lg tracking-tight">
-              cultiso
-            </span>
+            {!collapsed && (
+              <span className="font-unbounded font-bold text-white text-lg tracking-tight whitespace-nowrap">
+                cultiso
+              </span>
+            )}
           </Link>
+          {/* Mobile close */}
           <button
             className="lg:hidden text-white/60 hover:text-white p-1"
             onClick={() => setSidebarOpen(false)}
@@ -128,70 +118,111 @@ export default function AppLayout({
         </div>
 
         {/* Nav links */}
-        <nav className="flex-1 overflow-y-auto px-3 py-6">
+        <nav className="flex-1 overflow-y-auto px-2.5 py-5">
           <ul className="space-y-1 list-none m-0 p-0">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname?.startsWith(item.href);
               const Icon = item.icon;
 
+              const linkContent = (
+                <div
+                  className={[
+                    "flex items-center rounded-lg transition-all duration-150",
+                    collapsed ? "justify-center px-0 py-2.5" : "gap-3 px-3 py-2.5",
+                    item.disabled
+                      ? "text-white/25 cursor-not-allowed"
+                      : isActive
+                        ? "bg-[#22c55e] text-white shadow-md shadow-[#22c55e]/25"
+                        : "text-white/60 hover:bg-white/8 hover:text-white",
+                  ].join(" ")}
+                >
+                  <Icon className={collapsed ? "text-lg" : "text-base"} />
+                  {!collapsed && (
+                    <>
+                      <span className="text-sm font-medium whitespace-nowrap">{item.name}</span>
+                      {item.disabled && (
+                        <span className="ml-auto text-[9px] font-bold uppercase tracking-wider bg-white/5 text-white/30 px-1.5 py-0.5 rounded border border-white/10">
+                          Bientôt
+                        </span>
+                      )}
+                    </>
+                  )}
+                </div>
+              );
+
               if (item.disabled) {
                 return (
                   <li key={item.name}>
-                    <div className="flex items-center gap-3 px-3 py-2.5 text-white/30 rounded-lg cursor-not-allowed text-sm">
-                      <Icon />
-                      <span>{item.name}</span>
-                      <span className="ml-auto text-[9px] font-bold uppercase tracking-wider bg-white/5 text-white/30 px-1.5 py-0.5 rounded border border-white/10">
-                        Bientôt
-                      </span>
-                    </div>
+                    {collapsed ? (
+                      <Tooltip title={item.name} placement="right">
+                        {linkContent}
+                      </Tooltip>
+                    ) : (
+                      linkContent
+                    )}
                   </li>
                 );
               }
 
               return (
                 <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setSidebarOpen(false)}
-                    className={[
-                      "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium no-underline transition-all duration-150",
-                      isActive
-                        ? "bg-[#22c55e] text-white shadow-md shadow-[#22c55e]/25"
-                        : "text-white/60 hover:bg-white/8 hover:text-white",
-                    ].join(" ")}
-                  >
-                    <Icon />
-                    <span>{item.name}</span>
-                  </Link>
+                  {collapsed ? (
+                    <Tooltip title={item.name} placement="right">
+                      <Link
+                        href={item.href}
+                        onClick={() => setSidebarOpen(false)}
+                        className="no-underline block"
+                      >
+                        {linkContent}
+                      </Link>
+                    </Tooltip>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={() => setSidebarOpen(false)}
+                      className="no-underline block"
+                    >
+                      {linkContent}
+                    </Link>
+                  )}
                 </li>
               );
             })}
           </ul>
         </nav>
 
-        {/* Bottom card */}
-        <div className="px-3 pb-4">
-          <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-            <p className="text-white font-semibold text-xs mb-1">
-              Besoin d'aide ?
-            </p>
-            <p className="text-white/50 text-[11px] mb-3 leading-relaxed">
-              Contactez notre support agronomique.
-            </p>
-            <button className="w-full py-1.5 bg-white/10 hover:bg-white/15 text-white text-[11px] font-semibold rounded-lg transition-colors border border-white/10">
-              Ouvrir un ticket
-            </button>
-          </div>
+        {/* Collapse toggle (desktop only) */}
+        <div className="hidden lg:block border-t border-white/10 px-2.5 py-3 shrink-0">
+          <button
+            onClick={toggleCollapsed}
+            className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-white/50 hover:text-white hover:bg-white/8 transition-colors text-sm"
+          >
+            {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            {!collapsed && <span className="font-medium">Réduire</span>}
+          </button>
         </div>
+
+        {/* Bottom help card (only when expanded) */}
+        {!collapsed && (
+          <div className="px-3 pb-4 shrink-0 hidden lg:block">
+            <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+              <p className="text-white font-semibold text-xs mb-1 m-0">Besoin d'aide ?</p>
+              <p className="text-white/50 text-[11px] mb-3 m-0 leading-relaxed">
+                Contactez notre support agronomique.
+              </p>
+              <button className="w-full py-1.5 bg-white/10 hover:bg-white/15 text-white text-[11px] font-semibold rounded-lg transition-colors border border-white/10">
+                Ouvrir un ticket
+              </button>
+            </div>
+          </div>
+        )}
       </aside>
 
-      {/* ════════════════════════════════════════════════════
-          MAIN COLUMN
-         ════════════════════════════════════════════════════ */}
+      {/* ══ MAIN COLUMN ══ */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Topbar */}
-        <header className="h-16 flex items-center justify-between gap-4 border-b border-gray-200 bg-white px-4 sm:px-6 lg:px-8 shrink-0">
-          {/* Left: hamburger + search */}
+        <header className="h-16 flex items-center justify-between gap-4 border-b border-gray-200 bg-white px-4 sm:px-6 lg:px-8 shrink-0 z-20">
+          {/* Left */}
           <div className="flex items-center gap-4 flex-1 min-w-0">
             <button
               className="lg:hidden text-gray-500 hover:text-gray-800 p-1"
@@ -210,7 +241,7 @@ export default function AppLayout({
             </div>
           </div>
 
-          {/* Right: notifications + profile */}
+          {/* Right */}
           <div className="flex items-center gap-4 shrink-0">
             <button className="text-gray-400 hover:text-gray-600 p-1">
               <Badge dot color="#EF4444" offset={[-2, 4]}>
@@ -218,27 +249,15 @@ export default function AppLayout({
               </Badge>
             </button>
 
-            <div
-              className="hidden lg:block h-5 w-px bg-gray-200"
-              aria-hidden="true"
-            />
+            <div className="hidden lg:block h-5 w-px bg-gray-200" aria-hidden="true" />
 
-            <Dropdown
-              menu={userMenuItems}
-              placement="bottomRight"
-              trigger={["click"]}
-            >
+            <Dropdown menu={userMenuItems} placement="bottomRight" trigger={["click"]}>
               <div className="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 rounded-full py-1 px-1.5 transition-colors">
-                <Avatar
-                  size={32}
-                  className="bg-[#D35400] font-unbounded font-bold text-xs"
-                >
+                <Avatar size={32} className="bg-[#D35400] font-unbounded font-bold text-xs">
                   RA
                 </Avatar>
                 <div className="hidden lg:flex flex-col items-start leading-tight">
-                  <span className="text-sm font-semibold text-gray-800">
-                    Rémy Agaguy
-                  </span>
+                  <span className="text-sm font-semibold text-gray-800">Rémy Agaguy</span>
                   <span className="text-[11px] text-gray-400">Admin</span>
                 </div>
               </div>
@@ -246,7 +265,7 @@ export default function AppLayout({
           </div>
         </header>
 
-        {/* Page content */}
+        {/* Page content — scrollable area */}
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
     </div>

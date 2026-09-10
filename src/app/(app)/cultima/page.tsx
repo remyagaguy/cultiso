@@ -18,7 +18,7 @@ export default function CultimaPage() {
   // Idéalement cela viendrait de `onConfigComplete` du composant SharedChat.
   
   return (
-    <div className="flex-1 flex h-[calc(100vh-80px)] flex-col md:flex-row bg-white font-manrope">
+    <div className="flex-1 flex h-[calc(100vh-64px)] flex-col md:flex-row bg-white font-manrope">
       {/* 1. LEFT SIDEBAR */}
       <aside className="hidden">
         <Link href="/" className="opacity-80 hover:opacity-100 transition-opacity">
