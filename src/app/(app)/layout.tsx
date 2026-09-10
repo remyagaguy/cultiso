@@ -97,7 +97,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         ].join(" ")}
       >
         {/* Logo row */}
-        <div className="flex h-16 items-center justify-between px-4 border-b border-white/10 shrink-0">
+        <div className="flex h-[72px] items-center justify-between px-4 border-b border-white/10 shrink-0">
           <Link href="/dashboard" className="flex items-center gap-2.5 no-underline overflow-hidden">
             <div className="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center border border-white/15 shrink-0">
               <img src="/favicon.png" alt="Cultiso" className="w-5 h-5 object-contain" />
@@ -221,7 +221,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {/* ══ MAIN COLUMN ══ */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Topbar */}
-        <header className="h-16 flex items-center justify-between gap-4 border-b border-gray-200 bg-white px-4 sm:px-6 lg:px-8 shrink-0 z-20">
+        <header className="h-[72px] flex items-center justify-between gap-4 border-b border-gray-100 bg-white px-4 sm:px-6 lg:px-8 shrink-0 z-20 shadow-[0_2px_10px_rgba(0,0,0,0.02)] relative">
           {/* Left */}
           <div className="flex items-center gap-4 flex-1 min-w-0">
             <button
