@@ -13,7 +13,8 @@ import {
   ThunderboltOutlined,
   CheckCircleOutlined,
   ClockCircleOutlined,
-  WarningOutlined
+  WarningOutlined,
+  ShopOutlined
 } from '@ant-design/icons';
 import Link from 'next/link';
 
