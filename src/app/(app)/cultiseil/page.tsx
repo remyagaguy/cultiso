@@ -113,9 +113,9 @@ export default function CultiseilPage() {
   }
 
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col md:flex-row bg-white font-manrope">
+    <div className="flex-1 flex h-[calc(100vh-80px)] flex-col md:flex-row bg-white font-manrope">
       {/* 1. LEFT SIDEBAR (Ultra Minimalist) */}
-      <aside className="hidden md:flex w-[72px] bg-white border-r border-gray-200 flex-col items-center py-6 gap-8 flex-shrink-0 z-20">
+      <aside className="hidden" bg-white border-r border-gray-200 flex-col items-center py-6 gap-8 flex-shrink-0 z-20">
         <Link href="/" className="opacity-80 hover:opacity-100 transition-opacity">
           <img src="/logo.png" alt="Cultiso" className="w-8 h-8 object-contain" />
         </Link>
