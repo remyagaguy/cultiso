@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { Form, Input, Button, Card, Typography, Alert, Result } from "antd";
@@ -67,10 +67,10 @@ export default function RegisterPage() {
             <>
               <div className="text-center mb-8">
                 <Title level={2} className="!mb-2 !text-[#052821] !font-unbounded">
-                  Accès Anticipé
+                  Bienvenue sur Cultiso 🌱
                 </Title>
                 <Text className="text-gray-500 text-base">
-                  Cultiso est en Beta privée. Inscrivez-vous sur la liste d'attente.
+                  Cultiso est actuellement en version bêta privée. Inscrivez-vous pour obtenir un accès privilégié et faire partie de nos premiers testeurs !
                 </Text>
               </div>
 
@@ -125,16 +125,16 @@ export default function RegisterPage() {
                   <Button 
                     type="primary" 
                     htmlType="submit" 
-                    className="w-full py-3 text-[16px] font-bold tracking-wide shadow-md rounded-lg"
+                    className="w-full py-3 text-[16px] font-bold tracking-wide shadow-md rounded-lg h-auto"
                     loading={loading}
                   >
-                    Rejoindre la liste d'attente
+                    Demander mon accès anticipé
                   </Button>
                 </Form.Item>
               </Form>
 
               <div className="mt-8 text-center text-gray-500 text-sm">
-                Vous avez déjà reçu une invitation ?{' '}
+                Déjà membre ou invité ?{' '}
                 <Link href="/login" className="text-[#D35400] hover:text-[#E67E22] font-semibold transition-colors">
                   Se connecter
                 </Link>
