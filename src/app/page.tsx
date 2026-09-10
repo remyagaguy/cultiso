@@ -19,24 +19,24 @@ export default function Home() {
 
           <div className="max-w-[1200px] w-full mx-auto relative z-20">
             <div className="max-w-[850px] flex flex-col items-start">
-              <Link href="#processus" className="group mb-5 md:mb-6 inline-flex items-center gap-3 pr-5 pl-1.5 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:border-white/20 transition-all duration-300 w-fit">
+              <Link href="#processus" className="group mb-5 md:mb-6 inline-flex items-center gap-2 sm:gap-3 pr-3 sm:pr-5 pl-1.5 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:border-white/20 transition-all duration-300 w-fit">
                   <span className="bg-[#22c55e] text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.3)]">Cultiso</span>
-                  <span className="text-[13px] md:text-[14px] text-white/90 font-medium tracking-wide">Le premier écosystème intelligent pour l'agriculture</span>
+                  <span className="text-[11px] sm:text-[13px] md:text-[14px] text-white/90 font-medium tracking-wide whitespace-nowrap">Le premier écosystème intelligent pour l'agriculture</span>
                 </Link>
               
-              <h1 className="mb-6 md:mb-5 text-[clamp(36px,6vw,68px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
+              <h1 className="mb-6 md:mb-6 text-[clamp(36px,6vw,68px)] font-unbounded font-bold text-white leading-[1.05] tracking-[-0.03em]">
                 <span className="sm:whitespace-nowrap">L'agribusiness africain,</span> <br className="hidden sm:block" />
                 <span className="text-[#D35400] sm:whitespace-nowrap">sans improvisation.</span>
               </h1>
               
-              <p className="mb-10 md:mb-10 text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope font-semibold">
+              <p className="mb-6 md:mb-8 text-[17px] md:text-[19px] leading-[1.5] text-white/95 font-manrope font-semibold">
                 Repérer les meilleures <span className="text-[#F39C12] font-bold">opportunités</span> d'investissement, simuler la <span className="text-[#F39C12] font-bold">rentabilité</span> financière de vos projets avant d'<span className="text-[#F39C12] font-bold">investir</span>, <span className="text-[#F39C12] font-bold">produire</span> sans improvisation et <span className="text-[#F39C12] font-bold">vendre</span> vos récoltes au meilleur prix...
                 <span className="block mt-4 md:mt-0 md:inline">
                   {' '}C'est ce que <span className="text-[#F39C12] font-bold">Cultiso</span> vous permet de faire grâce à un ensemble d'outils conçus pour vous <span className="text-[#F39C12] font-bold">accompagner</span> dans la <span className="text-[#F39C12] font-bold">mise en place</span> et la <span className="text-[#F39C12] font-bold">gestion</span> de vos <span className="text-[#F39C12] font-bold">projets agricoles</span>.
                 </span>
               </p>
               
-              <div className="pt-10 md:pt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+              <div className="pt-0 md:pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
                   <Link href="/cultiplan" className="group">
                     <button className="px-6 sm:px-8 h-[54px] text-[15.5px] font-bold bg-[#22c55e] hover:bg-[#16a34a] text-white rounded-xl shadow-[0_6px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2.5">
                       <svg className="w-5 h-5 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
@@ -45,7 +45,7 @@ export default function Home() {
                     </button>
                   </Link>
                   
-                  <div className="hidden sm:flex items-center gap-3">
+                  <div className="flex items-center gap-3 mt-1 sm:mt-0">
                     <div className="flex -space-x-2">
                       <div className="w-[34px] h-[34px] rounded-full border-2 border-[#052821] bg-[#16a34a] flex items-center justify-center text-[10px] font-bold text-white shadow-sm">MK</div>
                       <div className="w-[34px] h-[34px] rounded-full border-2 border-[#052821] bg-[#D35400] flex items-center justify-center text-[10px] font-bold text-white shadow-sm">SA</div>
@@ -60,7 +60,7 @@ export default function Home() {
                         <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                         <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                       </div>
-                      <span className="text-white/90 text-[12.5px] font-medium leading-none tracking-wide">Déjà +500 pionniers inscrits</span>
+                      <span className="text-white/90 text-[12.5px] font-medium leading-none tracking-wide">Déjà +50 agripreneurs inscrits</span>
                     </div>
                   </div>
                 </div>
