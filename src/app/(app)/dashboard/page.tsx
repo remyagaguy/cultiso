@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from 'react';
 import { Typography, Row, Col, Card, Avatar, Button, Progress, Tag } from 'antd';
@@ -207,13 +207,13 @@ export default function DashboardPage() {
                 { task: 'Achat Semences Soja', desc: 'Fournisseur AgriStore', time: 'Demain', type: 'pending', icon: <ClockCircleOutlined /> },
               ].map((item, i) => (
                 <div key={i} className="flex gap-3 items-start">
-                  <div className={mt-0.5 }>
+                  <div className={`mt-0.5 ${item.type === 'warning' ? 'text-red-500' : 'text-gray-400'}`}>
                     {item.icon}
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-gray-800 mb-1">{item.task}</h4>
                     <p className="text-xs text-gray-500 mb-2">{item.desc}</p>
-                    <span className={	ext-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-md }>
+                    <span className={`text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-md ${item.type === 'warning' ? 'bg-red-50 text-red-600' : 'bg-gray-100 text-gray-600'}`}>
                       {item.time}
                     </span>
                   </div>
