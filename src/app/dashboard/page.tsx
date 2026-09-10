@@ -18,7 +18,7 @@ export default function DashboardPage() {
       description: "Business plan & étude de marché agricole",
       icon: <LineChartOutlined className="text-4xl text-[#D35400] mb-4" />,
       color: "bg-white",
-      href: "/simulateur",
+      href: "/cultiplan",
       actionText: "Ouvrir Cultiplan"
     },
     {
