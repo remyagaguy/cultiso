@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -38,10 +38,10 @@ export const Footer = () => {
         <div>
           <h4 className="font-bold mb-6 text-[15px]">Produits</h4>
           <ul className="space-y-4 text-[14px] text-gray-400 font-manrope">
-            <li><Link href="/simulateur" className="hover:text-white transition-colors">Cultiplan</Link></li>
-            <li><Link href="#" className="hover:text-white transition-colors">Cultisia</Link></li>
-            <li><Link href="#" className="hover:text-white transition-colors">Cultiseil</Link></li>
-            <li><Link href="#" className="hover:text-white transition-colors">Cultishop</Link></li>
+            <li><Link href="/register" className="hover:text-white transition-colors">Cultiplan</Link></li>
+            <li><Link href="/register" className="hover:text-white transition-colors">Cultisia</Link></li>
+            <li><Link href="/register" className="hover:text-white transition-colors">Cultiseil</Link></li>
+            <li><Link href="/register" className="hover:text-white transition-colors">Cultishop</Link></li>
           </ul>
         </div>
 

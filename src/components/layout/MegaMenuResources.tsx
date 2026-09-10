@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const MegaMenuResources = () => {
   return (
-    <div className="absolute top-[calc(100%+10px)] left-1/2 -translate-x-1/2 w-[800px] bg-white border border-gray-100 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] rounded-2xl hidden group-hover:block transition-all duration-300 z-50 overflow-hidden">
+    <div className="absolute top-[calc(100%+10px)] left-1/2 before:absolute before:-top-5 before:left-0 before:w-full before:h-5 before:bg-transparent before:content-[''] -translate-x-1/2 w-[800px] bg-white border border-gray-100 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] rounded-2xl hidden group-hover:block transition-all duration-300 z-50 overflow-hidden">
       <div className="flex p-10">
         
         {/* Colonnes des liens (2/3 de la largeur) */}
