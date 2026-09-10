@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={\\ \ \ h-full antialiased bg-[#ffffff]\}
+      className={unbounded.variable + " " + manrope.variable + " " + caveat.variable + " h-full antialiased bg-[#ffffff]"}
     >
       <body className="min-h-full flex flex-col font-manrope m-0 p-0 bg-[#ffffff] text-[#052821] selection:bg-[#f3fbe9] selection:text-[#052821]">
         <AntdRegistry>
