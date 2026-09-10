@@ -2,8 +2,6 @@
 import { Unbounded, Manrope, Caveat } from "next/font/google";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
 const unbounded = Unbounded({
@@ -38,28 +36,20 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${unbounded.variable} ${manrope.variable} ${caveat.variable} h-full antialiased bg-[#ffffff]`}
+      className={\\ \ \ h-full antialiased bg-[#ffffff]\}
     >
       <body className="min-h-full flex flex-col font-manrope m-0 p-0 bg-[#ffffff] text-[#052821] selection:bg-[#f3fbe9] selection:text-[#052821]">
-        <div dangerouslySetInnerHTML={{ __html: `<!--
-THESIS: Botanical greenhouse on warm parchment x Cultiso identity. A calm, editorial workspace.
-OWN-WORLD: Bright white canvas, warm parchment surfaces, very dark green text (Forest Ink), and vibrant brand accents (Orange LatÃ©rite).
-STORY: Users feel a calm, structured, and premium editorial environment while exploring agricultural market data.
-FIRST VIEWPORT: A clean minimal header, a parchment announcement pill, tight typography, and subtle hairline borders.
-FORM: The Botanical Greenhouse.
-FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
--->` }} />
         <AntdRegistry>
           <ConfigProvider
             theme={{
               token: {
-                colorPrimary: '#D35400', // Orange Cultiso
+                colorPrimary: '#D35400',
                 colorInfo: '#D35400',
-                colorBgBase: '#ffffff', // Blanc pur
+                colorBgBase: '#ffffff',
                 colorBgContainer: '#ffffff', 
                 fontFamily: 'var(--font-manrope)',
                 colorError: '#EF4444',
-                colorTextBase: '#052821', // Forest Ink
+                colorTextBase: '#052821',
               },
               components: {
                 Typography: {
@@ -68,12 +58,21 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
                 Button: {
                   colorPrimary: '#D35400',
                   colorPrimaryHover: '#E67E22',
-                  colorPrimaryActive: '#A04000',
-                  borderRadius: 6, 
+                  borderRadius: 8,
+                },
+                Input: {
+                  borderRadius: 8,
+                  colorBorder: 'rgba(5, 40, 33, 0.2)',
+                  colorBgContainer: '#fcfcfc',
+                },
+                Select: {
+                  borderRadius: 8,
+                  colorBorder: 'rgba(5, 40, 33, 0.2)',
+                  colorBgContainer: '#fcfcfc',
                 },
                 Card: {
-                  borderRadius: 9,
-                  colorBorderSecondary: 'rgba(5, 40, 33, 0.08)', // Hairline border
+                  borderRadiusLG: 12,
+                  colorBorderSecondary: 'rgba(5, 40, 33, 0.08)',
                 },
                 Table: {
                   borderRadius: 9,
@@ -82,13 +81,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
               }
             }}
           >
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow flex flex-col">
-                {children}
-              </main>
-              <Footer />
-            </div>
+            {children}
           </ConfigProvider>
         </AntdRegistry>
       </body>
