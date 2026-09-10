@@ -120,9 +120,9 @@ export const Header = () => {
             </button>
             <div className={`overflow-hidden transition-all duration-300 ${openMobileSection === 'produits' ? 'max-h-[300px] mb-4' : 'max-h-0'}`}>
               <div className="flex flex-col gap-4 pl-4 text-[17px] font-medium text-gray-600">
-                <Link href="/cultisia" onClick={() => setMobileMenuOpen(false)}>CultiSia</Link>
-                <Link href="/cultiplan" onClick={() => setMobileMenuOpen(false)}>CultiPlan</Link>
-                <Link href="/cultiseil" onClick={() => setMobileMenuOpen(false)}>CultiSeil</Link>
+                <Link href="/register" onClick={() => setMobileMenuOpen(false)}>CultiSia</Link>
+                <Link href="/register" onClick={() => setMobileMenuOpen(false)}>CultiPlan</Link>
+                <Link href="/register" onClick={() => setMobileMenuOpen(false)}>CultiSeil</Link>
                 <span className="text-gray-400">CultiShop (Bientôt)</span>
               </div>
             </div>

@@ -40,7 +40,7 @@ export default function Home() {
               </p>
               
               <div className="pt-0 md:pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-                  <Link href="/cultiplan" className="group">
+                  <Link href="/register" className="group">
                     <button className="px-6 sm:px-8 h-[54px] text-[15.5px] font-bold bg-[#22c55e] hover:bg-[#16a34a] text-white rounded-xl shadow-[0_6px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2.5">
                       <svg className="w-5 h-5 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
                       Simuler mon business
@@ -331,7 +331,7 @@ export default function Home() {
                 
                 {/* Buttons */}
                 <div className="flex flex-wrap items-center gap-4">
-                  <Link href="/cultiplan" className="bg-[#052821] hover:bg-[#0a4237] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#052821]/20 flex items-center justify-center gap-2">
+                  <Link href="/register" className="bg-[#052821] hover:bg-[#0a4237] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#052821]/20 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                     Lancer CultiPlan
                   </Link>
@@ -496,7 +496,7 @@ export default function Home() {
                 </div>
                 
                 <div className="flex flex-wrap items-center gap-4">
-                  <Link href="/cultisia" className="bg-[#D35400] hover:bg-[#b54700] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#D35400]/20 flex items-center justify-center gap-2">
+                  <Link href="/register" className="bg-[#D35400] hover:bg-[#b54700] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#D35400]/20 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                     Discuter avec Cultisia
                   </Link>
@@ -672,7 +672,7 @@ export default function Home() {
                 
                 {/* Buttons */}
                 <div className="flex flex-wrap items-center gap-4">
-                  <Link href="/cultima" className="bg-[#D35400] hover:bg-[#b54700] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#D35400]/20 flex items-center justify-center gap-2">
+                  <Link href="/register" className="bg-[#D35400] hover:bg-[#b54700] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#D35400]/20 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
                     Gérer mon business
                   </Link>
@@ -959,11 +959,11 @@ export default function Home() {
                 
                                 {/* Buttons */}
                 <div className="flex flex-wrap items-center gap-4">
-                  <Link href="/cultishop" className="bg-[#D35400] hover:bg-[#b54700] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#D35400]/20 flex items-center justify-center gap-2">
+                  <Link href="/register" className="bg-[#D35400] hover:bg-[#b54700] text-white px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-[#D35400]/20 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
                     Acheter des intrants
                   </Link>
-                  <Link href="/cultishop" className="bg-transparent border-2 border-[#D35400]/20 text-[#D35400] hover:border-[#D35400] px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 flex items-center justify-center gap-2">
+                  <Link href="/register" className="bg-transparent border-2 border-[#D35400]/20 text-[#D35400] hover:border-[#D35400] px-7 h-[48px] rounded-xl font-bold text-[15px] transition-all duration-300 flex items-center justify-center gap-2">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     Vendre mes récoltes
                   </Link>
@@ -1087,7 +1087,7 @@ export default function Home() {
               Découvrez la puissance de Cultiplan sans créer de compte. Calculez votre rentabilité en quelques minutes et prenez les bonnes décisions avant d'investir.
             </p>
             
-            <Link href="/cultiplan" className="inline-block group">
+            <Link href="/register" className="inline-block group">
               <button className="px-10 h-[60px] text-[16px] font-bold bg-[#052821] hover:bg-[#0a3f34] text-white rounded-xl shadow-lg shadow-[#052821]/20 transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-3 mx-auto">
                 Démarrer une simulation
                 <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
