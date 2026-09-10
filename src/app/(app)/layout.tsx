@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { 
-  AppstoreOutlined, 
-  LineChartOutlined, 
-  RobotOutlined, 
-  ShopOutlined, 
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  AppstoreOutlined,
+  LineChartOutlined,
+  RobotOutlined,
+  ShopOutlined,
   UserOutlined,
   SearchOutlined,
   BellOutlined,
@@ -15,22 +15,39 @@ import {
   MenuOutlined,
   CloseOutlined,
   LogoutOutlined,
-  ThunderboltOutlined
-} from '@ant-design/icons';
-import { Dropdown, Avatar, Badge } from 'antd';
-import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
+  ThunderboltOutlined,
+} from "@ant-design/icons";
+import { Dropdown, Avatar, Badge } from "antd";
+import { createClient } from "@/lib/supabase/client";
 
-const navigation = [
-  { name: 'Tableau de bord', href: '/dashboard', icon: AppstoreOutlined },
-  { name: 'Cultiplan', href: '/cultiplan', icon: LineChartOutlined },
-  { name: 'Cultima', href: '/cultima', icon: ThunderboltOutlined },
-  { name: 'Cultisia', href: '/cultisia', icon: RobotOutlined },
-  { name: 'Cultishop', href: '/cultishop', icon: ShopOutlined, disabled: true },
-  { name: 'Cultiseil', href: '/cultiseil', icon: UserOutlined, disabled: true },
+/* ─── Navigation items ─── */
+const NAV_ITEMS = [
+  { name: "Tableau de bord", href: "/dashboard", icon: AppstoreOutlined },
+  { name: "Cultiplan", href: "/cultiplan", icon: LineChartOutlined },
+  { name: "Cultima", href: "/cultima", icon: ThunderboltOutlined },
+  { name: "Cultisia", href: "/cultisia", icon: RobotOutlined },
+  {
+    name: "Cultishop",
+    href: "/cultishop",
+    icon: ShopOutlined,
+    disabled: true,
+  },
+  {
+    name: "Cultiseil",
+    href: "/cultiseil",
+    icon: UserOutlined,
+    disabled: true,
+  },
 ];
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+/* ─── Sidebar width constant (keep in sync) ─── */
+const SIDEBAR_W = "w-[260px] min-w-[260px] max-w-[260px]";
+
+export default function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -38,126 +55,199 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.push('/login');
+    router.push("/login");
     router.refresh();
   };
 
-  const userMenu = {
+  const userMenuItems = {
     items: [
-      { key: 'profile', label: 'Mon profil', icon: <UserOutlined /> },
-      { key: 'settings', label: 'Paramètres', icon: <SettingOutlined /> },
-      { type: 'divider' as const },
-      { key: 'logout', label: 'Se déconnecter', icon: <LogoutOutlined />, onClick: handleLogout, danger: true },
+      { key: "profile", label: "Mon profil", icon: <UserOutlined /> },
+      { key: "settings", label: "Paramètres", icon: <SettingOutlined /> },
+      { type: "divider" as const },
+      {
+        key: "logout",
+        label: "Se déconnecter",
+        icon: <LogoutOutlined />,
+        onClick: handleLogout,
+        danger: true,
+      },
     ],
   };
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] flex">
-      {/* Mobile sidebar backdrop */}
+    <div className="h-screen overflow-hidden bg-[#F8F9FB] flex">
+      {/* ════════════════════════════════════════════════════
+          MOBILE BACKDROP
+         ════════════════════════════════════════════════════ */}
       {sidebarOpen && (
-        <div 
-          className="fixed inset-0 z-40 bg-gray-900/80 backdrop-blur-sm lg:hidden"
+        <div
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
-      {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-72 shrink-0 bg-[#052821] transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:flex lg:flex-col ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="flex h-20 shrink-0 items-center px-6 border-b border-white/10 justify-between">
-          <Link href="/dashboard" className="flex items-center gap-2.5">
-            <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center border border-white/20">
-              <img src="/favicon.png" alt="Cultiso" className="w-6 h-6 object-contain" />
+      {/* ════════════════════════════════════════════════════
+          SIDEBAR — fixed on mobile, static on lg+
+         ════════════════════════════════════════════════════ */}
+      <aside
+        className={[
+          // Base
+          "fixed inset-y-0 left-0 z-50 flex flex-col bg-[#052821]",
+          // Fixed width — never shrink, never grow
+          SIDEBAR_W,
+          // Transform for mobile slide-in
+          "transform transition-transform duration-300 ease-in-out",
+          sidebarOpen ? "translate-x-0" : "-translate-x-full",
+          // On lg+: always visible, static in flow
+          "lg:translate-x-0 lg:static",
+        ].join(" ")}
+      >
+        {/* Logo */}
+        <div className="flex h-16 items-center justify-between px-5 border-b border-white/10">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2.5 no-underline"
+          >
+            <div className="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center border border-white/15">
+              <img
+                src="/favicon.png"
+                alt="Cultiso"
+                className="w-5 h-5 object-contain"
+              />
             </div>
-            <span className="font-unbounded font-bold text-white text-xl tracking-tight">cultiso</span>
+            <span className="font-unbounded font-bold text-white text-lg tracking-tight">
+              cultiso
+            </span>
           </Link>
-          <button className="lg:hidden text-white/70 hover:text-white" onClick={() => setSidebarOpen(false)}>
-            <CloseOutlined className="text-xl" />
+          <button
+            className="lg:hidden text-white/60 hover:text-white p-1"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <CloseOutlined />
           </button>
         </div>
 
-        <nav className="flex flex-1 flex-col px-4 py-8 overflow-y-auto">
-          <div className="space-y-1">
-            {navigation.map((item) => {
+        {/* Nav links */}
+        <nav className="flex-1 overflow-y-auto px-3 py-6">
+          <ul className="space-y-1 list-none m-0 p-0">
+            {NAV_ITEMS.map((item) => {
               const isActive = pathname?.startsWith(item.href);
               const Icon = item.icon;
-              return item.disabled ? (
-                <div key={item.name} className="flex items-center gap-3 px-4 py-3 text-white/40 rounded-xl cursor-not-allowed">
-                  <Icon className="text-lg" />
-                  <span className="font-medium">{item.name}</span>
-                  <span className="ml-auto text-[9px] font-bold uppercase tracking-wider bg-white/5 px-2 py-0.5 rounded-full border border-white/10">Bientôt</span>
-                </div>
-              ) : (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${isActive ? 'bg-[#22c55e] text-white shadow-lg shadow-[#22c55e]/20' : 'text-white/70 hover:bg-white/10 hover:text-white'}`}
-                >
-                  <Icon className={`text-lg ${isActive ? 'text-white' : ''}`} />
-                  {item.name}
-                </Link>
+
+              if (item.disabled) {
+                return (
+                  <li key={item.name}>
+                    <div className="flex items-center gap-3 px-3 py-2.5 text-white/30 rounded-lg cursor-not-allowed text-sm">
+                      <Icon />
+                      <span>{item.name}</span>
+                      <span className="ml-auto text-[9px] font-bold uppercase tracking-wider bg-white/5 text-white/30 px-1.5 py-0.5 rounded border border-white/10">
+                        Bientôt
+                      </span>
+                    </div>
+                  </li>
+                );
+              }
+
+              return (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setSidebarOpen(false)}
+                    className={[
+                      "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium no-underline transition-all duration-150",
+                      isActive
+                        ? "bg-[#22c55e] text-white shadow-md shadow-[#22c55e]/25"
+                        : "text-white/60 hover:bg-white/8 hover:text-white",
+                    ].join(" ")}
+                  >
+                    <Icon />
+                    <span>{item.name}</span>
+                  </Link>
+                </li>
               );
             })}
-          </div>
-          
-          <div className="mt-auto pt-8">
-            <div className="bg-white/5 rounded-2xl p-5 border border-white/10 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#D35400]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <h4 className="text-white font-bold text-sm mb-1">Besoin d'aide ?</h4>
-              <p className="text-white/60 text-xs mb-4">Contactez notre support agronomique.</p>
-              <button className="w-full py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-lg transition-colors border border-white/10">
-                Ouvrir un ticket
-              </button>
-            </div>
-          </div>
+          </ul>
         </nav>
-      </div>
 
-      {/* Main Column */}
-      <div className="flex flex-1 flex-col min-w-0">
+        {/* Bottom card */}
+        <div className="px-3 pb-4">
+          <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+            <p className="text-white font-semibold text-xs mb-1">
+              Besoin d'aide ?
+            </p>
+            <p className="text-white/50 text-[11px] mb-3 leading-relaxed">
+              Contactez notre support agronomique.
+            </p>
+            <button className="w-full py-1.5 bg-white/10 hover:bg-white/15 text-white text-[11px] font-semibold rounded-lg transition-colors border border-white/10">
+              Ouvrir un ticket
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {/* ════════════════════════════════════════════════════
+          MAIN COLUMN
+         ════════════════════════════════════════════════════ */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Topbar */}
-        <header className="sticky top-0 z-30 flex h-20 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white/80 backdrop-blur-md px-4 sm:gap-x-6 sm:px-6 lg:px-8">
-          <button className="lg:hidden text-gray-500 hover:text-gray-900" onClick={() => setSidebarOpen(true)}>
-            <MenuOutlined className="text-xl" />
-          </button>
+        <header className="h-16 flex items-center justify-between gap-4 border-b border-gray-200 bg-white px-4 sm:px-6 lg:px-8 shrink-0">
+          {/* Left: hamburger + search */}
+          <div className="flex items-center gap-4 flex-1 min-w-0">
+            <button
+              className="lg:hidden text-gray-500 hover:text-gray-800 p-1"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <MenuOutlined className="text-lg" />
+            </button>
 
-          <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 items-center">
-            <div className="flex-1 flex">
-              <div className="relative w-full max-w-md hidden sm:block">
-                <SearchOutlined className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input 
-                  type="text" 
-                  placeholder="Rechercher une simulation, une tâche, un prix..." 
-                  className="w-full bg-gray-50 border border-gray-200 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#22c55e]/50 focus:border-[#22c55e] transition-all"
-                />
-              </div>
+            <div className="relative hidden sm:block w-full max-w-sm">
+              <SearchOutlined className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+              <input
+                type="text"
+                placeholder="Rechercher..."
+                className="w-full bg-gray-50 border border-gray-200 rounded-lg py-2 pl-9 pr-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#22c55e]/40 focus:border-[#22c55e] transition-all"
+              />
             </div>
-            
-            <div className="flex items-center gap-x-4 lg:gap-x-6">
-              <button className="text-gray-400 hover:text-gray-500 relative">
-                <Badge dot color="#EF4444" offset={[-2, 4]}>
-                  <BellOutlined className="text-xl" />
-                </Badge>
-              </button>
+          </div>
 
-              <div className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200" aria-hidden="true" />
+          {/* Right: notifications + profile */}
+          <div className="flex items-center gap-4 shrink-0">
+            <button className="text-gray-400 hover:text-gray-600 p-1">
+              <Badge dot color="#EF4444" offset={[-2, 4]}>
+                <BellOutlined className="text-lg" />
+              </Badge>
+            </button>
 
-              <Dropdown menu={userMenu} placement="bottomRight" trigger={['click']}>
-                <div className="flex items-center gap-3 cursor-pointer p-1 rounded-full hover:bg-gray-50 transition-colors">
-                  <Avatar className="bg-[#D35400] font-unbounded font-bold">RA</Avatar>
-                  <span className="hidden lg:flex lg:flex-col lg:items-start text-sm leading-none">
-                    <span className="font-semibold text-gray-900">Rémy Agaguy</span>
-                    <span className="text-gray-500 text-xs mt-1">Admin</span>
+            <div
+              className="hidden lg:block h-5 w-px bg-gray-200"
+              aria-hidden="true"
+            />
+
+            <Dropdown
+              menu={userMenuItems}
+              placement="bottomRight"
+              trigger={["click"]}
+            >
+              <div className="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 rounded-full py-1 px-1.5 transition-colors">
+                <Avatar
+                  size={32}
+                  className="bg-[#D35400] font-unbounded font-bold text-xs"
+                >
+                  RA
+                </Avatar>
+                <div className="hidden lg:flex flex-col items-start leading-tight">
+                  <span className="text-sm font-semibold text-gray-800">
+                    Rémy Agaguy
                   </span>
+                  <span className="text-[11px] text-gray-400">Admin</span>
                 </div>
-              </Dropdown>
-            </div>
+              </div>
+            </Dropdown>
           </div>
         </header>
 
-        {/* Main Content */}
-        <main className="flex-1 overflow-y-auto">
-          {children}
-        </main>
+        {/* Page content */}
+        <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
     </div>
   );
