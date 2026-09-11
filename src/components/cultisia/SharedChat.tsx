@@ -322,15 +322,27 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       await supabase.from("chat_messages").insert({ session_id: sessionId, role: "user", content: text });
     }
 
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        // On envoie tout l'historique pour la mémoire temporelle, et l'outil courant !
-        body: JSON.stringify({ messages: newMessages, mode: "Chat", toolContext: activeMode, model: "google/gemini-2.5-flash" }),
-      });
+      try {
+        const { data: sessionData } = await supabase.auth.getSession();
+        const token = sessionData?.session?.access_token;
+        
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json",
+            ...(token ? { "Authorization": `Bearer ${token}` } : {})
+          },
+          // On envoie tout l'historique pour la mémoire temporelle, et l'outil courant !
+          body: JSON.stringify({ messages: newMessages, mode: "Chat", toolContext: activeMode, model: "google/gemini-2.5-flash" }),
+        });
 
-      if (!res.ok || !res.body) throw new Error("Response error");
+      if (!res.ok) {
+        if (res.status === 402) {
+          throw new Error("CREDITS_EMPTY");
+        }
+        throw new Error("Response error");
+      }
+      if (!res.body) throw new Error("Response error");
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();

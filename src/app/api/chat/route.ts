@@ -52,6 +52,25 @@ export async function POST(req: Request) {
       throw new Error("OPENROUTER_API_KEY n'est pas définie sur le serveur.");
     }
 
+    
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return new Response(JSON.stringify({ error: "Non autorisǸ" }), { status: 401 });
+    }
+    const token = authHeader.split(" ")[1];
+    const { data: userData, error: userError } = await supabase.auth.getUser(token);
+    
+    if (userError || !userData?.user) {
+      return new Response(JSON.stringify({ error: "Token invalide" }), { status: 401 });
+    }
+    const user = userData.user;
+    let tokensBalance = user.app_metadata?.tokens_balance;
+    if (tokensBalance === undefined) tokensBalance = 100000;
+    
+    if (tokensBalance <= 0) {
+      return new Response(JSON.stringify({ error: "CrǸdits ǸpuisǸs" }), { status: 402 });
+    }
+
     const body = await req.json();
     const mode = body.mode;
     const toolContext = body.toolContext || "cultisia";
@@ -235,6 +254,7 @@ ${contextText}`;
       ],
       temperature: 0.3,
       stream: true,
+      stream_options: { include_usage: true }
     });
 
     const encoder = new TextEncoder();
@@ -245,7 +265,18 @@ ${contextText}`;
         }
         try {
           for await (const chunk of stream) {
-            const content = chunk.choices[0]?.delta?.content;
+            // Check for usage in chunk
+            if ((chunk as any).usage) {
+               const usedTokens = (chunk as any).usage.total_tokens;
+               if (usedTokens > 0) {
+                  const newBalance = tokensBalance - usedTokens;
+                  await supabase.auth.admin.updateUserById(user.id, {
+                    app_metadata: { ...user.app_metadata, tokens_balance: newBalance }
+                  });
+               }
+            }
+            
+            const content = chunk.choices?.[0]?.delta?.content;
             if (content) {
               controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "token", content })}\n\n`));
             }

@@ -35,15 +35,24 @@ const NAV_ITEMS = [
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [userProfile, setUserProfile] = useState<any>(null);
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
 
-  /* Persist collapsed state */
+  /* Persist collapsed state & fetch user */
   useEffect(() => {
     const saved = localStorage.getItem("cultiso_sidebar_collapsed");
     if (saved === "true") setCollapsed(true);
-  }, []);
+    
+    const fetchUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (data?.user) {
+        setUserProfile(data.user);
+      }
+    };
+    fetchUser();
+  }, [supabase]);
 
   const toggleCollapsed = () => {
     const next = !collapsed;
@@ -251,14 +260,29 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
             <div className="hidden lg:block h-5 w-px bg-gray-200" aria-hidden="true" />
 
-            <Dropdown menu={userMenuItems} placement="bottomRight" trigger={["click"]}>
+                        <Dropdown menu={userMenuItems} placement="bottomRight" trigger={["click"]}>
               <div className="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 rounded-full py-1 px-1.5 transition-colors">
+                
+                {/* Balance Affichage */}
+                <div className="hidden sm:flex items-center gap-1.5 bg-[#f3fbe9] text-[#0B5345] px-2.5 py-1 rounded-md border border-[#22c55e]/30 mr-2">
+                  <span className="text-[13px]">⚡</span>
+                  <span className="text-xs font-bold font-mono-numbers">
+                    {userProfile?.app_metadata?.tokens_balance != null 
+                      ? new Intl.NumberFormat('fr-FR').format(userProfile.app_metadata.tokens_balance) 
+                      : "100 000"}
+                  </span>
+                </div>
+
                 <Avatar size={32} className="bg-[#D35400] font-unbounded font-bold text-xs">
-                  RA
+                  {userProfile?.user_metadata?.full_name?.substring(0, 2)?.toUpperCase() || "CU"}
                 </Avatar>
                 <div className="hidden lg:flex flex-col items-start leading-tight">
-                  <span className="text-sm font-semibold text-gray-800">Rémy Agaguy</span>
-                  <span className="text-[11px] text-gray-400">Admin</span>
+                  <span className="text-sm font-semibold text-gray-800">
+                    {userProfile?.user_metadata?.full_name || "Utilisateur"}
+                  </span>
+                  <span className="text-[11px] text-gray-400 capitalize">
+                    {userProfile?.user_metadata?.role?.replace('_', ' ') || "Testeur"}
+                  </span>
                 </div>
               </div>
             </Dropdown>
