@@ -65,7 +65,7 @@ export async function POST(req: Request) {
     }
     const user = userData.user;
     let tokensBalance = user.app_metadata?.tokens_balance;
-    if (tokensBalance === undefined) tokensBalance = 100000;
+    if (tokensBalance === undefined) tokensBalance = 20000;
     
     if (tokensBalance <= 0) {
       return new Response(JSON.stringify({ error: "CrǸdits ǸpuisǸs" }), { status: 402 });

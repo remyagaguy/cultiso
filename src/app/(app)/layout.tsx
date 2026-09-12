@@ -269,7 +269,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <span className="text-xs font-bold font-mono-numbers">
                     {userProfile?.app_metadata?.tokens_balance != null 
                       ? new Intl.NumberFormat('fr-FR').format(userProfile.app_metadata.tokens_balance) 
-                      : "100 000"}
+                      : "20 000"}
                   </span>
                 </div>
 
