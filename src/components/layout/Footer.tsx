@@ -8,8 +8,8 @@ export const Footer = () => {
 
   return (
     <footer className="w-full bg-[#052821] text-white px-6 py-16 md:py-24 mt-auto">
-      <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
-        <div className="lg:col-span-2 space-y-6">
+      <div className="max-w-[1200px] mx-auto grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-10 lg:gap-8">
+        <div className="col-span-2 lg:col-span-2 space-y-6">
           <Link href="/" className="block w-[165px] h-[38px] relative">
             <img 
               src="/logo.png" 
@@ -66,9 +66,18 @@ export const Footer = () => {
         </div>
       </div>
       
-      <div className="max-w-[1200px] mx-auto mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[13px] text-gray-500 font-manrope">
-        <p>© {new Date().getFullYear()} Cultiso. Tous droits réservés.</p>
-        <div className="flex space-x-6">
+      <div className="max-w-[1200px] mx-auto mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[13px] text-gray-500 font-manrope text-center md:text-left">
+        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+          <p>© {new Date().getFullYear()} Cultiso. Tous droits réservés.</p>
+          <span className="hidden md:inline text-gray-700">•</span>
+          <p>
+            Conçu par{' '}
+            <a href="https://remyaga.com/portfolio" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 transition-colors font-medium underline underline-offset-4 decoration-white/20 hover:decoration-white/60">
+              Remyaga Guy
+            </a>
+          </p>
+        </div>
+        <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-3">
           <Link href="#" className="hover:text-gray-300 transition-colors">Mentions légales</Link>
           <Link href="#" className="hover:text-gray-300 transition-colors">Politique de confidentialité</Link>
           <Link href="#" className="hover:text-gray-300 transition-colors">CGV</Link>
