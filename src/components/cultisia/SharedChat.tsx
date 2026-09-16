@@ -454,7 +454,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                  {isModeMenuOpen && (
                    <>
                      <div className="fixed inset-0 z-40" onClick={() => setIsModeMenuOpen(false)} />
-                     <div className="absolute left-0  w-48 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden py-1 animate-in fade-in  duration-200">
+                     <div className="absolute left-0 bottom-full mb-1 w-48 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden py-1 animate-in fade-in duration-200">
                        <button onClick={() => { setActiveMode("cultisia"); setIsModeMenuOpen(false); }} className={`w-full flex items-center gap-2.5 px-3 py-2 text-[13px] font-medium hover:bg-gray-50 transition-colors ${activeMode === "cultisia" ? "text-[#0B5345] bg-[#0B5345]/5" : "text-gray-700"}`}>
                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.5 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
                          Cultisia Général
