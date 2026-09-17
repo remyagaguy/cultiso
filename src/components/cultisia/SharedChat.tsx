@@ -542,23 +542,31 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       return;
     }
 
+    const originalInput = input;
     const recognition = new SpeechRecognition();
     recognition.lang = "fr-FR";
-    recognition.continuous = false;
+    recognition.continuous = true;
     recognition.interimResults = true;
 
     recognition.onstart = () => {
       setIsRecording(true);
     };
 
+    let sessionFinalTranscript = '';
+
     recognition.onresult = (event: any) => {
-      const current = event.resultIndex;
-      const transcript = event.results[current][0].transcript;
-      setInput((prev) => {
-        // Simple heuristic: if we already have text, append. But since interimResults replaces the last bit, it's safer to just set it if we only speak once.
-        // For simplicity, we just replace the input if we just started, or append if we paused.
-        return transcript; 
-      });
+      let currentInterim = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          sessionFinalTranscript += event.results[i][0].transcript;
+        } else {
+          currentInterim += event.results[i][0].transcript;
+        }
+      }
+      
+      const space = originalInput.length > 0 && !originalInput.endsWith(' ') ? ' ' : '';
+      const newText = originalInput + space + sessionFinalTranscript + currentInterim;
+      setInput(newText);
     };
 
     recognition.onerror = (event: any) => {
