@@ -1,15 +1,6 @@
 import prixData from "@/data/prix_extraits_togo.json";
 
 export async function getPriceContext(supabase: any, message: string, combinedQuery: string): Promise<string> {
-  const isPriceQuery = message.toLowerCase().includes("prix") || 
-                       message.toLowerCase().includes("coût") || 
-                       message.toLowerCase().includes("coute") || 
-                       message.toLowerCase().includes("combien");
-                       
-  if (!isPriceQuery) {
-    return "";
-  }
-
   let dbPriceContext = "";
   let jsonPriceContext = "";
   
@@ -17,27 +8,15 @@ export async function getPriceContext(supabase: any, message: string, combinedQu
     const removeAccents = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     const normalizedQuery = removeAccents(combinedQuery);
     
-    // 1. Filtrage sur la Base de Données
-    const { data: allProducts } = await supabase.from('products').select('*');
-    if (allProducts) {
-      const matchedProducts = allProducts.filter((p: any) => normalizedQuery.includes(removeAccents(p.name)));
-      const matchedProductIds = matchedProducts.map((p: any) => p.id);
-      
-      if (matchedProductIds.length > 0) {
-        const { data: allPrices } = await supabase.from('price_records')
-           .select('*')
-           .in('product_id', matchedProductIds)
-           .order('record_date', { ascending: false });
-           
-        if (allPrices) {
-           matchedProducts.forEach((p: any) => {
-              const pPrices = allPrices.filter((pr: any) => pr.product_id === p.id).slice(0, 5);
-              pPrices.forEach((pr: any) => {
-                 dbPriceContext += `- ${p.name}: ${pr.price} ${pr.currency} / ${pr.unit || p.default_unit} (Lieu: ${pr.location || 'Non précisé'}, Date: ${pr.record_date})\n`;
-              });
-           });
-        }
-      }
+    // 1. Filtrage sur la Base de Données (RPC Native Jointure)
+    const { data: matchedPrices, error } = await supabase.rpc('search_market_prices', {
+      search_term: normalizedQuery
+    });
+
+    if (matchedPrices && matchedPrices.length > 0) {
+      matchedPrices.forEach((pr: any) => {
+         dbPriceContext += `- ${pr.product_name}: ${pr.price} ${pr.currency} / ${pr.unit || pr.product_default_unit} (Lieu: ${pr.location || 'Non précisé'}, Date: ${pr.record_date})\n`;
+      });
     }
 
     // 2. Filtrage sur le fichier JSON
