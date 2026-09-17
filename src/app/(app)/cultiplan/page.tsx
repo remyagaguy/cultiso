@@ -53,7 +53,7 @@ export default function CultiPlanPage() {
       )}
 
       {/* 2. CHAT AREA (Fullscreen when empty, Sidebar when Canvas is open) */}
-      <aside className={`${simulationData ? 'w-full md:w-[450px]' : 'flex-1'} h-full flex-none bg-white flex flex-col flex-shrink-0 z-20 relative transition-all duration-500`}>
+      <aside className={`${simulationData ? 'w-full md:w-[450px]' : 'flex-1'} h-full bg-white flex flex-col flex-shrink-0 z-20 relative transition-all duration-500`}>
         <SharedChat 
           toolContext="cultiplan" 
           title="Expert Agrobusiness" 
