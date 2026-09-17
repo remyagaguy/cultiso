@@ -749,7 +749,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                   let displayContent = msg.content;
                   let questionnaireData: QuestionnaireData | null = null;
 
-                  let simulationData: any = null;
+                  let simulationData: Record<string, unknown> | null = null;
                   if (msg.role === "assistant") {
                     // Try to match fenced JSON first, then fallback to raw JSON block containing action complete_simulation
                     let jsonString = null;
@@ -818,6 +818,17 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                                   doSend("Voici mes précisions pour affiner mon projet :\n" + lines.join("\n"));
                                 }}
                               />
+                            )}
+                            {simulationData && !msg.isStreaming && (
+                              <div className="mt-4 p-4 bg-[#f3fbe9] rounded-2xl border border-[#22c55e]/30 flex flex-col items-center animate-in fade-in slide-in-from-bottom-2 duration-300 shadow-sm">
+                                <p className="text-[14.5px] text-[#0B5345] font-semibold mb-4 text-center">🎉 La collecte d'informations est terminée.</p>
+                                <button
+                                  onClick={() => onSimulationComplete?.(simulationData)}
+                                  className="bg-[#22c55e] text-white px-6 py-3 rounded-xl text-[14.5px] font-bold hover:bg-[#16a34a] hover:shadow-md transition-all duration-200 active:scale-[0.98] w-full sm:w-auto"
+                                >
+                                  Générer mon plan d'affaires
+                                </button>
+                              </div>
                             )}
                           </div>
                         )}
