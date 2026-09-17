@@ -66,7 +66,6 @@ const MarkdownContent = ({ content }: { content: string }) => (
   </div>
 );
 
-/* â”€â”€â”€ Interactive Premium Questionnaire Widget â”€â”€â”€ */
 const QuestionnaireWidget = ({
   data,
   onSubmit
@@ -76,10 +75,14 @@ const QuestionnaireWidget = ({
 }) => {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [freeTextMode, setFreeTextMode] = useState(false);
+  const [freeTextValue, setFreeTextValue] = useState("");
 
   const handleSelect = (option: string) => {
     const newAnswers = { ...answers, [step]: option };
     setAnswers(newAnswers);
+    setFreeTextMode(false);
+    setFreeTextValue("");
     if (step < data.questions.length - 1) {
       setStep(step + 1);
     } else {
@@ -90,6 +93,8 @@ const QuestionnaireWidget = ({
   const handleSkip = () => {
     const newAnswers = { ...answers, [step]: "Non spécifié" };
     setAnswers(newAnswers);
+    setFreeTextMode(false);
+    setFreeTextValue("");
     if (step < data.questions.length - 1) {
       setStep(step + 1);
     } else {
@@ -109,25 +114,66 @@ const QuestionnaireWidget = ({
         </div>
       </div>
       <div className="px-5 pb-5 space-y-2.5">
-        {q.options.map((opt, i) => (
-          <button
-            key={i}
-            onClick={() => handleSelect(opt)}
-            className="group w-full text-left px-4 py-3.5 rounded-2xl border border-transparent bg-[#f9f8f6] hover:bg-white hover:border-[#0B5345] hover:shadow-[0_2px_12px_rgba(11,83,69,0.08)] transition-all duration-200 text-[14.5px] text-gray-700 flex items-center gap-3.5 active:scale-[0.99]"
-          >
-            <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-white border border-gray-200 text-gray-400 group-hover:border-[#0B5345]/30 group-hover:text-[#0B5345] group-hover:bg-[#0B5345]/5 text-[13px] font-semibold shrink-0 transition-colors">
-              {String.fromCharCode(65 + i)}
-            </span>
-            <span className="font-medium group-hover:text-[#0B5345] transition-colors">{opt}</span>
-          </button>
-        ))}
-        <div className="flex justify-between items-center pt-3 px-1">
+        {freeTextMode ? (
+          <div className="flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-2 duration-200">
+            <textarea
+              autoFocus
+              placeholder="Précisez votre réponse..."
+              value={freeTextValue}
+              onChange={(e) => setFreeTextValue(e.target.value)}
+              className="w-full p-4 rounded-2xl border border-gray-200 bg-[#f9f8f6] focus:bg-white focus:border-[#0B5345] focus:ring-2 focus:ring-[#0B5345]/20 outline-none transition-all resize-none text-[14.5px] text-gray-700 min-h-[100px]"
+            />
+            <div className="flex justify-between items-center">
+              <button
+                onClick={() => setFreeTextMode(false)}
+                className="text-[13px] font-medium text-gray-500 hover:text-gray-800 transition-colors px-3 py-2"
+              >
+                ← Retour aux suggestions
+              </button>
+              <button
+                onClick={() => handleSelect(freeTextValue)}
+                disabled={!freeTextValue.trim()}
+                className="px-5 py-2.5 rounded-xl bg-[#0B5345] text-white text-[14px] font-semibold hover:bg-[#084236] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Valider
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            {q.options.map((opt, i) => (
+              <button
+                key={i}
+                onClick={() => handleSelect(opt)}
+                className="group w-full text-left px-4 py-3.5 rounded-2xl border border-transparent bg-[#f9f8f6] hover:bg-white hover:border-[#0B5345] hover:shadow-[0_2px_12px_rgba(11,83,69,0.08)] transition-all duration-200 text-[14.5px] text-gray-700 flex items-center gap-3.5 active:scale-[0.99]"
+              >
+                <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-white border border-gray-200 text-gray-400 group-hover:border-[#0B5345]/30 group-hover:text-[#0B5345] group-hover:bg-[#0B5345]/5 text-[13px] font-semibold shrink-0 transition-colors">
+                  {String.fromCharCode(65 + i)}
+                </span>
+                <span className="font-medium group-hover:text-[#0B5345] transition-colors">{opt}</span>
+              </button>
+            ))}
+            <button
+              onClick={() => setFreeTextMode(true)}
+              className="w-full text-left px-4 py-3.5 rounded-2xl border border-dashed border-gray-300 bg-white hover:border-[#D35400] hover:bg-[#D35400]/5 transition-all duration-200 text-[14.5px] text-gray-600 hover:text-[#D35400] flex items-center gap-3.5 active:scale-[0.99] mt-1"
+            >
+              <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-white border border-dashed border-gray-300 text-gray-400 text-[13px] font-semibold shrink-0 transition-colors">
+                ✏️
+              </span>
+              <span className="font-medium">Autre (Saisir ma propre réponse)</span>
+            </button>
+          </>
+        )}
+        <div className="flex justify-between items-center pt-3 px-1 border-t border-gray-100 mt-3">
           <button 
-            onClick={() => setStep(Math.max(0, step - 1))} 
+            onClick={() => {
+              setStep(Math.max(0, step - 1));
+              setFreeTextMode(false);
+            }} 
             disabled={step === 0} 
             className="text-[13px] font-medium text-gray-400 hover:text-gray-700 disabled:opacity-0 transition-colors px-2 py-1"
           >
-            â† Précédent
+            ← Précédent
           </button>
           <button 
             onClick={handleSkip} 
@@ -194,10 +240,10 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
   useEffect(() => {
     const loadSession = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      if (!user) return; // Si pas connecté, on arrête là (comme exigé)
       setUserId(user.id);
 
-      // Find existing session or create one
+      // Find existing session for logged in user
       let { data: sessions } = await supabase
         .from("chat_sessions")
         .select("id, title")
@@ -205,7 +251,6 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         .order("created_at", { ascending: false })
         .limit(1);
 
-      
       let { data: allSessions } = await supabase
         .from("chat_sessions")
         .select("id, title, updated_at")
@@ -219,6 +264,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       if (sessions && sessions.length > 0) {
         currentSessionId = sessions[0].id;
       } else {
+        // Create new session if none exists
         const { data: newSession, error } = await supabase
           .from("chat_sessions")
           .insert({ user_id: user.id, title: "Discussion Cultisia" })
@@ -276,6 +322,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         .insert({ user_id: userId, title: "Discussion Cultisia" })
         .select("id, title")
         .single();
+        
       if (newSession) {
         setSessionId(newSession.id);
         setSessions(prev => [{id: newSession.id, title: newSession.title, updated_at: new Date().toISOString()}, ...prev]);
@@ -430,6 +477,31 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
               // Sauvegarde de la réponse finale en DB
               if (sessionId && assistantContent) {
                 supabase.from("chat_messages").insert({ session_id: sessionId, role: "assistant", content: assistantContent }).then();
+              }
+              
+              // Détecter si on a reçu les données de simulation finales
+              if (onSimulationComplete && assistantContent) {
+                let jsonString = null;
+                const fencedMatch = assistantContent.match(/```json\s+([\s\S]*?)\s+```/);
+                if (fencedMatch) {
+                  jsonString = fencedMatch[1];
+                } else {
+                  const rawMatch = assistantContent.match(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*\}/);
+                  if (rawMatch) {
+                    jsonString = rawMatch[0];
+                  }
+                }
+                
+                if (jsonString) {
+                  try {
+                    const parsed = JSON.parse(jsonString);
+                    if (parsed.action === "complete_simulation" || parsed.payload) {
+                      onSimulationComplete(parsed);
+                    }
+                  } catch (e) {
+                    console.error("Erreur parsing complete_simulation:", e);
+                  }
+                }
               }
             }
           } catch {
