@@ -9,10 +9,11 @@ import AnimalDashboard from "@/components/cultima/animal/AnimalDashboard";
 import TransformationDashboard from "@/components/cultima/transformation/TransformationDashboard";
 import ServiceDashboard from "@/components/cultima/service/ServiceDashboard";
 import NegoceDashboard from "@/components/cultima/negoce/NegoceDashboard";
+import TreasuryDashboard from "@/components/cultima/finance/TreasuryDashboard";
 import { BrainCircuit } from "lucide-react";
 
 export default function CultimaPage() {
-  const [config, setConfig] = useState<"vegetal" | "animal" | "mixte" | "transformation" | "service" | "negoce" | null>(null);
+  const [config, setConfig] = useState<"vegetal" | "animal" | "mixte" | "transformation" | "service" | "negoce" | "finance" | null>(null);
 
   // Pour la démo, on simule l'activation d'un dashboard après que l'utilisateur ait cliqué sur un profil type
   // Idéalement cela viendrait de `onConfigComplete` du composant SharedChat.
@@ -66,6 +67,8 @@ export default function CultimaPage() {
                 <button onClick={() => setConfig("transformation")} className="p-3 bg-white border border-[#DFE4DA] rounded-xl hover:border-[#0B5345] hover:shadow-sm transition-all text-sm font-medium">Transformation Agroalimentaire</button>
                 <button onClick={() => setConfig("service")} className="p-3 bg-white border border-[#DFE4DA] rounded-xl hover:border-[#0B5345] hover:shadow-sm transition-all text-sm font-medium">Services Agricoles</button>
                 <button onClick={() => setConfig("negoce")} className="p-3 bg-white border border-[#DFE4DA] rounded-xl hover:border-[#0B5345] hover:shadow-sm transition-all text-sm font-medium">Agro-Commerce & Négoce</button>
+                <div className="w-full h-[1px] bg-[#DFE4DA] my-2"></div>
+                <button onClick={() => setConfig("finance")} className="p-3 bg-white border-2 border-[#D35400] text-[#D35400] rounded-xl hover:bg-[#D35400] hover:text-white transition-all text-sm font-bold shadow-sm">💰 Module Trésorerie (NOUVEAU)</button>
               </div>
             </div>
           ) : (
@@ -101,6 +104,7 @@ export default function CultimaPage() {
               {config === "transformation" && <TransformationDashboard />}
               {config === "service" && <ServiceDashboard />}
               {config === "negoce" && <NegoceDashboard />}
+              {config === "finance" && <TreasuryDashboard />}
             </div>
           )}
         </div>
