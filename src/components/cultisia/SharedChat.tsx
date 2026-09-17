@@ -582,23 +582,20 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
 
   /* â”€â”€â”€ Input Bar â”€â”€â”€ */
   const renderInputBar = (placeholder: string, large?: boolean) => (
-    <div className={`w-full bg-white border border-gray-200 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_24px_rgba(0,0,0,0.08)] focus-within:shadow-[0_4px_24px_rgba(0,0,0,0.12)] focus-within:border-[#0B5345]/40 transition-all duration-300`}>
-      <div className={`flex items-start gap-3 ${large ? "px-5 pt-4 pb-2" : "px-4 pt-3 pb-1"}`}>
-        
+    <div className={`w-full bg-white border border-gray-200 rounded-[28px] shadow-sm hover:shadow-md focus-within:shadow-md focus-within:border-[#0B5345]/30 transition-all duration-300 overflow-hidden flex items-center`}>
+      <div className={`flex-1 flex items-center ${large ? "px-6 py-3" : "px-5 py-2.5"}`}>
         <textarea
           ref={textareaRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKey}
           placeholder={placeholder}
-          rows={large ? 2 : 1}
-          className={`flex-1 resize-none bg-transparent ${large ? "text-[16px]" : "text-[15.5px]"} text-gray-800 placeholder:text-gray-400 focus:outline-none leading-relaxed max-h-[200px] py-1`}
+          rows={1}
+          className={`flex-1 resize-none bg-transparent ${large ? "text-[16px]" : "text-[14.5px]"} text-gray-800 placeholder:text-gray-400 focus:outline-none leading-relaxed max-h-[120px] self-center`}
+          style={{ paddingTop: '8px', paddingBottom: '8px' }}
         />
       </div>
-      <div className={`flex items-center justify-between ${large ? "px-5 pb-3.5 pt-1" : "px-4 pb-2.5 pt-0.5"}`}>
-        <div className="flex items-center">
-          </div>
-        <div className="flex items-center gap-2">
+      <div className={`flex items-center gap-2 ${large ? "pr-3" : "pr-2"}`}>
           <button
             onClick={toggleRecording}
             className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 active:scale-[0.92] shadow-sm ${
@@ -623,7 +620,6 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
             )}
           </button>
         </div>
-      </div>
     </div>
   );
 
@@ -730,8 +726,19 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         ) : (
           <>
             {/* Entête du chat (Actions) */}
-            <div className="w-full h-14 border-b border-gray-100 flex items-center justify-end px-6 flex-shrink-0 bg-white/80 backdrop-blur-md sticky top-0 z-10">
-              {messages.length > 0 && (
+            <div className="w-full h-16 border-b border-gray-100 flex items-center justify-between px-6 flex-shrink-0 bg-white/95 backdrop-blur-md sticky top-0 z-10 shadow-[0_1px_2px_rgba(0,0,0,0.01)]">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-[#f3fbe9] flex items-center justify-center border border-[#22c55e]/20 relative shadow-sm">
+                  <img src="/favicon.png" alt="Cultisia" className="w-5 h-5 object-contain" />
+                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-[1.5px] border-white rounded-full"></span>
+                </div>
+                <div>
+                  <h2 className="text-[15px] font-bold text-gray-800 leading-tight">{title}</h2>
+                  <p className="text-[12px] font-medium text-green-600 leading-tight">En ligne</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                {messages.length > 0 && (
                 <Tooltip title="Effacer la discussion">
                   <button 
                     onClick={clearHistory}
@@ -742,6 +749,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                   </button>
                 </Tooltip>
               )}
+              </div>
             </div>
             <div className="flex-1 overflow-y-auto scroll-smooth min-h-0">
               <div className="max-w-[780px] mx-auto px-6 py-8 space-y-7">
