@@ -228,12 +228,23 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* ══ MAIN COLUMN ══ */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+        {/* Floating mobile menu button for CultiPlan */}
+        {pathname?.startsWith("/cultiplan") && (
+          <button
+            className="lg:hidden fixed top-3 left-3 z-30 bg-white text-gray-700 p-2.5 rounded-xl shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
+            onClick={() => setSidebarOpen(true)}
+          >
+            <MenuOutlined className="text-lg" />
+          </button>
+        )}
+
         {/* Topbar */}
-        <header className="h-[72px] flex items-center justify-between gap-4 border-b border-gray-100 bg-white px-4 sm:px-6 lg:px-8 shrink-0 z-20 shadow-[0_2px_10px_rgba(0,0,0,0.02)] relative">
-          {/* Left */}
-          <div className="flex items-center gap-4 flex-1 min-w-0">
-            <button
+        {!pathname?.startsWith("/cultiplan") && (
+          <header className="h-[72px] flex items-center justify-between gap-4 border-b border-gray-100 bg-white px-4 sm:px-6 lg:px-8 shrink-0 z-20 shadow-[0_2px_10px_rgba(0,0,0,0.02)] relative">
+            {/* Left */}
+            <div className="flex items-center gap-4 flex-1 min-w-0">
+              <button
               className="lg:hidden text-gray-500 hover:text-gray-800 p-1"
               onClick={() => setSidebarOpen(true)}
             >
@@ -288,6 +299,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </Dropdown>
           </div>
         </header>
+        )}
 
         {/* Page content — scrollable area */}
         <main className="flex-1 overflow-y-auto">{children}</main>

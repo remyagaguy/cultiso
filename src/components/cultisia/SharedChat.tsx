@@ -734,31 +734,18 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
           </div>
         ) : (
           <>
-            {/* Entête du chat (Actions) */}
-            <div className="w-full h-16 border-b border-gray-100 flex items-center justify-between px-6 flex-shrink-0 bg-white/95 backdrop-blur-md sticky top-0 z-10 shadow-[0_1px_2px_rgba(0,0,0,0.01)]">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-[#f3fbe9] flex items-center justify-center border border-[#22c55e]/20 relative shadow-sm">
-                  <img src="/favicon.png" alt="Cultisia" className="w-5 h-5 object-contain" />
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-[1.5px] border-white rounded-full"></span>
-                </div>
-                <div>
-                  <h2 className="text-[15px] font-bold text-gray-800 leading-tight">{title}</h2>
-                  <p className="text-[12px] font-medium text-green-600 leading-tight">En ligne</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                {messages.length > 0 && (
+            {/* Bouton Nouvelle Simulation (Effacer) Flottant */}
+            <div className="absolute top-4 right-4 z-20">
+              {messages.length > 0 && (
                 <Tooltip title="Effacer la discussion">
                   <button 
                     onClick={clearHistory}
-                    className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-lg hover:bg-red-50 flex items-center gap-2 text-sm font-medium"
+                    className="flex items-center justify-center w-10 h-10 bg-white border border-gray-200 text-gray-500 hover:text-red-500 hover:border-red-200 hover:bg-red-50 rounded-full shadow-sm transition-all"
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                    <span className="hidden sm:inline">Effacer</span>
                   </button>
                 </Tooltip>
               )}
-              </div>
             </div>
             <div className="flex-1 overflow-y-auto scroll-smooth min-h-0">
               <div className="max-w-[780px] mx-auto px-6 py-8 space-y-7">
