@@ -589,10 +589,15 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); }
   };
 
-  /* â”€â”€â”€ Input Bar â”€â”€â”€ */
+  /* ─── Input Bar ─── */
   const renderInputBar = (placeholder: string, large?: boolean) => (
-    <div className={`w-full bg-white border border-gray-200 rounded-[28px] shadow-sm hover:shadow-md focus-within:shadow-md focus-within:border-[#0B5345]/30 transition-all duration-300 overflow-hidden flex items-center`}>
-      <div className={`flex-1 flex items-center ${large ? "px-6 py-3" : "px-5 py-2.5"}`}>
+    <div className={`w-full bg-white border border-gray-200/80 rounded-[32px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] focus-within:shadow-[0_4px_20px_rgba(0,0,0,0.06)] focus-within:border-[#0B5345]/20 transition-all duration-300 overflow-hidden flex items-center`}>
+      <div className={`flex items-center justify-center ${large ? "pl-5" : "pl-4"}`}>
+        <button className="text-gray-400 hover:text-gray-600 transition-colors p-1" aria-label="Ajouter un fichier">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+      <div className={`flex-1 flex items-center ${large ? "px-4 py-4" : "px-3 py-3"}`}>
         <textarea
           ref={textareaRef}
           value={input}
@@ -600,32 +605,36 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
           onKeyDown={handleKey}
           placeholder={placeholder}
           rows={1}
-          className={`flex-1 resize-none bg-transparent ${large ? "text-[16px]" : "text-[14.5px]"} text-gray-800 placeholder:text-gray-400 focus:outline-none leading-relaxed max-h-[120px] self-center`}
-          style={{ paddingTop: '8px', paddingBottom: '8px' }}
+          className={`flex-1 resize-none bg-transparent ${large ? "text-[16px]" : "text-[15px]"} text-gray-800 placeholder:text-gray-400 focus:outline-none leading-relaxed max-h-[200px] self-center`}
+          style={{ paddingTop: '2px', paddingBottom: '2px' }}
         />
       </div>
-      <div className={`flex items-center gap-2 ${large ? "pr-3" : "pr-2"}`}>
+      <div className={`flex items-center gap-1.5 ${large ? "pr-4" : "pr-3"}`}>
           <button
             onClick={toggleRecording}
-            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 active:scale-[0.92] shadow-sm ${
+            className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 active:scale-[0.92] ${
               isRecording 
-                ? "bg-red-500 hover:bg-red-600 text-white animate-pulse" 
-                : "bg-gray-100 hover:bg-gray-200 text-gray-500"
+                ? "bg-red-50 text-red-500 animate-pulse" 
+                : "bg-transparent hover:bg-gray-50 text-gray-600"
             }`}
             aria-label="Saisie vocale"
           >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
           </button>
           <button
             onClick={handleSend}
             disabled={isLoading || !input.trim()}
-            className="w-9 h-9 rounded-full bg-[#0B5345] hover:bg-[#084236] disabled:bg-gray-100 disabled:cursor-not-allowed text-white disabled:text-gray-300 flex items-center justify-center transition-all duration-200 active:scale-[0.92] shadow-sm"
+            className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 active:scale-[0.92] ${
+              input.trim() 
+                ? "bg-gray-900 hover:bg-black text-white shadow-sm" 
+                : "bg-transparent text-gray-300 cursor-not-allowed"
+            }`}
             aria-label="Envoyer"
           >
             {isLoading ? (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="animate-spin" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="animate-spin" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
             ) : (
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             )}
           </button>
         </div>
@@ -703,8 +712,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       </aside>
       )}
 
-      {/* â•â•â•â•â•â•â• MAIN â•â•â•â•â•â•â• */}
-      <main className="flex-1 flex flex-col h-full min-w-0 bg-white overflow-hidden relative">
+      {/* ═══ MAIN CHAT AREA ═══ */}
+      <main className="flex-1 flex flex-col h-full min-w-0 bg-gradient-to-b from-[#f3fbe9]/60 via-white to-white overflow-hidden relative">
         {/* Mobile menu toggle (visible only when sidebar is closed on small screens) */}
         {!sidebarOpen && (
           <button 
@@ -717,20 +726,15 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         )}
         
         {messages.length === 0 ? (
-          <div className="flex-1 flex flex-col items-center justify-center px-6 pb-16">
-            <div className="w-16 h-16 flex items-center justify-center mb-6">
-                <img src="/favicon.png" alt="Cultiso" className="w-full h-full object-contain drop-shadow-xl" />
-              </div>
-            <h1 className="font-unbounded text-3xl sm:text-[34px] font-bold text-[#052821] mb-3 text-center leading-tight tracking-tight">
+          <div className="flex-1 flex flex-col items-center justify-center px-6 pb-[15vh]">
+            <h1 className="font-manrope text-[28px] sm:text-[36px] text-gray-800 mb-8 text-center font-medium tracking-tight leading-snug">
               {activeMode === "cultiplan" ? (
-                <>Cultisia Business Plan<br className="hidden sm:block" /> Prêt pour ton projet ?</>
+                <>Prêt à bâtir votre business plan agricole ?</>
               ) : (
-                <>Bonjour, comment puis-je<br className="hidden sm:block" /> vous aider ?</>
+                <>Bonjour, comment puis-je vous aider ?</>
               )}
             </h1>
-            <p className="text-[15px] text-gray-400 mb-10 text-center font-medium">{subtitle}</p>
-            <div className="w-full max-w-2xl">{renderInputBar(`Posez votre question à ${title}...`, true)}</div>
-            
+            <div className="w-full max-w-[760px]">{renderInputBar(`Posez votre question à ${title}...`, true)}</div>
           </div>
         ) : (
           <>
