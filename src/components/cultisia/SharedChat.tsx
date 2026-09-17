@@ -150,9 +150,15 @@ interface SharedChatProps {
   hideSidebar?: boolean;
   onSimulationComplete?: (data: any) => void;
   onConfigComplete?: (data: any) => void;
+  onTransactionDraft?: (data: any) => void;
 }
 
-export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon, isEmbedded = false, hideSidebar = false, onSimulationComplete, onConfigComplete }: SharedChatProps) {
+export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon,  isEmbedded = false,
+  hideSidebar = false,
+  onSimulationComplete,
+  onConfigComplete,
+  onTransactionDraft
+}: SharedChatProps) {
   const [activeMode, setActiveMode] = useState<"cultisia" | "cultiplan" | "cultiseil" | "cultima">(toolContext);
   const [isModeMenuOpen, setIsModeMenuOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(
@@ -393,13 +399,23 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
               if (toolCallName === "route_to_tool") {
                 try {
                   const args = JSON.parse(toolCallArgs);
-                  const redirectMsg = args.reason + "\n\n*âž¡ Redirection en cours vers " + args.target_tool + "...*";
+                  const redirectMsg = args.reason + "\n\n*➡️ Redirection en cours vers " + args.target_tool + "...*";
                   setMessages((p) => [...p, { role: "assistant", content: redirectMsg, isStreaming: false }]);
                   assistantContent = redirectMsg;
                   assistantMsgAdded = true;
                   setTimeout(() => {
                     setActiveMode(args.target_tool);
                   }, 2000);
+                } catch(e) {}
+              } else if (toolCallName === "prepare_transaction") {
+                try {
+                  const args = JSON.parse(toolCallArgs);
+                  if (onTransactionDraft) onTransactionDraft(args);
+                  
+                  const msg = "*➡️ J'ai préparé la transaction. Veuillez vérifier les informations dans le formulaire et cliquer sur 'Enregistrer' pour valider.*";
+                  setMessages((p) => [...p, { role: "assistant", content: msg, isStreaming: false }]);
+                  assistantContent = msg;
+                  assistantMsgAdded = true;
                 } catch(e) {}
               } else {
                 setMessages((p) => {

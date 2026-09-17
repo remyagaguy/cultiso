@@ -14,6 +14,7 @@ import { BrainCircuit } from "lucide-react";
 
 export default function CultimaPage() {
   const [config, setConfig] = useState<"vegetal" | "animal" | "mixte" | "transformation" | "service" | "negoce" | "finance" | null>(null);
+  const [draftTransaction, setDraftTransaction] = useState<any>(null);
 
   // Pour la démo, on simule l'activation d'un dashboard après que l'utilisateur ait cliqué sur un profil type
   // Idéalement cela viendrait de `onConfigComplete` du composant SharedChat.
@@ -104,7 +105,7 @@ export default function CultimaPage() {
               {config === "transformation" && <TransformationDashboard />}
               {config === "service" && <ServiceDashboard />}
               {config === "negoce" && <NegoceDashboard />}
-              {config === "finance" && <TreasuryDashboard />}
+              {config === "finance" && <TreasuryDashboard draftTransaction={draftTransaction} />}
             </div>
           )}
         </div>
@@ -118,6 +119,7 @@ export default function CultimaPage() {
           subtitle="Configuration Cultima" 
           isEmbedded={true}
           hideSidebar={true}
+          onTransactionDraft={setDraftTransaction}
           onConfigComplete={(data) => {
              // In a real scenario, Cultisia would emit { "type": "cultima_config", "config": "mixte" }
              if (data && (data === "vegetal" || data === "animal" || data === "mixte" || data === "transformation" || data === "service" || data === "negoce")) {

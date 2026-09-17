@@ -9,7 +9,16 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
 );
 
-export default function TreasuryDashboard() {
+interface TreasuryDashboardProps {
+  draftTransaction?: {
+    amount?: number;
+    type?: string;
+    category?: string;
+    description?: string;
+  } | null;
+}
+
+export default function TreasuryDashboard({ draftTransaction }: TreasuryDashboardProps) {
   const [transactions, setTransactions] = useState<any[]>([]);
   const [cultisoId, setCultisoId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -20,6 +29,16 @@ export default function TreasuryDashboard() {
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+
+  useEffect(() => {
+    if (draftTransaction) {
+      setAmount(draftTransaction.amount?.toString() || "");
+      setType(draftTransaction.type || "expense");
+      setCategory(draftTransaction.category || "");
+      setDescription(draftTransaction.description || "");
+      setIsModalOpen(true);
+    }
+  }, [draftTransaction]);
 
   useEffect(() => {
     fetchData();

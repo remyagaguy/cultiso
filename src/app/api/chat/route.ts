@@ -78,48 +78,85 @@ export async function POST(req: Request) {
       },
     });
 
-    const tools = toolContext === "cultisia" ? [
-      {
-        type: "function" as const,
-        function: {
-          name: "route_to_tool",
-          description: "Redirige l'utilisateur vers un outil spécifique de l'écosystème Cultiso lorsqu'il le demande ou que son besoin correspond à un outil.",
-          parameters: {
-            type: "object",
-            properties: {
-              target_tool: {
-                type: "string",
-                enum: ["cultiplan", "cultima", "cultiseil"],
-                description: "cultiplan: pour simuler un projet, créer un business plan. cultima: pour gérer une ferme existante au quotidien (trésorerie). cultiseil: pour diagnostiquer une maladie ou le sol."
+    let tools: any[] | undefined = undefined;
+    
+    if (toolContext === "cultisia") {
+      tools = [
+        {
+          type: "function" as const,
+          function: {
+            name: "route_to_tool",
+            description: "Redirige l'utilisateur vers un outil spécifique de l'écosystème Cultiso lorsqu'il le demande ou que son besoin correspond à un outil.",
+            parameters: {
+              type: "object",
+              properties: {
+                target_tool: {
+                  type: "string",
+                  enum: ["cultiplan", "cultima", "cultiseil"],
+                  description: "cultiplan: pour simuler un projet, créer un business plan. cultima: pour gérer une ferme existante au quotidien (trésorerie). cultiseil: pour diagnostiquer une maladie ou le sol."
+                },
+                reason: {
+                  type: "string",
+                  description: "Message très court adressé à l'utilisateur pour expliquer qu'on va le rediriger vers le bon outil."
+                }
               },
-              reason: {
-                type: "string",
-                description: "Message très court adressé à l'utilisateur pour expliquer qu'on va le rediriger vers le bon outil."
-              }
-            },
-            required: ["target_tool", "reason"]
+              required: ["target_tool", "reason"]
+            }
+          }
+        },
+        {
+          type: "function" as const,
+          function: {
+            name: "get_market_prices",
+            description: "Récupère les prix actuels du marché pour un ou plusieurs produits agricoles.",
+            parameters: {
+              type: "object",
+              properties: {
+                product_names: {
+                  type: "array",
+                  items: { type: "string" },
+                  description: "Liste des noms de produits agricoles (ex: ['tomate', 'maïs'])"
+                }
+              },
+              required: ["product_names"]
+            }
           }
         }
-      },
-      {
-        type: "function" as const,
-        function: {
-          name: "get_market_prices",
-          description: "Récupère les prix actuels du marché pour un ou plusieurs produits agricoles.",
-          parameters: {
-            type: "object",
-            properties: {
-              product_names: {
-                type: "array",
-                items: { type: "string" },
-                description: "Liste des noms de produits agricoles (ex: ['tomate', 'maïs'])"
-              }
-            },
-            required: ["product_names"]
+      ];
+    } else if (toolContext === "cultima") {
+      tools = [
+        {
+          type: "function" as const,
+          function: {
+            name: "prepare_transaction",
+            description: "Extrait les informations d'une transaction financière dictée par l'utilisateur (dépense ou revenu) pour pré-remplir le formulaire de trésorerie.",
+            parameters: {
+              type: "object",
+              properties: {
+                amount: {
+                  type: "number",
+                  description: "Le montant de la transaction (en FCFA). Uniquement des nombres."
+                },
+                type: {
+                  type: "string",
+                  enum: ["income", "expense"],
+                  description: "income si c'est un revenu (vente, subvention), expense si c'est une dépense (achat, salaire)."
+                },
+                category: {
+                  type: "string",
+                  description: "Catégorie courte (ex: 'Semences', 'Carburant', 'Vente Maïs', 'Salaires')."
+                },
+                description: {
+                  type: "string",
+                  description: "Description ou commentaire facultatif sur la transaction."
+                }
+              },
+              required: ["amount", "type", "category"]
+            }
           }
         }
-      }
-    ] : undefined;
+      ];
+    }
 
     const stream = await openrouter.chat.completions.create({
       model: model || "google/gemini-2.5-flash",
@@ -163,6 +200,12 @@ export async function POST(req: Request) {
               if (tc.function?.arguments) toolArgs += tc.function.arguments;
               
               if (toolName === "route_to_tool") {
+                if (tc.function?.name) {
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "tool_call_start", name: tc.function.name, arguments: tc.function.arguments || "" })}\n\n`));
+                } else if (tc.function?.arguments) {
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "tool_call_delta", arguments: tc.function.arguments })}\n\n`));
+                }
+              } else if (toolName === "prepare_transaction") {
                 if (tc.function?.name) {
                   controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "tool_call_start", name: tc.function.name, arguments: tc.function.arguments || "" })}\n\n`));
                 } else if (tc.function?.arguments) {
