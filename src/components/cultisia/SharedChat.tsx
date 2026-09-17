@@ -208,9 +208,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
 }: SharedChatProps) {
   const [activeMode, setActiveMode] = useState<"cultisia" | "cultiplan" | "cultiseil" | "cultima">(toolContext);
   const [messages, setMessages] = useState<ChatMessage[]>(
-    activeMode === "cultiplan" 
-      ? [{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }] 
-      : activeMode === "cultima"
+    activeMode === "cultima"
       ? [{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia, votre assistant de configuration ERP. Parlez-moi de votre entreprise agricole. Quelle est votre activité principale ? (Ex: Elevage bovin, culture de maïs, etc.)" }]
       : []
   );
@@ -224,9 +222,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
   const recognitionRef = useRef<any>(null);
   useEffect(() => {
     if (messages.length <= 1 && !messages.some(m => m.role === 'user')) {
-      if (activeMode === "cultiplan") {
-        setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }]);
-      } else if (activeMode === "cultima") {
+      if (activeMode === "cultima") {
         setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia, votre assistant de configuration ERP. Parlez-moi de votre entreprise agricole. Quelle est votre activité principale ? (Ex: Elevage bovin, culture de maïs, etc.)" }]);
       } else {
         setMessages([]);
@@ -237,6 +233,43 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
   const [userId, setUserId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const hasAutoGreeted = useRef(false);
+  useEffect(() => {
+    if (activeMode === "cultiplan" && messages.length === 0 && !sessionId && !isLoading && !hasAutoGreeted.current) {
+      hasAutoGreeted.current = true;
+      const runAutoGreeting = async () => {
+        setIsThinking(true);
+        await new Promise(r => setTimeout(r, 800));
+        setIsThinking(false);
+        
+        const msg1: ChatMessage = { id: "welcome-1", role: "assistant", content: "" };
+        setMessages([msg1]);
+        
+        const text1 = "Bonjour ! 👋";
+        for (let i = 0; i <= text1.length; i++) {
+          setMessages([{ ...msg1, content: text1.slice(0, i) }]);
+          await new Promise(r => setTimeout(r, 25));
+        }
+
+        await new Promise(r => setTimeout(r, 500));
+        setIsThinking(true);
+        await new Promise(r => setTimeout(r, 1000));
+        setIsThinking(false);
+        
+        const msg2: ChatMessage = { id: "welcome-2", role: "assistant", content: "" };
+        setMessages([msg1, msg2]);
+        
+        const text2 = "Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...).";
+        for (let i = 0; i <= text2.length; i += 2) {
+          setMessages([msg1, { ...msg2, content: text2.slice(0, i) }]);
+          await new Promise(r => setTimeout(r, 15));
+        }
+        setMessages([msg1, { ...msg2, content: text2 }]);
+      };
+      runAutoGreeting();
+    }
+  }, [activeMode, messages.length, sessionId, isLoading]);
 
   // Load chat history if authenticated
   useEffect(() => {
@@ -317,11 +350,24 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
     antMessage.success("Historique effacé");
   };
 
+  const handleDeleteSession = async (id: string, e: any) => {
+    e.stopPropagation();
+    if (confirm("Êtes-vous sûr de vouloir supprimer cette discussion ?")) {
+      await supabase.from("chat_sessions").delete().eq("id", id);
+      setSessions(prev => prev.filter(s => s.id !== id));
+      if (sessionId === id) {
+        setMessages([]);
+        setSessionId(null);
+      }
+      antMessage.success("Discussion supprimée");
+    }
+  };
+
   const startNewDiscussion = async () => {
     if (userId) {
       const { data: newSession } = await supabase
         .from("chat_sessions")
-        .insert({ user_id: userId, title: "Discussion Cultisia" })
+        .insert({ user_id: userId, title: "Nouvelle discussion" })
         .select("id, title")
         .single();
         
@@ -331,11 +377,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       }
     }
     
-    if (activeMode === "cultiplan") {
-      setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }]);
-    } else {
-      setMessages([]);
-    }
+    setMessages([]);
+    hasAutoGreeted.current = false; // Reset auto greeting for new discussion
     setIsLoading(false); 
     setIsThinking(false); 
     setSidebarOpen(false);
@@ -677,24 +720,46 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
             
 <div className="flex-1 overflow-y-auto px-3 mt-2 space-y-1 custom-scrollbar">
               {sessions.map(s => (
-                <button
-                  key={s.id}
-                  onClick={async () => {
-                    setSessionId(s.id);
-                    setIsLoading(true);
-                    const { data: history } = await supabase
-                      .from("chat_messages")
-                      .select("id, role, content")
-                      .eq("session_id", s.id)
-                      .order("created_at", { ascending: true });
-                    if (history) setMessages(history as ChatMessage[]);
-                    if (window.innerWidth < 768) setSidebarOpen(false);
-                    setIsLoading(false);
-                  }}
-                  className={`w-full text-left px-3 py-2.5 rounded-xl text-[13px] font-medium transition-colors truncate ${s.id === sessionId ? "bg-[#0B5345]/10 text-[#0B5345] font-semibold" : "text-gray-600 hover:bg-gray-100"}`}
-                >
-                  {s.title}
-                </button>
+                <div key={s.id} className={`group flex items-center justify-between w-full px-3 py-2.5 rounded-xl text-[13px] font-medium transition-colors cursor-pointer ${s.id === sessionId ? "bg-[#0B5345]/10 text-[#0B5345] font-semibold" : "text-gray-600 hover:bg-gray-100"}`}>
+                  <button
+                    onClick={async () => {
+                      setSessionId(s.id);
+                      setIsLoading(true);
+                      const { data: history } = await supabase
+                        .from("chat_messages")
+                        .select("id, role, content")
+                        .eq("session_id", s.id)
+                        .order("created_at", { ascending: true });
+                      if (history) setMessages(history as ChatMessage[]);
+                      if (window.innerWidth < 768) setSidebarOpen(false);
+                      setIsLoading(false);
+                    }}
+                    className="flex-1 text-left truncate focus:outline-none"
+                  >
+                    {s.title}
+                  </button>
+                  <Dropdown
+                    menu={{
+                      items: [
+                        { key: "rename", label: "Renommer", icon: <span className="mr-1">✏️</span>, onClick: () => {
+                          const newTitle = prompt("Nouveau nom de la discussion :", s.title);
+                          if (newTitle && newTitle.trim()) {
+                            supabase.from("chat_sessions").update({ title: newTitle }).eq("id", s.id).then(() => {
+                              setSessions(prev => prev.map(session => session.id === s.id ? { ...session, title: newTitle } : session));
+                            });
+                          }
+                        } },
+                        { key: "delete", label: "Supprimer", danger: true, icon: <span className="mr-1">🗑️</span>, onClick: (e) => handleDeleteSession(s.id, e.domEvent) }
+                      ]
+                    }}
+                    trigger={['click']}
+                    placement="bottomRight"
+                  >
+                    <button className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-black/5 text-gray-500 transition-all focus:outline-none focus:opacity-100" onClick={e => e.stopPropagation()}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    </button>
+                  </Dropdown>
+                </div>
               ))}
             </div>
 
@@ -738,21 +803,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
           </div>
         ) : (
           <>
-            {/* Bouton Nouvelle Simulation (Effacer) Flottant */}
-            <div className="absolute top-4 right-4 z-20">
-              {messages.length > 0 && (
-                <Tooltip title="Effacer la discussion">
-                  <button 
-                    onClick={clearHistory}
-                    className="flex items-center justify-center w-10 h-10 bg-white border border-gray-200 text-gray-500 hover:text-red-500 hover:border-red-200 hover:bg-red-50 rounded-full shadow-sm transition-all"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                  </button>
-                </Tooltip>
-              )}
-            </div>
-            <div className="flex-1 overflow-y-auto scroll-smooth min-h-0">
-              <div className="max-w-[780px] mx-auto px-6 py-8 space-y-7">
+            <div className="flex-1 overflow-y-auto scroll-smooth min-h-0 pt-6">
+              <div className="max-w-[780px] mx-auto px-6 py-12 space-y-7">
                 {messages.map((msg, idx) => {
                   let displayContent = msg.content;
                   let questionnaireData: QuestionnaireData | null = null;

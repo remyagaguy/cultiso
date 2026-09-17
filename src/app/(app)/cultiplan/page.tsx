@@ -57,9 +57,8 @@ export default function CultiPlanPage() {
         <SharedChat 
           toolContext="cultiplan" 
           title="Expert Agrobusiness" 
-          subtitle="Analyste de Business Agricole" 
           isEmbedded={true}
-          hideSidebar={true}
+          hideSidebar={!!simulationData}
           onSimulationComplete={(data) => { setSimulationData(data); localStorage.setItem("cultiplan_latest", JSON.stringify(data)); }}
         />
       </aside>
