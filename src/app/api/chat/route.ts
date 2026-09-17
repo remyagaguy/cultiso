@@ -62,8 +62,8 @@ export async function POST(req: Request) {
       sources = ragResult.sources;
     }
 
-    // 2. Fetch Price Context
-    const priceContext = await getPriceContext(supabase, message, combinedQuery);
+    // 2. Fetch Price Context is removed (moved to Function Calling)
+    const priceContext = "";
 
     // 3. Get System Prompt
     const systemPrompt = getSystemPrompt(mode, toolContext, contextText, priceContext);
@@ -100,6 +100,24 @@ export async function POST(req: Request) {
             required: ["target_tool", "reason"]
           }
         }
+      },
+      {
+        type: "function" as const,
+        function: {
+          name: "get_market_prices",
+          description: "Récupère les prix actuels du marché pour un ou plusieurs produits agricoles.",
+          parameters: {
+            type: "object",
+            properties: {
+              product_names: {
+                type: "array",
+                items: { type: "string" },
+                description: "Liste des noms de produits agricoles (ex: ['tomate', 'maïs'])"
+              }
+            },
+            required: ["product_names"]
+          }
+        }
       }
     ] : undefined;
 
@@ -123,32 +141,73 @@ export async function POST(req: Request) {
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "sources", sources })}\n\n`));
         }
         try {
+          let toolName = "";
+          let toolArgs = "";
+          let isToolCall = false;
+
           for await (const chunk of stream) {
             if ((chunk as any).usage) {
                const usedTokens = (chunk as any).usage.total_tokens;
                if (usedTokens > 0) {
-                  const newBalance = tokensBalance - usedTokens;
-                  await supabase.auth.admin.updateUserById(user.id, {
-                    app_metadata: { ...user.app_metadata, tokens_balance: newBalance }
-                  });
+                  // Atomic Deduction (Option B) - Avoids race conditions
+                  await supabase.rpc('deduct_tokens', { deduction_amount: usedTokens });
                }
             }
             
-            const content = chunk.choices?.[0]?.delta?.content;
-            if (content) {
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "token", content })}\n\n`));
-            }
-
-            const tool_calls = chunk.choices?.[0]?.delta?.tool_calls;
-            if (tool_calls && tool_calls.length > 0) {
-              const tc = tool_calls[0];
-              if (tc.function?.name) {
-                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "tool_call_start", name: tc.function.name, arguments: tc.function.arguments || "" })}\n\n`));
-              } else if (tc.function?.arguments) {
-                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "tool_call_delta", arguments: tc.function.arguments })}\n\n`));
+            const delta = chunk.choices?.[0]?.delta;
+            
+            if (delta?.tool_calls && delta.tool_calls.length > 0) {
+              isToolCall = true;
+              const tc = delta.tool_calls[0];
+              if (tc.function?.name) toolName = tc.function.name;
+              if (tc.function?.arguments) toolArgs += tc.function.arguments;
+              
+              if (toolName === "route_to_tool") {
+                if (tc.function?.name) {
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "tool_call_start", name: tc.function.name, arguments: tc.function.arguments || "" })}\n\n`));
+                } else if (tc.function?.arguments) {
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "tool_call_delta", arguments: tc.function.arguments })}\n\n`));
+                }
               }
+            } else if (delta?.content && !isToolCall) {
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "token", content: delta.content })}\n\n`));
             }
           }
+
+          // Exécution du tool server-side (get_market_prices)
+          if (isToolCall && toolName === "get_market_prices") {
+             try {
+               const args = JSON.parse(toolArgs);
+               const queryForPrices = args.product_names ? args.product_names.join(" ") : combinedQuery;
+               
+               // Fetch real prices
+               const fetchedPrices = await getPriceContext(supabase, "prix " + queryForPrices, queryForPrices);
+               
+               // Second LLM Call
+               const secondStream = await openrouter.chat.completions.create({
+                 model: model || "google/gemini-2.5-flash",
+                 messages: [
+                   { role: "system", content: systemPrompt },
+                   ...messages,
+                   { role: "assistant", content: null, tool_calls: [{ id: "call_price", type: "function", function: { name: toolName, arguments: toolArgs } }] },
+                   { role: "tool", tool_call_id: "call_price", content: fetchedPrices || "Aucun prix trouvé." }
+                 ],
+                 temperature: 0.3,
+                 stream: true
+               });
+               
+               for await (const chunk of secondStream) {
+                 const content = chunk.choices?.[0]?.delta?.content;
+                 if (content) {
+                   controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "token", content })}\n\n`));
+                 }
+               }
+             } catch (err) {
+               console.error("Tool execution error", err);
+               controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "token", content: "\n\nDésolé, je n'ai pas pu récupérer les prix." })}\n\n`));
+             }
+          }
+
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "done" })}\n\n`));
         } catch (err) {
           controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "error", content: "Erreur de génération" })}\n\n`));
