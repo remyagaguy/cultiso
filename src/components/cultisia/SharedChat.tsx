@@ -349,6 +349,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       let assistantContent = "";
       let assistantSources: { file_name: string }[] = [];
       let assistantMsgAdded = false;
+      let toolCallName = "";
+      let toolCallArgs = "";
 
       while (true) {
         const { done, value } = await reader.read();
@@ -363,6 +365,11 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
 
             if (data.type === "sources") {
               assistantSources = data.sources;
+            } else if (data.type === "tool_call_start") {
+              toolCallName = data.name;
+              toolCallArgs += data.arguments;
+            } else if (data.type === "tool_call_delta") {
+              toolCallArgs += data.arguments;
             } else if (data.type === "token") {
               if (!assistantMsgAdded) {
                 setIsThinking(false);
@@ -383,16 +390,29 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
             } else if (data.type === "cultima_config" && onConfigComplete) {
               onConfigComplete(data.config);
             } else if (data.type === "done") {
-              setMessages((p) => {
-                const updated = [...p];
-                const lastMsg = updated[updated.length - 1];
-                if (lastMsg && lastMsg.role === "assistant") {
-                  updated[updated.length - 1] = { ...lastMsg, isStreaming: false };
-                }
-                return updated;
-              });
+              if (toolCallName === "route_to_tool") {
+                try {
+                  const args = JSON.parse(toolCallArgs);
+                  const redirectMsg = args.reason + "\n\n*âž¡ Redirection en cours vers " + args.target_tool + "...*";
+                  setMessages((p) => [...p, { role: "assistant", content: redirectMsg, isStreaming: false }]);
+                  assistantContent = redirectMsg;
+                  assistantMsgAdded = true;
+                  setTimeout(() => {
+                    setActiveMode(args.target_tool);
+                  }, 2000);
+                } catch(e) {}
+              } else {
+                setMessages((p) => {
+                  const updated = [...p];
+                  const lastMsg = updated[updated.length - 1];
+                  if (lastMsg && lastMsg.role === "assistant") {
+                    updated[updated.length - 1] = { ...lastMsg, isStreaming: false };
+                  }
+                  return updated;
+                });
+              }
               // Sauvegarde de la réponse finale en DB
-              if (sessionId) {
+              if (sessionId && assistantContent) {
                 supabase.from("chat_messages").insert({ session_id: sessionId, role: "assistant", content: assistantContent }).then();
               }
             }
@@ -402,13 +422,17 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         }
       }
 
-      if (!assistantMsgAdded) {
+      if (!assistantMsgAdded && !toolCallName) {
         setIsThinking(false);
         setMessages((p) => [...p, { role: "assistant", content: "Désolé, une erreur s'est produite." }]);
       }
-    } catch {
+    } catch (err: any) {
       setIsThinking(false);
-      setMessages((p) => [...p, { role: "assistant", content: "Désolé, le service est temporairement indisponible. Veuillez réessayer." }]);
+      if (err.message === "CREDITS_EMPTY") {
+        setMessages((p) => [...p, { role: "assistant", content: "Désolé, vous n'avez plus d'énergie (crédits épuisés). ⚡" }]);
+      } else {
+        setMessages((p) => [...p, { role: "assistant", content: "Désolé, le service est temporairement indisponible. Veuillez réessayer." }]);
+      }
     }
     setIsLoading(false);
     setIsThinking(false);
