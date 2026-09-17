@@ -206,7 +206,6 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
   onTransactionDraft
 }: SharedChatProps) {
   const [activeMode, setActiveMode] = useState<"cultisia" | "cultiplan" | "cultiseil" | "cultima">(toolContext);
-  const [isModeMenuOpen, setIsModeMenuOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(
     activeMode === "cultiplan" 
       ? [{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }] 
@@ -220,6 +219,8 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [sessions, setSessions] = useState<ChatSession[]>([]);
+  const [isRecording, setIsRecording] = useState(false);
+  const recognitionRef = useRef<any>(null);
   useEffect(() => {
     if (messages.length <= 1 && !messages.some(m => m.role === 'user')) {
       if (activeMode === "cultiplan") {
@@ -526,6 +527,53 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
     setIsThinking(false);
   };
 
+  const toggleRecording = () => {
+    if (isRecording) {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsRecording(false);
+      return;
+    }
+
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      antMessage.error("La saisie vocale n'est pas supportée par votre navigateur.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "fr-FR";
+    recognition.continuous = false;
+    recognition.interimResults = true;
+
+    recognition.onstart = () => {
+      setIsRecording(true);
+    };
+
+    recognition.onresult = (event: any) => {
+      const current = event.resultIndex;
+      const transcript = event.results[current][0].transcript;
+      setInput((prev) => {
+        // Simple heuristic: if we already have text, append. But since interimResults replaces the last bit, it's safer to just set it if we only speak once.
+        // For simplicity, we just replace the input if we just started, or append if we paused.
+        return transcript; 
+      });
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error("Speech recognition error", event.error);
+      setIsRecording(false);
+    };
+
+    recognition.onend = () => {
+      setIsRecording(false);
+    };
+
+    recognitionRef.current = recognition;
+    recognition.start();
+  };
+
   const handleSend = () => doSend(input);
   const handleSuggestion = (prompt: string) => doSend(prompt);
   const handleKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -549,58 +597,32 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
       </div>
       <div className={`flex items-center justify-between ${large ? "px-5 pb-3.5 pt-1" : "px-4 pb-2.5 pt-0.5"}`}>
         <div className="flex items-center">
-            {!isEmbedded && (
-               <div className="relative">
-                 <button
-                   onClick={() => setIsModeMenuOpen(!isModeMenuOpen)}
-                   className="flex items-center gap-1.5 text-[12.5px] font-semibold bg-white border border-gray-200 text-[#0B5345] rounded-full pl-3 pr-2.5 py-[5px] hover:border-[#0B5345]/30 shadow-sm transition-all focus:outline-none"
-                 >
-                   {activeMode === "cultisia" && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.5 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>}
-                   {activeMode === "cultiplan" && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>}
-                   {activeMode === "cultima" && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>}
-                   {activeMode === "cultiseil" && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>}
-                   <span>{activeMode === "cultisia" ? "Cultisia Général" : activeMode === "cultiplan" ? "Mode CultiPlan" : activeMode === "cultima" ? "Mode Cultima" : "Mode Cultiseil"}</span>
-                   <svg className="w-3.5 h-3.5 text-[#0B5345]/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                 </button>
-                 
-                 {isModeMenuOpen && (
-                   <>
-                     <div className="fixed inset-0 z-40" onClick={() => setIsModeMenuOpen(false)} />
-                     <div className="absolute left-0 bottom-full mb-1 w-48 bg-white border border-gray-100 rounded-xl shadow-lg z-50 overflow-hidden py-1 animate-in fade-in duration-200">
-                       <button onClick={() => { setActiveMode("cultisia"); setIsModeMenuOpen(false); }} className={`w-full flex items-center gap-2.5 px-3 py-2 text-[13px] font-medium hover:bg-gray-50 transition-colors ${activeMode === "cultisia" ? "text-[#0B5345] bg-[#0B5345]/5" : "text-gray-700"}`}>
-                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.5 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
-                         Cultisia Général
-                       </button>
-                       <button onClick={() => { setActiveMode("cultiplan"); setIsModeMenuOpen(false); }} className={`w-full flex items-center gap-2.5 px-3 py-2 text-[13px] font-medium hover:bg-gray-50 transition-colors ${activeMode === "cultiplan" ? "text-[#0B5345] bg-[#0B5345]/5" : "text-gray-700"}`}>
-                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                         Mode CultiPlan
-                       </button>
-                       <button onClick={() => { setActiveMode("cultima"); setIsModeMenuOpen(false); }} className={`w-full flex items-center gap-2.5 px-3 py-2 text-[13px] font-medium hover:bg-gray-50 transition-colors ${activeMode === "cultima" ? "text-[#0B5345] bg-[#0B5345]/5" : "text-gray-700"}`}>
-                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                         Mode Cultima
-                       </button>
-                       <button onClick={() => { setActiveMode("cultiseil"); setIsModeMenuOpen(false); }} className={`w-full flex items-center gap-2.5 px-3 py-2 text-[13px] font-medium hover:bg-gray-50 transition-colors ${activeMode === "cultiseil" ? "text-[#0B5345] bg-[#0B5345]/5" : "text-gray-700"}`}>
-                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0B5345]"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                         Mode Cultiseil
-                       </button>
-                     </div>
-                   </>
-                 )}
-               </div>
-            )}
           </div>
-        <button
-          onClick={handleSend}
-          disabled={isLoading || !input.trim()}
-          className="w-9 h-9 rounded-full bg-[#0B5345] hover:bg-[#084236] disabled:bg-gray-100 disabled:cursor-not-allowed text-white disabled:text-gray-300 flex items-center justify-center transition-all duration-200 active:scale-[0.92] shadow-sm"
-          aria-label="Envoyer"
-        >
-          {isLoading ? (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="animate-spin" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-          ) : (
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          )}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleRecording}
+            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 active:scale-[0.92] shadow-sm ${
+              isRecording 
+                ? "bg-red-500 hover:bg-red-600 text-white animate-pulse" 
+                : "bg-gray-100 hover:bg-gray-200 text-gray-500"
+            }`}
+            aria-label="Saisie vocale"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+          </button>
+          <button
+            onClick={handleSend}
+            disabled={isLoading || !input.trim()}
+            className="w-9 h-9 rounded-full bg-[#0B5345] hover:bg-[#084236] disabled:bg-gray-100 disabled:cursor-not-allowed text-white disabled:text-gray-300 flex items-center justify-center transition-all duration-200 active:scale-[0.92] shadow-sm"
+            aria-label="Envoyer"
+          >
+            {isLoading ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="animate-spin" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+            ) : (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -614,11 +636,12 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         className={`h-full bg-[#f9f8f6] flex flex-col flex-shrink-0 border-r border-gray-100 transition-all duration-300 ease-in-out ${sidebarOpen ? 'absolute md:relative z-[1000] shadow-2xl md:shadow-none' : 'hidden md:flex'}`}
       >
         <div className={`flex items-center ${sidebarOpen ? "justify-between pl-5 pr-3" : "justify-center"} h-[64px]`}>
-          <Link href="/" className="flex items-center gap-2.5 hover:opacity-75 transition-opacity">
-            <img src="/favicon.png" alt="Cultiso" className="w-7 h-7 object-contain flex-shrink-0" />
-            {sidebarOpen && <span className="font-unbounded font-bold text-[16px] text-[#052821]">{title}</span>}
-          </Link>
-          
+          <div className="flex items-center gap-2.5">
+            {sidebarOpen && <span className="font-unbounded font-bold text-[#0B5345] text-[15px] tracking-tight">Historique</span>}
+          </div>
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1.5 hover:bg-black/5 rounded-lg text-gray-500 transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          </button>
         </div>
         <div className={`${sidebarOpen ? "px-3" : "px-2"} mb-4 mt-2`}>
             <button onClick={startNewDiscussion} className={`${sidebarOpen ? "w-full gap-2.5 px-4 py-2.5 text-[13px] justify-start" : "w-10 h-10 justify-center mx-auto"} flex items-center bg-white hover:bg-gray-50 border border-gray-200 rounded-xl font-medium text-gray-700 transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_2px_5px_rgba(0,0,0,0.05)] hover:border-[#0B5345]/20 active:scale-[0.98]`}>
@@ -737,7 +760,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                       jsonString = fencedMatch[1];
                       matchToRemove = fencedMatch[0];
                     } else {
-                      const rawMatch = displayContent.match(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*\}/);
+                      const rawMatch = displayContent.match(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*\}/) || displayContent.match(/\{\s*"type"\s*:\s*"questionnaire"[\s\S]*\}/);
                       if (rawMatch) {
                         jsonString = rawMatch[0];
                         matchToRemove = rawMatch[0];
@@ -758,7 +781,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                         // ignore JSON parse errors
                       }
                     } else if (msg.isStreaming) {
-                      displayContent = displayContent.replace(/```json\s+[^`]*$/, "").replace(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*$/, "").trim();
+                      displayContent = displayContent.replace(/```json\s+[^`]*$/, "").replace(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*$/, "").replace(/\{\s*"type"\s*:\s*"questionnaire"[\s\S]*$/, "").trim();
                     }
                   }
 
