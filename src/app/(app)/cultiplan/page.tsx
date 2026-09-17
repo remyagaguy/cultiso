@@ -17,7 +17,7 @@ export default function CultiPlanPage() {
   }, []);
   
   return (
-    <div className="flex-1 flex h-[calc(100vh-72px)] flex-col md:flex-row bg-white font-manrope">
+    <div className="flex-1 flex h-full flex-col md:flex-row bg-white font-manrope">
       {/* CANCEL LEFT SIDEBAR (Not used) */}
 
       {/* 1. CANVAS AREA (Only visible when Business Plan is ready) */}

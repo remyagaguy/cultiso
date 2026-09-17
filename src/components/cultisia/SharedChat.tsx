@@ -45,8 +45,9 @@ const SuggestDroplet = () => (
 /* â”€â”€â”€ Thinking Animation â”€â”€â”€ */
 const ThinkingIndicator = () => (
   <div className="flex items-center gap-3 py-4">
-    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#0B5345] to-[#148f6c] flex items-center justify-center flex-shrink-0 shadow-sm border border-[#0B5345]/10">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.5 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+    <div className="w-9 h-9 rounded-full bg-[#f3fbe9] flex items-center justify-center flex-shrink-0 border border-[#22c55e]/20 relative shadow-sm">
+      <img src="/favicon.png" alt="Cultisia" className="w-5 h-5 object-contain" />
+      <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-[1.5px] border-white rounded-full"></span>
     </div>
     <div className="flex items-center gap-2.5">
       <div className="flex items-center gap-1.5">
@@ -804,8 +805,9 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                   return (
                     <div key={idx} className={`flex gap-4 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                       {msg.role === "assistant" && (
-                        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#0B5345] to-[#148f6c] flex items-center justify-center flex-shrink-0 mt-1 shadow-sm border border-[#0B5345]/10">
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.5 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                        <div className="w-9 h-9 rounded-full bg-[#f3fbe9] flex items-center justify-center flex-shrink-0 mt-1 border border-[#22c55e]/20 relative shadow-sm">
+                          <img src="/favicon.png" alt="Cultisia" className="w-5 h-5 object-contain" />
+                          <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-[1.5px] border-white rounded-full"></span>
                         </div>
                       )}
                       <div className={`flex flex-col gap-1.5 ${msg.role === "user" ? "items-end max-w-[70%]" : "items-start max-w-[90%]"}`}>
