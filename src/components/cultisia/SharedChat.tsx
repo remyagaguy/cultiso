@@ -735,9 +735,19 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
   const renderInputBar = (placeholder: string, large?: boolean) => (
     <div className={`w-full bg-white border border-gray-200/80 rounded-[32px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] focus-within:shadow-[0_4px_20px_rgba(0,0,0,0.06)] focus-within:border-[#0B5345]/20 transition-all duration-300 overflow-hidden flex items-center`}>
       <div className={`flex items-center justify-center ${large ? "pl-5" : "pl-4"}`}>
-        <button className="text-gray-400 hover:text-gray-600 transition-colors p-1" aria-label="Ajouter un fichier">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-        </button>
+        <Dropdown menu={{
+          items: [
+            { key: 'cultisia', label: 'Cultisia', onClick: () => setActiveMode('cultisia') },
+            { key: 'cultiplan', label: 'Cultiplan', onClick: () => setActiveMode('cultiplan') },
+            { key: 'cultima', label: 'Cultima', onClick: () => setActiveMode('cultima') },
+            { key: 'cultiseil', label: 'Cultiseil', onClick: () => setActiveMode('cultiseil') },
+          ]
+        }} trigger={['click']} placement="topLeft">
+          <button className="text-gray-500 hover:text-[#0B5345] transition-colors p-1.5 flex items-center gap-1.5 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-100" aria-label="Changer d'outil">
+            <span className="text-[12px] font-semibold hidden sm:inline">{activeMode.charAt(0).toUpperCase() + activeMode.slice(1)}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+        </Dropdown>
       </div>
       <div className={`flex-1 flex items-center ${large ? "px-4 py-4" : "px-3 py-3"}`}>
         <textarea
@@ -789,11 +799,13 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
       {!hideSidebar && (
         <Drawer
           title={<span className="font-unbounded font-bold text-[#0B5345]">Historique</span>}
-          placement="left"
+          placement="right"
           closable={true}
           onClose={() => setSidebarOpen(false)}
           open={sidebarOpen}
           width={320}
+          getContainer={false}
+          style={{ position: 'absolute' }}
           bodyStyle={{ padding: '0', display: 'flex', flexDirection: 'column', backgroundColor: '#f9f8f6' }}
           headerStyle={{ backgroundColor: '#f9f8f6', borderBottom: '1px solid #f0f0f0' }}
         >
@@ -859,24 +871,25 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
       <main className="flex-1 flex flex-col h-full min-w-0 bg-gradient-to-b from-[#f3fbe9]/60 via-white to-white overflow-hidden relative">
 
         {!hideSidebar && (
-          <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-white/80 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.02)] z-10 shrink-0">
+          <div className="flex items-center justify-between px-6 py-3 border-b border-gray-100 bg-white/80 backdrop-blur-md z-10 shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#f3fbe9] flex items-center justify-center border border-[#22c55e]/30 shadow-sm text-[#0B5345]">
-                {icon}
-              </div>
-              <div>
-                <h1 className="font-bold text-[#0B5345] text-[16px] font-unbounded leading-tight">{title}</h1>
-                <p className="text-[11px] text-gray-500 font-medium tracking-wide">{subtitle || "Assistant IA"}</p>
-              </div>
+              <span className="font-medium text-gray-800 text-[14px]">
+                {activeMode.charAt(0).toUpperCase() + activeMode.slice(1)}
+              </span>
+              <span className="text-gray-300">/</span>
+              <span className="text-[13px] text-gray-500 truncate max-w-[200px]">
+                {sessions.find(s => s.id === sessionId)?.title || "Nouvelle discussion"}
+              </span>
             </div>
             
             <div className="flex items-center gap-2">
               <button 
                 onClick={() => setSidebarOpen(true)}
-                className="flex items-center gap-2 px-3 py-2 text-gray-600 bg-white hover:bg-gray-50 rounded-lg transition-colors border border-gray-200 shadow-sm"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-gray-600 bg-white hover:bg-gray-50 rounded-lg transition-colors border border-transparent hover:border-gray-200"
+                title="Historique"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <span className="hidden sm:inline text-[13px] font-semibold">Historique</span>
+                <span className="hidden sm:inline text-[13px] font-medium">Historique</span>
               </button>
             </div>
           </div>
