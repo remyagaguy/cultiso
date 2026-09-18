@@ -131,30 +131,48 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         {/* Nav links */}
         <nav className="flex-1 overflow-y-auto px-3 py-6 custom-scrollbar">
-          <ul className="flex flex-col gap-[32px] list-none m-0 p-0 w-full">
+          <ul style={{ display: 'flex', flexDirection: 'column', gap: '32px', listStyle: 'none', margin: 0, padding: 0, width: '100%' }}>
             {NAV_ITEMS.map((item) => {
               const isActive = pathname?.startsWith(item.href);
               const Icon = item.icon;
 
               const linkContent = (
                 <div
-                  className={`flex items-center transition-all duration-200 cursor-pointer overflow-hidden group rounded-xl shrink-0 ${
-                    !isExpanded 
-                      ? "justify-center h-[48px] min-h-[48px] w-[48px] mx-auto" 
-                      : "gap-4 px-4 py-3 h-[48px] min-h-[48px] w-full"
-                  } ${
+                  className={`transition-all duration-200 cursor-pointer overflow-hidden group rounded-xl shrink-0 ${
                     item.disabled
                       ? "text-gray-300 cursor-not-allowed"
                       : isActive
-                        ? "text-[#0B5345] bg-[#0B5345]/5"
+                        ? "text-[#0B5345]"
                         : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
                   }`}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: !isExpanded ? 'center' : 'flex-start',
+                    width: !isExpanded ? '48px' : '100%',
+                    height: '48px',
+                    minHeight: '48px',
+                    margin: !isExpanded ? '0 auto' : '0',
+                    padding: !isExpanded ? '0' : '0 16px',
+                    gap: !isExpanded ? '0' : '16px',
+                    backgroundColor: isActive ? 'rgba(11, 83, 69, 0.05)' : 'transparent'
+                  }}
                 >
-                  <Icon className={`text-[24px] shrink-0 transition-transform duration-200 ${!item.disabled && !isActive && 'group-hover:scale-110'}`} />
-                  <div className={`transition-all duration-300 flex items-center shrink-0 overflow-hidden ${isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"}`}>
-                    <span className="text-[15px] font-medium whitespace-nowrap">{item.name}</span>
+                  <Icon style={{ fontSize: '24px', flexShrink: 0, transition: 'transform 0.2s' }} className={!item.disabled && !isActive ? 'group-hover:scale-110' : ''} />
+                  <div 
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      overflow: 'hidden',
+                      transition: 'all 0.3s',
+                      width: isExpanded ? 'auto' : '0px',
+                      opacity: isExpanded ? 1 : 0,
+                      flexShrink: 0
+                    }}
+                  >
+                    <span style={{ fontSize: '15px', fontWeight: 500, whiteSpace: 'nowrap' }}>{item.name}</span>
                     {item.disabled && (
-                      <span className="ml-3 text-[9px] font-bold uppercase tracking-wider bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded-md">
+                      <span className="ml-3 font-bold uppercase tracking-wider bg-gray-100 text-gray-400 rounded-md" style={{ fontSize: '9px', padding: '2px 6px' }}>
                         Bientôt
                       </span>
                     )}
@@ -162,17 +180,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
               );
 
-              // Temporarily use native title to guarantee Tooltip isn't breaking the DOM layout in collapsed mode
+              // Use native title for now to avoid Tooltip rendering bugs
               if (item.disabled) {
                 return (
-                  <li key={item.name} className="block w-full shrink-0" title={!isExpanded ? item.name : undefined}>
+                  <li key={item.name} style={{ display: 'block', width: '100%', flexShrink: 0 }} title={!isExpanded ? item.name : undefined}>
                     {linkContent}
                   </li>
                 );
               }
 
               return (
-                <li key={item.name} className="block w-full shrink-0" title={!isExpanded ? item.name : undefined}>
+                <li key={item.name} style={{ display: 'block', width: '100%', flexShrink: 0 }} title={!isExpanded ? item.name : undefined}>
                   <Link href={item.href} className="no-underline block w-full">
                     {linkContent}
                   </Link>
