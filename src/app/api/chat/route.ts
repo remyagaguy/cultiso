@@ -158,8 +158,7 @@ export async function POST(req: Request) {
       ];
     }
 
-    require('fs').appendFileSync('api_log.txt', `DEBUG: mode=${mode} toolContext=${toolContext}\n`);
-    require('fs').appendFileSync('api_log.txt', `DEBUG: systemPrompt starts with: ${systemPrompt.substring(0, 200)}\n\n`);
+    // Debugging removed
 
     const stream = await openrouter.chat.completions.create({
       model: model || "google/gemini-2.5-flash",
@@ -190,7 +189,11 @@ export async function POST(req: Request) {
                const usedTokens = (chunk as any).usage.total_tokens;
                if (usedTokens > 0) {
                   // Atomic Deduction (Option B) - Avoids race conditions
-                  await supabase.rpc('deduct_tokens', { deduction_amount: usedTokens });
+                  try {
+                    await supabase.rpc('deduct_tokens', { deduction_amount: usedTokens, user_id: user.id });
+                  } catch (e) {
+                    console.error("Failed to deduct tokens", e);
+                  }
                }
             }
             
@@ -269,10 +272,10 @@ export async function POST(req: Request) {
         Connection: "keep-alive",
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Chat API error:", error);
     return new Response(
-      JSON.stringify({ reply: "Désolé, le service est temporairement indisponible.", sources: [] }),
+      JSON.stringify({ reply: "Désolé, le service est temporairement indisponible.", error: error?.message || String(error), sources: [] }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }

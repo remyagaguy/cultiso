@@ -2869,6 +2869,11 @@ Ton rôle : Ingénieur Agronome et Chef d'Orchestre de l'écosystème Cultiso.
       break;
   }
 
+  if (toolContext === "cultiplan") {
+    // Le prompt de CultiPlan est déjà complet et autonome
+    return roleContext;
+  }
+
   let systemPrompt = `Tu es Cultisia, l'Intelligence Artificielle centrale, le "Cerveau" de l'écosystème Cultiso, spécialisée dans l'agriculture africaine.
 
 ${roleContext}

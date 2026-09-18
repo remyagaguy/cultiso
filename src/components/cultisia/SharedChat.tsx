@@ -563,7 +563,9 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
         if (res.status === 402) {
           throw new Error("CREDITS_EMPTY");
         }
-        throw new Error("Response error");
+        const errorText = await res.text();
+        console.error("Backend error response:", errorText);
+        throw new Error("Response error: " + errorText);
       }
       if (!res.body) throw new Error("Response error");
 
