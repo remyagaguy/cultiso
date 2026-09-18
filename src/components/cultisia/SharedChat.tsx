@@ -219,7 +219,7 @@ const QuestionnaireWidget = ({
                 className="w-full text-left px-4 py-3.5 rounded-2xl border border-dashed border-gray-300 bg-white hover:border-[#D35400] hover:bg-[#D35400]/5 transition-all duration-200 text-[14.5px] text-gray-600 hover:text-[#D35400] flex items-center gap-3.5 active:scale-[0.99] mt-1"
               >
                 <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-white border border-dashed border-gray-300 text-gray-400 text-[13px] font-semibold shrink-0 transition-colors">
-                  ✏️
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                 </span>
                 <span className="font-medium">Autre (Saisir ma propre réponse)</span>
               </button>
@@ -261,6 +261,7 @@ interface SharedChatProps {
   onSimulationComplete?: (data: any) => void;
   onConfigComplete?: (data: any) => void;
   onTransactionDraft?: (data: any) => void;
+  onNewDiscussion?: () => void;
 }
 
 export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon,  isEmbedded = false,
@@ -270,6 +271,41 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
   onTransactionDraft
 }: SharedChatProps) {
   const [activeMode, setActiveMode] = useState<"cultisia" | "cultiplan" | "cultiseil" | "cultima">(toolContext);
+  
+const extractSimulationData = (msgs: ChatMessage[]) => {
+  if (!onSimulationComplete) return;
+  
+  // Find the last assistant message
+  const lastAssistantMsg = [...msgs].reverse().find(m => m.role === "assistant");
+  if (!lastAssistantMsg) {
+    onSimulationComplete(null);
+    return;
+  }
+  
+  const content = lastAssistantMsg.content;
+  let jsonString = null;
+  const fencedMatch = content.match(/```json\s+([\s\S]*?)\s+```/);
+  if (fencedMatch) {
+    jsonString = fencedMatch[1];
+  } else {
+    const rawMatch = content.match(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*\}/);
+    if (rawMatch) {
+      jsonString = rawMatch[0];
+    }
+  }
+  
+  if (jsonString) {
+    try {
+      const parsed = JSON.parse(jsonString);
+      if (parsed.action === "complete_simulation") {
+        onSimulationComplete(parsed);
+        return;
+      }
+    } catch(e) {}
+  }
+  onSimulationComplete(null);
+};
+
   const [messages, setMessages] = useState<ChatMessage[]>(
     activeMode === "cultima"
       ? [{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia, votre assistant de configuration ERP. Parlez-moi de votre entreprise agricole. Quelle est votre activité principale ? (Ex: Elevage bovin, culture de maïs, etc.)" }]
@@ -309,7 +345,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
         const msg1: ChatMessage = { id: "welcome-1", role: "assistant", content: "" };
         setMessages([msg1]);
         
-        const text1 = "Bonjour ! 👋";
+        const text1 = "Bonjour ! ";
         for (let i = 0; i <= text1.length; i++) {
           setMessages([{ ...msg1, content: text1.slice(0, i) }]);
           await new Promise(r => setTimeout(r, 25));
@@ -554,7 +590,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
               if (toolCallName === "route_to_tool") {
                 try {
                   const args = JSON.parse(toolCallArgs);
-                  const redirectMsg = args.reason + "\n\n*➡️ Redirection en cours vers " + args.target_tool + "...*";
+                  const redirectMsg = args.reason + "\n\n*-> Redirection en cours vers " + args.target_tool + "...*";
                   setMessages((p) => [...p, { role: "assistant", content: redirectMsg, isStreaming: false }]);
                   assistantContent = redirectMsg;
                   assistantMsgAdded = true;
@@ -567,7 +603,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                   const args = JSON.parse(toolCallArgs);
                   if (onTransactionDraft) onTransactionDraft(args);
                   
-                  const msg = "*➡️ J'ai préparé la transaction. Veuillez vérifier les informations dans le formulaire et cliquer sur 'Enregistrer' pour valider.*";
+                  const msg = "*-> J'ai préparé la transaction. Veuillez vérifier les informations dans le formulaire et cliquer sur 'Enregistrer' pour valider.*";
                   setMessages((p) => [...p, { role: "assistant", content: msg, isStreaming: false }]);
                   assistantContent = msg;
                   assistantMsgAdded = true;
@@ -804,7 +840,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                   <Dropdown
                     menu={{
                       items: [
-                        { key: "rename", label: "Renommer", icon: <span className="mr-1">✏️</span>, onClick: () => {
+                        { key: "rename", label: "Renommer", icon: <span className="mr-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></span>, onClick: () => {
                           const newTitle = prompt("Nouveau nom de la discussion :", s.title);
                           if (newTitle && newTitle.trim()) {
                             supabase.from("chat_sessions").update({ title: newTitle }).eq("id", s.id).then(() => {
@@ -812,7 +848,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                             });
                           }
                         } },
-                        { key: "delete", label: "Supprimer", danger: true, icon: <span className="mr-1">🗑️</span>, onClick: (e) => handleDeleteSession(s.id, e.domEvent) }
+                        { key: "delete", label: "Supprimer", danger: true, icon: <span className="mr-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></span>, onClick: (e) => handleDeleteSession(s.id, e.domEvent) }
                       ]
                     }}
                     trigger={['click']}

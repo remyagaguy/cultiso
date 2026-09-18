@@ -10,28 +10,29 @@ export default function CultiPlanPage() {
   const [simulationData, setSimulationData] = useState<any>(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("cultiplan_latest");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        // Only load if it's a valid complete simulation data object
-        if (parsed && (parsed.meta || parsed.resume_executif || parsed.resume)) {
-          setSimulationData(parsed);
-        } else {
-          localStorage.removeItem("cultiplan_latest"); // clear corrupted data
-        }
-      } catch(e) {}
-    }
-  }, []);
+  // Note: We deliberately don't load from localStorage here anymore
+  // to allow users to create a new simulation or view history in SharedChat.
+  // The SharedChat component is responsible for calling onSimulationComplete 
+  // if an existing session contains a complete_simulation JSON block.
 
   const handleSimulationComplete = (data: any) => {
     setIsGenerating(true);
     setTimeout(() => {
       setSimulationData(data);
-      localStorage.setItem("cultiplan_latest", JSON.stringify(data));
+      // We still save it in localstorage just in case other parts of the app need it,
+      // but we don't automatically load it on mount to block the UI.
+      if (data) {
+        localStorage.setItem("cultiplan_latest", JSON.stringify(data));
+      } else {
+        localStorage.removeItem("cultiplan_latest");
+      }
       setIsGenerating(false);
     }, 2000);
+  };
+
+  const startNewSimulation = () => {
+    setSimulationData(null);
+    localStorage.removeItem("cultiplan_latest");
   };
   
   return (
@@ -48,11 +49,17 @@ export default function CultiPlanPage() {
       {/* 1. CANVAS AREA (Only visible when Business Plan is ready) */}
       {simulationData && (
         <main className="flex-1 h-full overflow-y-auto bg-[#FAFAFA] relative z-10 flex flex-col border-r border-gray-200">
-          <header className="h-[72px] shrink-0 bg-white border-b border-gray-200 flex items-center px-8 sticky top-0 z-10">
+          <header className="h-[72px] shrink-0 bg-white border-b border-gray-200 flex items-center justify-between px-8 sticky top-0 z-10">
             <div>
               <h1 className="font-unbounded font-bold text-2xl text-gray-900 tracking-tight">Business Plan</h1>
               <p className="text-[13px] text-gray-500 font-medium">Résultat de la simulation</p>
             </div>
+            <button 
+              onClick={startNewSimulation}
+              className="px-4 py-2 bg-white border border-gray-200 text-gray-700 text-[14px] font-semibold rounded-xl hover:bg-gray-50 transition-colors shadow-sm"
+            >
+              Nouvelle simulation
+            </button>
           </header>
           
           <div className="p-8 flex-1 flex flex-col items-center">
@@ -69,6 +76,7 @@ export default function CultiPlanPage() {
           isEmbedded={true}
           hideSidebar={!!simulationData}
           onSimulationComplete={handleSimulationComplete}
+          onNewDiscussion={startNewSimulation}
         />
       </aside>
     </div>

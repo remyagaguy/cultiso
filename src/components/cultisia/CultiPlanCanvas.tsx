@@ -508,8 +508,8 @@ export function CultiPlanCanvas({ data }: { data: any }) {
                 <div className="flex-1">
                   <h4 className="font-bold text-gray-800">{p.etape}</h4>
                   <div className="text-sm text-gray-500 mt-1 flex gap-4">
-                    <span>⏱️ {p.delai}</span>
-                    <span>👤 {p.responsable}</span>
+                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {p.delai}</span>
+                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> {p.responsable}</span>
                   </div>
                 </div>
               </li>
