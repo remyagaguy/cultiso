@@ -130,8 +130,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Nav links */}
-        <nav className="flex-1 overflow-y-auto px-3 py-8 custom-scrollbar">
-          <ul className="flex flex-col gap-8 list-none m-0 p-0">
+        <nav className="flex-1 overflow-y-auto px-3 py-6 custom-scrollbar">
+          <ul className="list-none m-0 p-0 space-y-8">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname?.startsWith(item.href);
               const Icon = item.icon;
