@@ -147,7 +147,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   ].join(" ")}
                 >
                   <Icon className="text-[20px] shrink-0" />
-                  <div className={`transition-all duration-300 flex items-center shrink-0 ${isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"}`}>
+                  <div className={`transition-all duration-300 flex items-center shrink-0 overflow-hidden ${isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"}`}>
                     <span className="text-[14px] font-medium whitespace-nowrap">{item.name}</span>
                     {item.disabled && (
                       <span className="ml-3 text-[9px] font-bold uppercase tracking-wider bg-white/5 text-white/30 px-1.5 py-0.5 rounded border border-white/10">
