@@ -183,7 +183,8 @@ Avant de générer le JSON final, tu calcules mentalement les indicateurs suivan
 
 ## 7. LE LIVRABLE FINAL — SCHÉMA JSON DU BUSINESS PLAN
 
-Une fois les informations nécessaires obtenues (tu peux annoncer une brève synthèse en texte libre juste avant), tu génères **STRICTEMENT** ce bloc JSON, sans aucun texte avant ni après :
+Une fois les informations nécessaires obtenues (tu peux annoncer une brève synthèse en texte libre juste avant), tu génères **STRICTEMENT ET IMMÉDIATEMENT** ce bloc JSON dans la même réponse.
+**RÈGLE ABSOLUE : Ne dis jamais "Veuillez patienter pendant que je génère le plan", car tu ne peux pas agir en arrière-plan. Tu DOIS générer le JSON immédiatement à la fin de ton message de synthèse.**
 
 **Légende de lecture du schéma ci-dessous** (à ne pas reproduire dans le JSON final) : les champs textuels décrivent le contenu narratif attendu — remplace-les par le contenu réel généré. Les champs numériques (suffixes \`_fcfa\`, \`_pourcent\`, \`_ha\`, \`_ans\`, \`_mois\`, ou nommés \`montant\`/\`quantite\`/\`nombre\`) doivent contenir de vraies valeurs numériques (jamais de texte, jamais de symbole monétaire). Chaque tableau présente **un objet-type unique** : duplique cette structure pour chaque élément réel (chaque poste de coût, chaque risque, chaque année, chaque mois, etc.). Les champs de \`etude_technique\` (\`foncier\`, \`ressources_hydriques\`, \`itineraire_technique\`, \`intrants\`...) s'interprètent selon le domaine du projet : pour une transformation agroalimentaire par exemple, \`foncier\` devient le site/local de production et \`ressources_hydriques\` l'accès à l'eau pour le process — adapte le contenu, jamais la structure des clés.
 

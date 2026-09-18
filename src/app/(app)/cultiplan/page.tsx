@@ -14,7 +14,13 @@ export default function CultiPlanPage() {
     const saved = localStorage.getItem("cultiplan_latest");
     if (saved) {
       try {
-        setSimulationData(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        // Only load if it's a valid complete simulation data object
+        if (parsed && (parsed.meta || parsed.resume_executif || parsed.resume)) {
+          setSimulationData(parsed);
+        } else {
+          localStorage.removeItem("cultiplan_latest"); // clear corrupted data
+        }
       } catch(e) {}
     }
   }, []);
