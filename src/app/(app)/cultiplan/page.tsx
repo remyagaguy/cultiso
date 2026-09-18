@@ -7,6 +7,8 @@ import { SharedChat } from "@/components/cultisia/SharedChat";
 
 export default function CultiPlanPage() {
   const [simulationData, setSimulationData] = useState<any>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+
   useEffect(() => {
     const saved = localStorage.getItem("cultiplan_latest");
     if (saved) {
@@ -15,10 +17,26 @@ export default function CultiPlanPage() {
       } catch(e) {}
     }
   }, []);
+
+  const handleSimulationComplete = (data: any) => {
+    setIsGenerating(true);
+    setTimeout(() => {
+      setSimulationData(data);
+      localStorage.setItem("cultiplan_latest", JSON.stringify(data));
+      setIsGenerating(false);
+    }, 2000);
+  };
   
   return (
-    <div className="flex-1 flex h-full flex-col md:flex-row bg-white font-manrope">
-      {/* CANCEL LEFT SIDEBAR (Not used) */}
+    <div className="flex-1 flex h-full flex-col md:flex-row bg-white font-manrope relative">
+      
+      {isGenerating && (
+        <div className="absolute inset-0 z-50 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center animate-in fade-in duration-300">
+          <div className="w-16 h-16 border-4 border-[#22c55e]/20 border-t-[#22c55e] rounded-full animate-spin mb-6"></div>
+          <h2 className="text-2xl font-bold font-unbounded text-[#0B5345] mb-2">Génération en cours...</h2>
+          <p className="text-gray-600 font-medium text-center max-w-md">Nous structurons vos données pour créer un Business Plan professionnel et adapté à la réalité du terrain.</p>
+        </div>
+      )}
 
       {/* 1. CANVAS AREA (Only visible when Business Plan is ready) */}
       {simulationData && (
@@ -59,7 +77,7 @@ export default function CultiPlanPage() {
           title="Expert Agrobusiness" 
           isEmbedded={true}
           hideSidebar={!!simulationData}
-          onSimulationComplete={(data) => { setSimulationData(data); localStorage.setItem("cultiplan_latest", JSON.stringify(data)); }}
+          onSimulationComplete={handleSimulationComplete}
         />
       </aside>
     </div>

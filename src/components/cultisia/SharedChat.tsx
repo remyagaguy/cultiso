@@ -834,7 +834,7 @@ export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre 
                           questionnaireData = parsed;
                           displayContent = displayContent.replace(matchToRemove as string, "").trim();
                         } else if (parsed.action === "complete_simulation" || parsed.payload) {
-                          simulationData = parsed;
+                          simulationData = parsed.payload || parsed.data || parsed;
                           displayContent = displayContent.replace(matchToRemove as string, "").trim();
                         }
                       } catch (e) {
