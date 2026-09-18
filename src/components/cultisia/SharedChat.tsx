@@ -750,22 +750,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
   /* ─── Input Bar ─── */
   const renderInputBar = (placeholder: string, large?: boolean) => (
     <div className={`w-full bg-white border border-gray-200/80 rounded-[32px] shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] focus-within:shadow-[0_4px_20px_rgba(0,0,0,0.06)] focus-within:border-[#0B5345]/20 transition-all duration-300 overflow-hidden flex items-center`}>
-      <div className={`flex items-center justify-center ${large ? "pl-5" : "pl-4"}`}>
-        <Dropdown menu={{
-          items: [
-            { key: 'cultisia', label: 'Cultisia', onClick: () => setActiveMode('cultisia') },
-            { key: 'cultiplan', label: 'Cultiplan', onClick: () => setActiveMode('cultiplan') },
-            { key: 'cultima', label: 'Cultima', onClick: () => setActiveMode('cultima') },
-            { key: 'cultiseil', label: 'Cultiseil', onClick: () => setActiveMode('cultiseil') },
-          ]
-        }} trigger={['click']} placement="topLeft">
-          <button className="text-gray-500 hover:text-[#0B5345] transition-colors p-1.5 flex items-center gap-1.5 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-100" aria-label="Changer d'outil">
-            <span className="text-[12px] font-semibold hidden sm:inline">{activeMode.charAt(0).toUpperCase() + activeMode.slice(1)}</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-        </Dropdown>
-      </div>
-      <div className={`flex-1 flex items-center ${large ? "px-4 py-4" : "px-3 py-3"}`}>
+      <div className={`flex-1 flex items-center ${large ? "px-6 py-4" : "px-4 py-3"}`}>
         <textarea
           ref={textareaRef}
           value={input}
