@@ -128,8 +128,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Nav links */}
-        <nav className="flex-1 overflow-y-auto px-3 py-6">
-          <ul className="space-y-2 list-none m-0 p-0">
+        <nav className="flex-1 overflow-y-auto px-2 py-6">
+          <ul className="flex flex-col gap-2 list-none m-0 p-0">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname?.startsWith(item.href);
               const Icon = item.icon;
@@ -137,7 +137,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               const linkContent = (
                 <div
                   className={[
-                    "flex items-center rounded-lg transition-all duration-200 cursor-pointer",
+                    "flex items-center rounded-lg transition-all duration-200 cursor-pointer overflow-hidden",
                     !isExpanded ? "justify-center h-12 w-12 mx-auto" : "gap-3 px-3 py-3",
                     item.disabled
                       ? "text-white/25 cursor-not-allowed"
@@ -146,8 +146,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         : "text-white/60 hover:bg-white/10 hover:text-white",
                   ].join(" ")}
                 >
-                  <Icon className="text-[20px]" />
-                  <div className={`transition-all duration-300 overflow-hidden flex items-center ${isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"}`}>
+                  <Icon className="text-[20px] shrink-0" />
+                  <div className={`transition-all duration-300 flex items-center shrink-0 ${isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"}`}>
                     <span className="text-[14px] font-medium whitespace-nowrap">{item.name}</span>
                     {item.disabled && (
                       <span className="ml-3 text-[9px] font-bold uppercase tracking-wider bg-white/5 text-white/30 px-1.5 py-0.5 rounded border border-white/10">
@@ -160,7 +160,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
               if (item.disabled) {
                 return (
-                  <li key={item.name}>
+                  <li key={item.name} className="block">
                     {!isExpanded ? (
                       <Tooltip title={item.name} placement="right">
                         {linkContent}
@@ -173,7 +173,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               }
 
               return (
-                <li key={item.name}>
+                <li key={item.name} className="block">
                   {!isExpanded ? (
                     <Tooltip title={item.name} placement="right">
                       <Link href={item.href} className="no-underline block">

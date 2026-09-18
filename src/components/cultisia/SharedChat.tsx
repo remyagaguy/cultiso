@@ -787,93 +787,72 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
     <div className={isEmbedded ? "w-full h-full flex bg-white font-manrope relative" : "w-full h-full flex bg-white font-manrope relative"} style={{}}>
       {/* â•â•â•â•â•â•â• SIDEBAR â•â•â•â•â•â•â• */}
       {!hideSidebar && (
-      <aside 
-        style={{ width: sidebarOpen ? 260 : 60 }} 
-        className={`h-full bg-[#f9f8f6] flex flex-col flex-shrink-0 border-r border-gray-100 transition-all duration-300 ease-in-out ${sidebarOpen ? 'absolute md:relative z-[1000] shadow-2xl md:shadow-none' : 'hidden md:flex'}`}
-      >
-        <div className={`flex items-center ${sidebarOpen ? "justify-between pl-5 pr-3" : "justify-center"} h-[64px]`}>
-          <div className="flex items-center gap-2.5">
-            {sidebarOpen && <span className="font-unbounded font-bold text-[#0B5345] text-[15px] tracking-tight">Historique</span>}
-          </div>
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1.5 hover:bg-black/5 rounded-lg text-gray-500 transition-colors">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-          </button>
-        </div>
-        <div className={`${sidebarOpen ? "px-3" : "px-2"} mb-4 mt-2`}>
-            <button onClick={startNewDiscussion} className={`${sidebarOpen ? "w-full gap-2.5 px-4 py-2.5 text-[13px] justify-start" : "w-10 h-10 justify-center mx-auto"} flex items-center bg-white hover:bg-gray-50 border border-gray-200 rounded-xl font-medium text-gray-700 transition-all duration-200 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-[0_2px_5px_rgba(0,0,0,0.05)] hover:border-[#0B5345]/20 active:scale-[0.98]`}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-[#D35400]"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              {sidebarOpen && "Nouvelle discussion"}
+        <Drawer
+          title={<span className="font-unbounded font-bold text-[#0B5345]">Historique</span>}
+          placement="left"
+          closable={true}
+          onClose={() => setSidebarOpen(false)}
+          open={sidebarOpen}
+          width={320}
+          bodyStyle={{ padding: '0', display: 'flex', flexDirection: 'column', backgroundColor: '#f9f8f6' }}
+          headerStyle={{ backgroundColor: '#f9f8f6', borderBottom: '1px solid #f0f0f0' }}
+        >
+          <div className="px-4 py-4">
+            <button onClick={startNewDiscussion} className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-50 border border-gray-200 rounded-xl font-medium text-gray-700 transition-all shadow-sm">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#D35400]"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Nouvelle discussion
             </button>
           </div>
-        {!sidebarOpen ? (
-          <div className="flex flex-col items-center gap-2 mt-2">
-            <Tooltip title="Ouvrir le menu" placement="right">
-              <button onClick={() => setSidebarOpen(true)} className="w-10 h-10 rounded-xl hover:bg-white flex items-center justify-center text-gray-400 hover:text-gray-700 transition-colors shadow-sm"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg></button>
-            </Tooltip>
-            <Tooltip title="Accueil" placement="right">
-              <Link href="/" className="w-10 h-10 rounded-xl hover:bg-white flex items-center justify-center text-gray-400 hover:text-[#0B5345] transition-colors shadow-sm"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></Link>
-            </Tooltip>
-          </div>
-        ) : (
-          <>
-            
-<div className="flex-1 overflow-y-auto px-3 mt-2 space-y-1 custom-scrollbar">
-              {sessions.map(s => (
-                <div key={s.id} className={`group flex items-center justify-between w-full px-3 py-2.5 rounded-xl text-[13px] font-medium transition-colors cursor-pointer ${s.id === sessionId ? "bg-[#0B5345]/10 text-[#0B5345] font-semibold" : "text-gray-600 hover:bg-gray-100"}`}>
-                  <button
-                    onClick={async () => {
-                      setSessionId(s.id);
-                      setIsLoading(true);
-                      const { data: history } = await supabase
-                        .from("chat_messages")
-                        .select("id, role, content")
-                        .eq("session_id", s.id)
-                        .order("created_at", { ascending: true });
-                      if (history) setMessages(history as ChatMessage[]);
-                      if (window.innerWidth < 768) setSidebarOpen(false);
-                      setIsLoading(false);
-                    }}
-                    className="flex-1 text-left truncate focus:outline-none"
-                  >
-                    {s.title}
+          
+          <div className="flex-1 overflow-y-auto px-4 space-y-2 custom-scrollbar">
+            <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 mt-2">Sessions récentes</h3>
+            {sessions.map(s => (
+              <div key={s.id} className={`group flex items-center justify-between w-full px-3 py-3 rounded-xl text-[14px] font-medium transition-colors cursor-pointer ${s.id === sessionId ? "bg-[#0B5345] text-white shadow-md" : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-100"}`}>
+                <button
+                  onClick={async () => {
+                    setSessionId(s.id);
+                    setIsLoading(true);
+                    const { data: history } = await supabase
+                      .from("chat_messages")
+                      .select("id, role, content")
+                      .eq("session_id", s.id)
+                      .order("created_at", { ascending: true });
+                    if (history) {
+                      setMessages(history as ChatMessage[]);
+                      extractSimulationData(history);
+                    }
+                    if (window.innerWidth < 768) setSidebarOpen(false);
+                    setIsLoading(false);
+                  }}
+                  className="flex-1 text-left truncate focus:outline-none"
+                >
+                  {s.title}
+                </button>
+                <Dropdown
+                  menu={{
+                    items: [
+                      { key: "rename", label: "Renommer", icon: <span className="mr-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></span>, onClick: () => {
+                        const newTitle = prompt("Nouveau nom de la discussion :", s.title);
+                        if (newTitle && newTitle.trim()) {
+                          supabase.from("chat_sessions").update({ title: newTitle }).eq("id", s.id).then(() => {
+                            setSessions(prev => prev.map(session => session.id === s.id ? { ...session, title: newTitle } : session));
+                          });
+                        }
+                      } },
+                      { key: "delete", label: "Supprimer", danger: true, icon: <span className="mr-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></span>, onClick: (e) => handleDeleteSession(s.id, e.domEvent) }
+                    ]
+                  }}
+                  trigger={['click']}
+                  placement="bottomRight"
+                >
+                  <button className={`opacity-0 group-hover:opacity-100 p-1 rounded transition-all focus:outline-none focus:opacity-100 ${s.id === sessionId ? 'text-white/80 hover:bg-white/20' : 'text-gray-400 hover:bg-black/5'}`} onClick={e => e.stopPropagation()}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                   </button>
-                  <Dropdown
-                    menu={{
-                      items: [
-                        { key: "rename", label: "Renommer", icon: <span className="mr-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></span>, onClick: () => {
-                          const newTitle = prompt("Nouveau nom de la discussion :", s.title);
-                          if (newTitle && newTitle.trim()) {
-                            supabase.from("chat_sessions").update({ title: newTitle }).eq("id", s.id).then(() => {
-                              setSessions(prev => prev.map(session => session.id === s.id ? { ...session, title: newTitle } : session));
-                            });
-                          }
-                        } },
-                        { key: "delete", label: "Supprimer", danger: true, icon: <span className="mr-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></span>, onClick: (e) => handleDeleteSession(s.id, e.domEvent) }
-                      ]
-                    }}
-                    trigger={['click']}
-                    placement="bottomRight"
-                  >
-                    <button className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-black/5 text-gray-500 transition-all focus:outline-none focus:opacity-100" onClick={e => e.stopPropagation()}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-                    </button>
-                  </Dropdown>
-                </div>
-              ))}
-            </div>
-
-            <div className="p-4 border-t border-gray-200/50">
-              <div className="flex items-center justify-between rounded-xl px-3 py-3 hover:bg-white hover:shadow-sm transition-all cursor-pointer group">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-[#0B5345] flex items-center justify-center text-[13px] font-bold text-white shadow-sm shrink-0">R</div>
-                  <span className="text-[13.5px] font-medium text-gray-800">Agriculteur</span>
-                </div>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400 group-hover:text-[#D35400] transition-colors" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </Dropdown>
               </div>
-            </div>
-          </>
-        )}
-      </aside>
+            ))}
+          </div>
+        </Drawer>
       )}
 
       {/* ═══ MAIN CHAT AREA ═══ */}
