@@ -13,11 +13,10 @@ import {
   BellOutlined,
   SettingOutlined,
   MenuOutlined,
-  CloseOutlined,
   LogoutOutlined,
   ThunderboltOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
+  PushpinOutlined,
+  PushpinFilled,
 } from "@ant-design/icons";
 import { Dropdown, Avatar, Badge, Tooltip } from "antd";
 import { createClient } from "@/lib/supabase/client";
@@ -33,17 +32,17 @@ const NAV_ITEMS = [
 ];
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
+  const [isPinned, setIsPinned] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [userProfile, setUserProfile] = useState<any>(null);
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
 
-  /* Persist collapsed state & fetch user */
+  /* Persist pinned state & fetch user */
   useEffect(() => {
-    const saved = localStorage.getItem("cultiso_sidebar_collapsed");
-    if (saved === "true") setCollapsed(true);
+    const saved = localStorage.getItem("cultiso_sidebar_pinned");
+    if (saved === "true") setIsPinned(true);
     
     const fetchUser = async () => {
       const { data } = await supabase.auth.getUser();
@@ -54,10 +53,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     fetchUser();
   }, [supabase]);
 
-  const toggleCollapsed = () => {
-    const next = !collapsed;
-    setCollapsed(next);
-    localStorage.setItem("cultiso_sidebar_collapsed", String(next));
+  const togglePinned = () => {
+    const next = !isPinned;
+    setIsPinned(next);
+    localStorage.setItem("cultiso_sidebar_pinned", String(next));
   };
 
   const handleLogout = async () => {
@@ -81,54 +80,56 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     ],
   };
 
-  const sidebarWidth = collapsed ? "w-[72px]" : "w-[260px]";
+  const isExpanded = isPinned || isHovered;
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-[#F8F9FB] flex">
-      {/* ══ MOBILE BACKDROP ══ */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
+    <div className="fixed inset-0 overflow-hidden bg-[#F8F9FB] flex flex-col lg:flex-row">
+      {/* ══ MOBILE BOTTOM TAB BAR ══ */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#052821] border-t border-white/10 flex justify-around items-center h-16 z-50 pb-safe">
+        {NAV_ITEMS.map((item) => {
+          const isActive = pathname?.startsWith(item.href);
+          const Icon = item.icon;
+          return (
+            <Link 
+              key={item.name} 
+              href={item.disabled ? "#" : item.href}
+              className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${item.disabled ? 'opacity-30 cursor-not-allowed' : isActive ? 'text-[#22c55e]' : 'text-white/60'}`}
+              onClick={(e) => item.disabled && e.preventDefault()}
+            >
+              <Icon className="text-xl" />
+              <span className="text-[10px] font-medium">{item.name}</span>
+            </Link>
+          );
+        })}
+      </nav>
 
-      {/* ══ SIDEBAR ══ */}
+      {/* ══ DESKTOP SIDEBAR RAIL ══ */}
       <aside
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         className={[
-          "fixed inset-y-0 left-0 z-50 flex flex-col bg-[#052821]",
+          "hidden lg:flex inset-y-0 left-0 z-50 flex-col bg-[#052821] absolute h-full",
           "transform transition-all duration-300 ease-in-out",
-          // Mobile: always full-width sidebar when open
-          sidebarOpen ? "translate-x-0 w-[260px]" : "-translate-x-full w-[260px]",
-          // Desktop: static, respect collapsed state
-          "lg:translate-x-0 lg:static lg:shrink-0",
-          collapsed ? "lg:w-[72px] lg:min-w-[72px]" : "lg:w-[260px] lg:min-w-[260px]",
+          isExpanded ? "w-[240px] shadow-2xl" : "w-[72px]"
         ].join(" ")}
       >
         {/* Logo row */}
-        <div className="flex h-[72px] items-center justify-between px-4 border-b border-white/10 shrink-0">
-          <Link href="/dashboard" className="flex items-center gap-2.5 no-underline overflow-hidden">
+        <div className="flex h-[72px] items-center justify-center px-4 border-b border-white/10 shrink-0">
+          <Link href="/dashboard" className="flex items-center gap-3 no-underline overflow-hidden w-full justify-center">
             <div className="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center border border-white/15 shrink-0">
               <img src="/favicon.png" alt="Cultiso" className="w-5 h-5 object-contain" />
             </div>
-            {!collapsed && (
+            <div className={`transition-all duration-300 overflow-hidden flex items-center ${isExpanded ? "w-auto opacity-100 ml-1" : "w-0 opacity-0"}`}>
               <span className="font-unbounded font-bold text-white text-lg tracking-tight whitespace-nowrap">
                 cultiso
               </span>
-            )}
+            </div>
           </Link>
-          {/* Mobile close */}
-          <button
-            className="lg:hidden text-white/60 hover:text-white p-1"
-            onClick={() => setSidebarOpen(false)}
-          >
-            <CloseOutlined />
-          </button>
         </div>
 
         {/* Nav links */}
-        <nav className="flex-1 overflow-y-auto px-2.5 py-5">
-          <ul className="space-y-1 list-none m-0 p-0">
+        <nav className="flex-1 overflow-y-auto px-3 py-6">
+          <ul className="space-y-2 list-none m-0 p-0">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname?.startsWith(item.href);
               const Icon = item.icon;
@@ -136,33 +137,31 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               const linkContent = (
                 <div
                   className={[
-                    "flex items-center rounded-lg transition-all duration-150",
-                    collapsed ? "justify-center px-0 py-2.5" : "gap-3 px-3 py-2.5",
+                    "flex items-center rounded-lg transition-all duration-200 cursor-pointer",
+                    !isExpanded ? "justify-center h-12 w-12 mx-auto" : "gap-3 px-3 py-3",
                     item.disabled
                       ? "text-white/25 cursor-not-allowed"
                       : isActive
                         ? "bg-[#22c55e] text-white shadow-md shadow-[#22c55e]/25"
-                        : "text-white/60 hover:bg-white/8 hover:text-white",
+                        : "text-white/60 hover:bg-white/10 hover:text-white",
                   ].join(" ")}
                 >
-                  <Icon className={collapsed ? "text-lg" : "text-base"} />
-                  {!collapsed && (
-                    <>
-                      <span className="text-sm font-medium whitespace-nowrap">{item.name}</span>
-                      {item.disabled && (
-                        <span className="ml-auto text-[9px] font-bold uppercase tracking-wider bg-white/5 text-white/30 px-1.5 py-0.5 rounded border border-white/10">
-                          Bientôt
-                        </span>
-                      )}
-                    </>
-                  )}
+                  <Icon className="text-[20px]" />
+                  <div className={`transition-all duration-300 overflow-hidden flex items-center ${isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"}`}>
+                    <span className="text-[14px] font-medium whitespace-nowrap">{item.name}</span>
+                    {item.disabled && (
+                      <span className="ml-3 text-[9px] font-bold uppercase tracking-wider bg-white/5 text-white/30 px-1.5 py-0.5 rounded border border-white/10">
+                        Bientôt
+                      </span>
+                    )}
+                  </div>
                 </div>
               );
 
               if (item.disabled) {
                 return (
                   <li key={item.name}>
-                    {collapsed ? (
+                    {!isExpanded ? (
                       <Tooltip title={item.name} placement="right">
                         {linkContent}
                       </Tooltip>
@@ -175,22 +174,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
               return (
                 <li key={item.name}>
-                  {collapsed ? (
+                  {!isExpanded ? (
                     <Tooltip title={item.name} placement="right">
-                      <Link
-                        href={item.href}
-                        onClick={() => setSidebarOpen(false)}
-                        className="no-underline block"
-                      >
+                      <Link href={item.href} className="no-underline block">
                         {linkContent}
                       </Link>
                     </Tooltip>
                   ) : (
-                    <Link
-                      href={item.href}
-                      onClick={() => setSidebarOpen(false)}
-                      className="no-underline block"
-                    >
+                    <Link href={item.href} className="no-underline block">
                       {linkContent}
                     </Link>
                   )}
@@ -200,105 +191,84 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </ul>
         </nav>
 
-        {/* Collapse toggle (desktop only) */}
-        <div className="hidden lg:block border-t border-white/10 px-2.5 py-3 shrink-0">
+        {/* Pin toggle (desktop only) */}
+        <div className={`hidden lg:flex border-t border-white/10 px-3 py-4 shrink-0 justify-center transition-all duration-300`}>
           <button
-            onClick={toggleCollapsed}
-            className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-white/50 hover:text-white hover:bg-white/8 transition-colors text-sm"
+            onClick={togglePinned}
+            className={`flex items-center justify-center gap-3 h-10 rounded-lg text-white/50 hover:text-white hover:bg-white/10 transition-colors text-sm ${isExpanded ? "w-full px-3" : "w-10"}`}
+            title={isPinned ? "Détacher" : "Épingler le menu"}
           >
-            {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            {!collapsed && <span className="font-medium">Réduire</span>}
+            {isPinned ? <PushpinFilled className="text-lg" /> : <PushpinOutlined className="text-lg" />}
+            <span className={`transition-all duration-300 overflow-hidden whitespace-nowrap font-medium ${isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"}`}>
+              {isPinned ? "Détacher" : "Épingler"}
+            </span>
           </button>
         </div>
-
-        {/* Bottom help card (only when expanded) */}
-        {!collapsed && (
-          <div className="px-3 pb-4 shrink-0 hidden lg:block">
-            <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-              <p className="text-white font-semibold text-xs mb-1 m-0">Besoin d'aide ?</p>
-              <p className="text-white/50 text-[11px] mb-3 m-0 leading-relaxed">
-                Contactez notre support agronomique.
-              </p>
-              <button className="w-full py-1.5 bg-white/10 hover:bg-white/15 text-white text-[11px] font-semibold rounded-lg transition-colors border border-white/10">
-                Ouvrir un ticket
-              </button>
-            </div>
-          </div>
-        )}
       </aside>
 
       {/* ══ MAIN COLUMN ══ */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
-        {/* Floating mobile menu button for CultiPlan */}
-        {pathname?.startsWith("/cultiplan") && (
-          <button
-            className="lg:hidden fixed top-3 left-3 z-30 bg-white text-gray-700 p-2.5 rounded-xl shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"
-            onClick={() => setSidebarOpen(true)}
-          >
-            <MenuOutlined className="text-lg" />
-          </button>
-        )}
-
+      <div className={`flex-1 flex flex-col min-w-0 overflow-hidden relative transition-all duration-300 ease-in-out ${isPinned ? 'lg:ml-[240px]' : 'lg:ml-[72px]'} pb-16 lg:pb-0`}>
         {/* Topbar */}
         {!pathname?.startsWith("/cultiplan") && (
           <header className="h-[72px] flex items-center justify-between gap-4 border-b border-gray-100 bg-white px-4 sm:px-6 lg:px-8 shrink-0 z-20 shadow-[0_2px_10px_rgba(0,0,0,0.02)] relative">
             {/* Left */}
             <div className="flex items-center gap-4 flex-1 min-w-0">
-              <button
-              className="lg:hidden text-gray-500 hover:text-gray-800 p-1"
-              onClick={() => setSidebarOpen(true)}
-            >
-              <MenuOutlined className="text-lg" />
-            </button>
-
-            <div className="relative hidden sm:block w-full max-w-sm">
-              <SearchOutlined className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
-              <input
-                type="text"
-                placeholder="Rechercher..."
-                className="w-full bg-gray-50 border border-gray-200 rounded-lg py-2 pl-9 pr-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#22c55e]/40 focus:border-[#22c55e] transition-all"
-              />
-            </div>
-          </div>
-
-          {/* Right */}
-          <div className="flex items-center gap-4 shrink-0">
-            <button className="text-gray-400 hover:text-gray-600 p-1">
-              <Badge dot color="#EF4444" offset={[-2, 4]}>
-                <BellOutlined className="text-lg" />
-              </Badge>
-            </button>
-
-            <div className="hidden lg:block h-5 w-px bg-gray-200" aria-hidden="true" />
-
-                        <Dropdown menu={userMenuItems} placement="bottomRight" trigger={["click"]}>
-              <div className="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 rounded-full py-1 px-1.5 transition-colors">
-                
-                {/* Balance Affichage */}
-                <div className="hidden sm:flex items-center gap-1.5 bg-[#f3fbe9] text-[#0B5345] px-2.5 py-1 rounded-md border border-[#22c55e]/30 mr-2">
-                  <span className="text-[13px]">⚡</span>
-                  <span className="text-xs font-bold font-mono-numbers">
-                    {userProfile?.app_metadata?.tokens_balance != null 
-                      ? new Intl.NumberFormat('fr-FR').format(userProfile.app_metadata.tokens_balance) 
-                      : "20 000"}
-                  </span>
+              {/* Mobile logo when no sidebar */}
+              <div className="lg:hidden flex items-center gap-2">
+                <div className="w-8 h-8 bg-[#0B5345] rounded-lg flex items-center justify-center shrink-0">
+                  <img src="/favicon.png" alt="Cultiso" className="w-4 h-4 object-contain brightness-0 invert" />
                 </div>
-
-                <Avatar size={32} className="bg-[#D35400] font-unbounded font-bold text-xs">
-                  {userProfile?.user_metadata?.full_name?.substring(0, 2)?.toUpperCase() || "CU"}
-                </Avatar>
-                <div className="hidden lg:flex flex-col items-start leading-tight">
-                  <span className="text-sm font-semibold text-gray-800">
-                    {userProfile?.user_metadata?.full_name || "Utilisateur"}
-                  </span>
-                  <span className="text-[11px] text-gray-400 capitalize">
-                    {userProfile?.user_metadata?.role?.replace('_', ' ') || "Testeur"}
-                  </span>
-                </div>
+                <span className="font-unbounded font-bold text-[#0B5345] text-lg">cultiso</span>
               </div>
-            </Dropdown>
-          </div>
-        </header>
+            
+              <div className="relative hidden sm:block w-full max-w-sm">
+                <SearchOutlined className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm" />
+                <input
+                  type="text"
+                  placeholder="Rechercher..."
+                  className="w-full bg-gray-50 border border-gray-200 rounded-lg py-2 pl-9 pr-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#22c55e]/40 focus:border-[#22c55e] transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Right */}
+            <div className="flex items-center gap-4 shrink-0">
+              <button className="text-gray-400 hover:text-gray-600 p-1">
+                <Badge dot color="#EF4444" offset={[-2, 4]}>
+                  <BellOutlined className="text-lg" />
+                </Badge>
+              </button>
+
+              <div className="hidden lg:block h-5 w-px bg-gray-200" aria-hidden="true" />
+
+              <Dropdown menu={userMenuItems} placement="bottomRight" trigger={["click"]}>
+                <div className="flex items-center gap-2.5 cursor-pointer hover:bg-gray-50 rounded-full py-1 px-1.5 transition-colors">
+                  
+                  {/* Balance Affichage */}
+                  <div className="hidden sm:flex items-center gap-1.5 bg-[#f3fbe9] text-[#0B5345] px-2.5 py-1 rounded-md border border-[#22c55e]/30 mr-2">
+                    <span className="text-[13px]">⚡</span>
+                    <span className="text-xs font-bold font-mono-numbers">
+                      {userProfile?.app_metadata?.tokens_balance != null 
+                        ? new Intl.NumberFormat('fr-FR').format(userProfile.app_metadata.tokens_balance) 
+                        : "20 000"}
+                    </span>
+                  </div>
+
+                  <Avatar size={32} className="bg-[#D35400] font-unbounded font-bold text-xs">
+                    {userProfile?.user_metadata?.full_name?.substring(0, 2)?.toUpperCase() || "CU"}
+                  </Avatar>
+                  <div className="hidden lg:flex flex-col items-start leading-tight">
+                    <span className="text-sm font-semibold text-gray-800">
+                      {userProfile?.user_metadata?.full_name || "Utilisateur"}
+                    </span>
+                    <span className="text-[11px] text-gray-400 capitalize">
+                      {userProfile?.user_metadata?.role?.replace('_', ' ') || "Testeur"}
+                    </span>
+                  </div>
+                </div>
+              </Dropdown>
+            </div>
+          </header>
         )}
 
         {/* Page content — scrollable area */}
