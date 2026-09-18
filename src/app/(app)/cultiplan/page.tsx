@@ -51,19 +51,62 @@ export default function CultiPlanPage() {
           <div className="p-8 flex-1 flex flex-col items-center">
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 w-full max-w-4xl">
               <h2 className="text-2xl font-bold font-unbounded text-[#0B5345] mb-4">Projet : {simulationData.nom_projet}</h2>
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-bold text-lg border-b pb-2 mb-2">Résumé Exécutif</h3>
-                  <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{simulationData.resume}</p>
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg border-b pb-2 mb-2">Analyse PESTEL</h3>
-                  <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{simulationData.pestel}</p>
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg border-b pb-2 mb-2">Analyse FFOM / SWOT</h3>
-                  <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{simulationData.swot}</p>
-                </div>
+              <div className="space-y-8">
+                {simulationData.resume && (
+                  <section>
+                    <h3 className="font-bold text-lg border-b border-[#0B5345]/20 pb-2 mb-3 text-[#0B5345]">1. Résumé Exécutif</h3>
+                    <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{simulationData.resume}</p>
+                  </section>
+                )}
+                {simulationData.etude_marche && (
+                  <section>
+                    <h3 className="font-bold text-lg border-b border-[#0B5345]/20 pb-2 mb-3 text-[#0B5345]">2. Étude de Marché</h3>
+                    <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{simulationData.etude_marche}</p>
+                  </section>
+                )}
+                {simulationData.strategie_commerciale && (
+                  <section>
+                    <h3 className="font-bold text-lg border-b border-[#0B5345]/20 pb-2 mb-3 text-[#0B5345]">3. Stratégie Commerciale</h3>
+                    <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{simulationData.strategie_commerciale}</p>
+                  </section>
+                )}
+                {simulationData.etude_technique && (
+                  <section>
+                    <h3 className="font-bold text-lg border-b border-[#0B5345]/20 pb-2 mb-3 text-[#0B5345]">4. Étude Technique & Opérationnelle</h3>
+                    <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{simulationData.etude_technique}</p>
+                  </section>
+                )}
+                {simulationData.etude_financiere && (
+                  <section>
+                    <h3 className="font-bold text-lg border-b border-[#0B5345]/20 pb-2 mb-3 text-[#0B5345]">5. Étude Financière</h3>
+                    <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{simulationData.etude_financiere}</p>
+                  </section>
+                )}
+                {simulationData.risques && (
+                  <section>
+                    <h3 className="font-bold text-lg border-b border-[#0B5345]/20 pb-2 mb-3 text-[#0B5345]">6. Risques & Mesures d'Atténuation</h3>
+                    <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{simulationData.risques}</p>
+                  </section>
+                )}
+                {(simulationData.pestel || simulationData.swot) && (
+                  <section>
+                    <h3 className="font-bold text-lg border-b border-[#0B5345]/20 pb-2 mb-3 text-[#0B5345]">7. Annexes Stratégiques</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                      {simulationData.pestel && (
+                        <div className="bg-[#FAFAFA] p-5 rounded-xl border border-gray-100">
+                          <h4 className="font-bold text-[15px] mb-2 text-gray-800">Analyse PESTEL</h4>
+                          <p className="text-gray-600 text-[14px] whitespace-pre-wrap leading-relaxed">{simulationData.pestel}</p>
+                        </div>
+                      )}
+                      {simulationData.swot && (
+                        <div className="bg-[#FAFAFA] p-5 rounded-xl border border-gray-100">
+                          <h4 className="font-bold text-[15px] mb-2 text-gray-800">Analyse FFOM / SWOT</h4>
+                          <p className="text-gray-600 text-[14px] whitespace-pre-wrap leading-relaxed">{simulationData.swot}</p>
+                        </div>
+                      )}
+                    </div>
+                  </section>
+                )}
               </div>
             </div>
           </div>

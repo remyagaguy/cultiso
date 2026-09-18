@@ -85,9 +85,14 @@ Une fois que tu as obtenu des réponses claires pour pouvoir rédiger le Busines
   "action": "complete_simulation",
   "payload": {
     "nom_projet": "Nom déduit du projet",
-    "resume": "Résumé exécutif du projet",
-    "pestel": "Analyse PESTEL générée",
-    "swot": "Analyse FFOM générée"
+    "resume": "Résumé exécutif du projet (synthèse globale)",
+    "etude_marche": "Analyse du marché (demande, concurrence, opportunités)",
+    "strategie_commerciale": "Stratégie de prix, distribution et marketing",
+    "pestel": "Analyse PESTEL générée (Politique, Économique, Social, Technologique, Environnemental, Légal)",
+    "swot": "Analyse FFOM / SWOT (Forces, Faiblesses, Opportunités, Menaces)",
+    "etude_technique": "Processus de production, équipements nécessaires, besoins en intrants et calendrier cultural",
+    "etude_financiere": "Estimation des coûts, plan de financement, chiffre d'affaires prévisionnel et rentabilité (ROI, seuil de rentabilité)",
+    "risques": "Identification des risques majeurs et mesures d'atténuation"
   }
 }
 \`\`\`
