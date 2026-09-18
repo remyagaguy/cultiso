@@ -11,6 +11,26 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+async function getGreetingMessage(mode: string): Promise<string> {
+  const hour = new Date().getHours();
+  const greeting = hour >= 18 ? "Bonsoir" : "Bonjour";
+  
+  let firstName = "";
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user?.user_metadata?.full_name) {
+      firstName = " " + user.user_metadata.full_name.split(' ')[0];
+    }
+  } catch (e) {}
+
+  if (mode === "cultiplan") {
+    return `${greeting}${firstName} ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...).`;
+  } else if (mode === "cultima") {
+    return `${greeting}${firstName} ! Je suis Cultisia, votre assistant de configuration ERP. Parlez-moi de votre entreprise agricole. Quelle est votre activité principale ? (Ex: Elevage bovin, culture de maïs, etc.)`;
+  }
+  return `${greeting}${firstName} ! Je suis Cultisia. Comment puis-je vous aider aujourd'hui ?`;
+}
+
 /* â”€â”€â”€ Types â”€â”€â”€ */
 interface ChatMessage {
   id?: string;
@@ -309,11 +329,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
   onSimulationComplete(null);
 };
 
-  const [messages, setMessages] = useState<ChatMessage[]>(
-    activeMode === "cultima"
-      ? [{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia, votre assistant de configuration ERP. Parlez-moi de votre entreprise agricole. Quelle est votre activité principale ? (Ex: Elevage bovin, culture de maïs, etc.)" }]
-      : []
-  );
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
@@ -325,8 +341,10 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
   useEffect(() => {
     if (messages.length <= 1 && !messages.some(m => m.role === 'user')) {
       if (activeMode === "cultima") {
-        setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia, votre assistant de configuration ERP. Parlez-moi de votre entreprise agricole. Quelle est votre activité principale ? (Ex: Elevage bovin, culture de maïs, etc.)" }]);
-      } else {
+        getGreetingMessage(activeMode).then(msg => {
+          setMessages([{ id: "welcome", role: "assistant", content: msg }]);
+        });
+      } else if (activeMode !== "cultiplan") {
         setMessages([]);
       }
     }
@@ -348,28 +366,14 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
         let msg1: ChatMessage = { id: "welcome-1", role: "assistant", content: "" };
         setMessages([msg1]);
         
-        const text1 = "Bonjour ! ";
-        for (let i = 0; i <= text1.length; i++) {
-          msg1 = { ...msg1, content: text1.slice(0, i) };
+        const fullGreeting = await getGreetingMessage("cultiplan");
+        
+        for (let i = 0; i <= fullGreeting.length; i += 2) {
+          msg1 = { ...msg1, content: fullGreeting.slice(0, i) };
           setMessages([msg1]);
-          await new Promise(r => setTimeout(r, 25));
+          await new Promise(r => setTimeout(r, 10));
         }
-
-        await new Promise(r => setTimeout(r, 500));
-        setIsThinking(true);
-        await new Promise(r => setTimeout(r, 1000));
-        setIsThinking(false);
-        
-        let msg2: ChatMessage = { id: "welcome-2", role: "assistant", content: "" };
-        setMessages([msg1, msg2]);
-        
-        const text2 = "Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...).";
-        for (let i = 0; i <= text2.length; i += 2) {
-          msg2 = { ...msg2, content: text2.slice(0, i) };
-          setMessages([msg1, msg2]);
-          await new Promise(r => setTimeout(r, 15));
-        }
-        setMessages([msg1, { ...msg2, content: text2 }]);
+        setMessages([{ ...msg1, content: fullGreeting }]);
       };
       runAutoGreeting();
     }
@@ -425,15 +429,17 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
 
         if (history && history.length > 0) {
           if (activeMode === "cultiplan" && history[0].role !== "assistant") {
+            const msg = await getGreetingMessage(activeMode);
             setMessages([
-              { id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." },
+              { id: "welcome", role: "assistant", content: msg },
               ...(history as ChatMessage[])
             ]);
           } else {
             setMessages(history as ChatMessage[]);
           }
         } else if (activeMode === "cultiplan") {
-          setMessages([{ id: "welcome", role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }]);
+          const msg = await getGreetingMessage(activeMode);
+          setMessages([{ id: "welcome", role: "assistant", content: msg }]);
         }
       }
     };
@@ -444,10 +450,9 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
     if (sessionId) {
       await supabase.from("chat_messages").delete().eq("session_id", sessionId);
     }
-    if (activeMode === "cultiplan") {
-      setMessages([{ role: "assistant", content: "Bonjour ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...)." }]);
-    } else if (activeMode === "cultima") {
-      setMessages([{ role: "assistant", content: "Bonjour ! Je suis Cultisia, votre assistant de configuration ERP. Parlez-moi de votre entreprise agricole. Quelle est votre activité principale ?" }]);
+    if (activeMode === "cultiplan" || activeMode === "cultima") {
+      const msg = await getGreetingMessage(activeMode);
+      setMessages([{ role: "assistant", content: msg }]);
     } else {
       setMessages([]);
     }
