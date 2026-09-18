@@ -18,10 +18,20 @@ async function getGreetingMessage(mode: string): Promise<string> {
   let firstName = "";
   try {
     const { data: { user } } = await supabase.auth.getUser();
-    if (user?.user_metadata?.full_name) {
-      firstName = " " + user.user_metadata.full_name.split(' ')[0];
+    if (user) {
+      const fullName = user.user_metadata?.full_name || user.user_metadata?.name || user.user_metadata?.prenom;
+      if (fullName) {
+        firstName = " " + fullName.split(' ')[0];
+      } else if (user.email) {
+        // Fallback to email prefix if no name is available
+        const emailPrefix = user.email.split('@')[0];
+        // Capitalize the first letter
+        firstName = " " + emailPrefix.charAt(0).toUpperCase() + emailPrefix.slice(1);
+      }
     }
-  } catch (e) {}
+  } catch (e) {
+    console.error("Error fetching user for greeting:", e);
+  }
 
   if (mode === "cultiplan") {
     return `${greeting}${firstName} ! Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...).`;

@@ -264,11 +264,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   </div>
 
                   <Avatar size={32} className="bg-[#D35400] font-unbounded font-bold text-xs">
-                    {userProfile?.user_metadata?.full_name?.substring(0, 2)?.toUpperCase() || "CU"}
+                    {(userProfile?.user_metadata?.full_name || userProfile?.user_metadata?.name || userProfile?.email || "CU").substring(0, 2).toUpperCase()}
                   </Avatar>
                   <div className="hidden lg:flex flex-col items-start leading-tight">
                     <span className="text-sm font-semibold text-gray-800">
-                      {userProfile?.user_metadata?.full_name || "Utilisateur"}
+                      {userProfile?.user_metadata?.full_name || userProfile?.user_metadata?.name || (userProfile?.email ? userProfile.email.split('@')[0] : "Utilisateur")}
                     </span>
                     <span className="text-[11px] text-gray-400 capitalize">
                       {userProfile?.user_metadata?.role?.replace('_', ' ') || "Testeur"}
