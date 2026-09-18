@@ -345,12 +345,13 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
         await new Promise(r => setTimeout(r, 800));
         setIsThinking(false);
         
-        const msg1: ChatMessage = { id: "welcome-1", role: "assistant", content: "" };
+        let msg1: ChatMessage = { id: "welcome-1", role: "assistant", content: "" };
         setMessages([msg1]);
         
         const text1 = "Bonjour ! ";
         for (let i = 0; i <= text1.length; i++) {
-          setMessages([{ ...msg1, content: text1.slice(0, i) }]);
+          msg1 = { ...msg1, content: text1.slice(0, i) };
+          setMessages([msg1]);
           await new Promise(r => setTimeout(r, 25));
         }
 
@@ -359,12 +360,13 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
         await new Promise(r => setTimeout(r, 1000));
         setIsThinking(false);
         
-        const msg2: ChatMessage = { id: "welcome-2", role: "assistant", content: "" };
+        let msg2: ChatMessage = { id: "welcome-2", role: "assistant", content: "" };
         setMessages([msg1, msg2]);
         
         const text2 = "Je suis Cultisia. Mon rôle ici est de t'aider à bâtir le plan de ton futur business agricole. Pour commencer, parle-moi de ton idée (ex : culture de tomates, production de jus de fruits, élevage de 50 poulets à Kpalimé...).";
         for (let i = 0; i <= text2.length; i += 2) {
-          setMessages([msg1, { ...msg2, content: text2.slice(0, i) }]);
+          msg2 = { ...msg2, content: text2.slice(0, i) };
+          setMessages([msg1, msg2]);
           await new Promise(r => setTimeout(r, 15));
         }
         setMessages([msg1, { ...msg2, content: text2 }]);
