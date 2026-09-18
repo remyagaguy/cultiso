@@ -158,6 +158,9 @@ export async function POST(req: Request) {
       ];
     }
 
+    require('fs').appendFileSync('api_log.txt', `DEBUG: mode=${mode} toolContext=${toolContext}\n`);
+    require('fs').appendFileSync('api_log.txt', `DEBUG: systemPrompt starts with: ${systemPrompt.substring(0, 200)}\n\n`);
+
     const stream = await openrouter.chat.completions.create({
       model: model || "google/gemini-2.5-flash",
       messages: [

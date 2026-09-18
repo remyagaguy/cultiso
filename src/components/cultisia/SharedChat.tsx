@@ -262,47 +262,50 @@ interface SharedChatProps {
   onConfigComplete?: (data: any) => void;
   onTransactionDraft?: (data: any) => void;
   onNewDiscussion?: () => void;
+  triggerNewSession?: number;
 }
 
 export function SharedChat({ toolContext, title = "Cultisia", subtitle = "Votre agronome virtuel, propulsé par l'IA", icon,  isEmbedded = false,
-  hideSidebar = false,
-  onSimulationComplete,
-  onConfigComplete,
-  onTransactionDraft
+  hideSidebar = false, onSimulationComplete, onConfigComplete, onTransactionDraft, onNewDiscussion, triggerNewSession
 }: SharedChatProps) {
   const [activeMode, setActiveMode] = useState<"cultisia" | "cultiplan" | "cultiseil" | "cultima">(toolContext);
   
 const extractSimulationData = (msgs: ChatMessage[]) => {
   if (!onSimulationComplete) return;
   
-  // Find the last assistant message
-  const lastAssistantMsg = [...msgs].reverse().find(m => m.role === "assistant");
-  if (!lastAssistantMsg) {
-    onSimulationComplete(null);
-    return;
-  }
+  // Find the most recent assistant message that contains the JSON payload
+  const assistantMsgs = [...msgs].reverse().filter(m => m.role === "assistant");
   
-  const content = lastAssistantMsg.content;
-  let jsonString = null;
-  const fencedMatch = content.match(/```json\s+([\s\S]*?)\s+```/);
-  if (fencedMatch) {
-    jsonString = fencedMatch[1];
-  } else {
-    const rawMatch = content.match(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*\}/);
-    if (rawMatch) {
-      jsonString = rawMatch[0];
+  for (const msg of assistantMsgs) {
+    const content = msg.content;
+    let jsonString = null;
+    const fencedMatch = content.match(/```json\s+([\s\S]*?)\s+```/);
+    if (fencedMatch) {
+      jsonString = fencedMatch[1];
+    } else {
+      const rawMatch = content.match(/\{[\s\S]*\}/);
+      if (rawMatch) {
+        jsonString = rawMatch[0];
+      }
+    }
+    
+    if (jsonString) {
+      try {
+        const parsed = JSON.parse(jsonString);
+        if (
+          ["complete_simulation", "business_plan"].includes(parsed.action || parsed.type) ||
+          parsed.payload ||
+          (parsed.meta && parsed.synthese) ||
+          (parsed.projet && parsed.etude_marche)
+        ) {
+          onSimulationComplete(parsed.payload || parsed.data || parsed);
+          return;
+        }
+      } catch(e) {}
     }
   }
   
-  if (jsonString) {
-    try {
-      const parsed = JSON.parse(jsonString);
-      if (parsed.action === "complete_simulation") {
-        onSimulationComplete(parsed);
-        return;
-      }
-    } catch(e) {}
-  }
+  // If we reach here, no simulation was found in any message
   onSimulationComplete(null);
 };
 
@@ -484,6 +487,12 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
   };
 
   useEffect(() => {
+    if (triggerNewSession) {
+      startNewDiscussion();
+    }
+  }, [triggerNewSession]);
+
+  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isThinking]);
 
@@ -630,7 +639,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                 if (fencedMatch) {
                   jsonString = fencedMatch[1];
                 } else {
-                  const rawMatch = assistantContent.match(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*\}/);
+                  const rawMatch = assistantContent.match(/\{\s*"(?:action|type)"\s*:\s*"(?:complete_simulation|business_plan)"[\s\S]*\}/);
                   if (rawMatch) {
                     jsonString = rawMatch[0];
                   }
@@ -639,7 +648,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                 if (jsonString) {
                   try {
                     const parsed = JSON.parse(jsonString);
-                    if (parsed.action === "complete_simulation" || parsed.payload) {
+                    if ((["complete_simulation", "business_plan"].includes(parsed.action || parsed.type)) || parsed.payload) {
                       onSimulationComplete(parsed);
                     }
                   } catch (e) {
@@ -936,7 +945,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                       jsonString = fencedMatch[1];
                       matchToRemove = fencedMatch[0];
                     } else {
-                      const rawMatch = displayContent.match(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*\}/) || displayContent.match(/\{\s*"type"\s*:\s*"questionnaire"[\s\S]*\}/);
+                      const rawMatch = displayContent.match(/\{[\s\S]*\}/);
                       if (rawMatch) {
                         jsonString = rawMatch[0];
                         matchToRemove = rawMatch[0];
@@ -949,15 +958,47 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                         if (parsed.type === "questionnaire" && parsed.questions) {
                           questionnaireData = parsed;
                           displayContent = displayContent.replace(matchToRemove as string, "").trim();
-                        } else if (parsed.action === "complete_simulation" || parsed.payload) {
+                        }
+                        if (
+                          ["complete_simulation", "business_plan"].includes(parsed.action || parsed.type) ||
+                          parsed.payload ||
+                          (parsed.meta && parsed.synthese) ||
+                          (parsed.projet && parsed.etude_marche)
+                        ) {
                           simulationData = parsed.payload || parsed.data || parsed;
                           displayContent = displayContent.replace(matchToRemove as string, "").trim();
                         }
                       } catch (e) {
                         // ignore JSON parse errors
                       }
-                    } else if (msg.isStreaming) {
-                      displayContent = displayContent.replace(/```json\s+[^`]*$/, "").replace(/\{\s*"action"\s*:\s*"complete_simulation"[\s\S]*$/, "").replace(/\{\s*"type"\s*:\s*"questionnaire"[\s\S]*$/, "").trim();
+                    } 
+                    
+                    if (msg.isStreaming || (!jsonString && displayContent.includes('{"meta"'))) {
+                      // Hide raw JSON stream and show progress message
+                      let progressMsg = "";
+                      if (displayContent.includes('"conclusion"')) progressMsg = "Génération de la conclusion...";
+                      else if (displayContent.includes('"financier"')) progressMsg = "Modélisation financière en cours...";
+                      else if (displayContent.includes('"risques"')) progressMsg = "Analyse des risques en cours...";
+                      else if (displayContent.includes('"marketing"')) progressMsg = "Stratégie marketing en cours...";
+                      else if (displayContent.includes('"technique"')) progressMsg = "Étude technique en cours...";
+                      else if (displayContent.includes('"etude_marche"')) progressMsg = "Étude de marché en cours...";
+                      else if (displayContent.includes('"projet"')) progressMsg = "Structuration du projet en cours...";
+                      else if (displayContent.includes('"synthese"')) progressMsg = "Génération de la synthèse...";
+                      else if (displayContent.includes('"meta"')) progressMsg = "Initialisation du business plan...";
+                      else if (displayContent.includes('```json') || displayContent.includes('{"type":"questionnaire"')) progressMsg = "Génération en cours...";
+
+                      if (progressMsg) {
+                        const jsonStartIndex = displayContent.indexOf('```json');
+                        const altJsonStartIndex = displayContent.indexOf('{');
+                        const startIdx = jsonStartIndex !== -1 ? jsonStartIndex : (altJsonStartIndex !== -1 ? altJsonStartIndex : -1);
+                        if (startIdx !== -1) {
+                          displayContent = displayContent.substring(0, startIdx).trim();
+                        }
+                        displayContent += (displayContent ? "\n\n" : "") + "*\u23F3 " + progressMsg + "*";
+                      } else {
+                        // Fallback cleaning
+                        displayContent = displayContent.replace(/```json\s+[^`]*$/, "").replace(/\{[\s\S]*$/, "").trim();
+                      }
                     }
                   }
 

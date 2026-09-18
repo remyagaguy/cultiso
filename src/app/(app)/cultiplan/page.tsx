@@ -9,22 +9,19 @@ import { CultiPlanCanvas } from "@/components/cultisia/CultiPlanCanvas";
 export default function CultiPlanPage() {
   const [simulationData, setSimulationData] = useState<any>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-
-  // Note: We deliberately don't load from localStorage here anymore
-  // to allow users to create a new simulation or view history in SharedChat.
-  // The SharedChat component is responsible for calling onSimulationComplete 
-  // if an existing session contains a complete_simulation JSON block.
+  const [triggerNewSession, setTriggerNewSession] = useState(0);
 
   const handleSimulationComplete = (data: any) => {
     setIsGenerating(true);
+    // Simulate a slight delay for better UX
     setTimeout(() => {
       setSimulationData(data);
-      // We still save it in localstorage just in case other parts of the app need it,
-      // but we don't automatically load it on mount to block the UI.
       if (data) {
-        localStorage.setItem("cultiplan_latest", JSON.stringify(data));
-      } else {
-        localStorage.removeItem("cultiplan_latest");
+        try {
+          localStorage.setItem("cultiplan_latest", JSON.stringify(data));
+        } catch (e) {
+          console.error("Localstorage save failed:", e);
+        }
       }
       setIsGenerating(false);
     }, 2000);
@@ -33,6 +30,7 @@ export default function CultiPlanPage() {
   const startNewSimulation = () => {
     setSimulationData(null);
     localStorage.removeItem("cultiplan_latest");
+    setTriggerNewSession(Date.now());
   };
   
   return (
@@ -72,11 +70,13 @@ export default function CultiPlanPage() {
       <aside className={`${simulationData ? 'w-full md:w-[450px]' : 'flex-1'} h-full bg-white flex flex-col flex-shrink-0 z-20 relative transition-all duration-500`}>
         <SharedChat 
           toolContext="cultiplan" 
-          title="Expert Agrobusiness" 
+          title="Modélisation de business agricole" 
+          subtitle="(Étude de marché, technique, financière...)"
           isEmbedded={true}
           hideSidebar={!!simulationData}
           onSimulationComplete={handleSimulationComplete}
           onNewDiscussion={startNewSimulation}
+          triggerNewSession={triggerNewSession}
         />
       </aside>
     </div>
