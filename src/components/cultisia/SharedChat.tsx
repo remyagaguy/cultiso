@@ -25,7 +25,7 @@ interface ChatSession { id: string; title: string; updated_at: string; }
 
 interface QuestionnaireData {
   type: string;
-  questions: { question: string; options: string[] }[];
+  questions: { question: string; options: string[]; allow_multiple?: boolean }[];
 }
 
 /* â”€â”€â”€ SVG Icons â”€â”€â”€ */
@@ -78,17 +78,40 @@ const QuestionnaireWidget = ({
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [freeTextMode, setFreeTextMode] = useState(false);
   const [freeTextValue, setFreeTextValue] = useState("");
+  const [multiSelections, setMultiSelections] = useState<string[]>([]);
 
-  const handleSelect = (option: string) => {
+  const q = data.questions[step];
+
+  const handleSelectSingle = (option: string) => {
     const newAnswers = { ...answers, [step]: option };
     setAnswers(newAnswers);
     setFreeTextMode(false);
     setFreeTextValue("");
     if (step < data.questions.length - 1) {
       setStep(step + 1);
+      setMultiSelections([]);
     } else {
       onSubmit(newAnswers);
     }
+  };
+
+  const handleToggleMulti = (option: string) => {
+    if (multiSelections.includes(option)) {
+      setMultiSelections(multiSelections.filter(o => o !== option));
+    } else {
+      setMultiSelections([...multiSelections, option]);
+    }
+  };
+
+  const handleValidateMulti = () => {
+    if (multiSelections.length === 0 && !freeTextValue.trim()) return;
+    
+    let finalAnswer = multiSelections.join(", ");
+    if (freeTextValue.trim()) {
+      finalAnswer += finalAnswer ? `, ${freeTextValue.trim()}` : freeTextValue.trim();
+    }
+    
+    handleSelectSingle(finalAnswer);
   };
 
   const handleSkip = () => {
@@ -98,24 +121,29 @@ const QuestionnaireWidget = ({
     setFreeTextValue("");
     if (step < data.questions.length - 1) {
       setStep(step + 1);
+      setMultiSelections([]);
     } else {
       onSubmit(newAnswers);
     }
   };
 
-  const q = data.questions[step];
   if (!q) return null;
+
+  const isMulti = !!q.allow_multiple;
 
   return (
     <div className="mt-6 border border-gray-100 rounded-3xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden w-full max-w-xl transition-all duration-500 ease-out opacity-100 translate-y-0">
       <div className="flex items-start justify-between px-6 pt-6 pb-4">
-        <h4 className="font-unbounded font-semibold text-[#0B5345] text-[15.5px] leading-snug pr-4">{q.question}</h4>
+        <div>
+          <h4 className="font-unbounded font-semibold text-[#0B5345] text-[15.5px] leading-snug pr-4">{q.question}</h4>
+          {isMulti && <p className="text-[12px] text-gray-500 font-medium mt-1">Plusieurs choix possibles</p>}
+        </div>
         <div className="flex items-center text-[11.5px] text-gray-500 font-medium gap-2 shrink-0 bg-[#f9f8f6] px-3 py-1.5 rounded-full border border-gray-100">
           <span>{step + 1} / {data.questions.length}</span>
         </div>
       </div>
       <div className="px-5 pb-5 space-y-2.5">
-        {freeTextMode ? (
+        {freeTextMode && !isMulti ? (
           <div className="flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-2 duration-200">
             <textarea
               autoFocus
@@ -132,7 +160,7 @@ const QuestionnaireWidget = ({
                 ← Retour aux suggestions
               </button>
               <button
-                onClick={() => handleSelect(freeTextValue)}
+                onClick={() => handleSelectSingle(freeTextValue)}
                 disabled={!freeTextValue.trim()}
                 className="px-5 py-2.5 rounded-xl bg-[#0B5345] text-white text-[14px] font-semibold hover:bg-[#084236] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
@@ -142,27 +170,60 @@ const QuestionnaireWidget = ({
           </div>
         ) : (
           <>
-            {q.options.map((opt, i) => (
+            {q.options.map((opt, i) => {
+              const isSelected = multiSelections.includes(opt);
+              return (
+                <button
+                  key={i}
+                  onClick={() => isMulti ? handleToggleMulti(opt) : handleSelectSingle(opt)}
+                  className={`group w-full text-left px-4 py-3.5 rounded-2xl border transition-all duration-200 text-[14.5px] flex items-center gap-3.5 active:scale-[0.99] ${
+                    isSelected 
+                      ? "bg-green-50 border-green-200 text-green-900 shadow-sm" 
+                      : "border-transparent bg-[#f9f8f6] hover:bg-white hover:border-[#0B5345] hover:shadow-[0_2px_12px_rgba(11,83,69,0.08)] text-gray-700"
+                  }`}
+                >
+                  <span className={`flex items-center justify-center w-7 h-7 rounded-xl border text-[13px] font-semibold shrink-0 transition-colors ${
+                    isSelected
+                      ? "bg-green-500 border-green-600 text-white"
+                      : "bg-white border-gray-200 text-gray-400 group-hover:border-[#0B5345]/30 group-hover:text-[#0B5345] group-hover:bg-[#0B5345]/5"
+                  }`}>
+                    {isSelected ? "✓" : String.fromCharCode(65 + i)}
+                  </span>
+                  <span className={`font-medium transition-colors ${isSelected ? "text-green-900" : "group-hover:text-[#0B5345]"}`}>{opt}</span>
+                </button>
+              );
+            })}
+            
+            {isMulti && (
+              <div className="pt-2 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                <input
+                  type="text"
+                  placeholder="Autre (préciser)..."
+                  value={freeTextValue}
+                  onChange={(e) => setFreeTextValue(e.target.value)}
+                  className="w-full p-3.5 rounded-2xl border border-dashed border-gray-300 bg-white focus:bg-[#f9f8f6] focus:border-[#D35400] outline-none transition-all text-[14.5px] text-gray-700 mb-3"
+                />
+                <button
+                  onClick={handleValidateMulti}
+                  disabled={multiSelections.length === 0 && !freeTextValue.trim()}
+                  className="w-full py-3.5 rounded-2xl bg-[#0B5345] text-white text-[14.5px] font-bold hover:bg-[#084236] transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                >
+                  Valider ces choix
+                </button>
+              </div>
+            )}
+
+            {!isMulti && (
               <button
-                key={i}
-                onClick={() => handleSelect(opt)}
-                className="group w-full text-left px-4 py-3.5 rounded-2xl border border-transparent bg-[#f9f8f6] hover:bg-white hover:border-[#0B5345] hover:shadow-[0_2px_12px_rgba(11,83,69,0.08)] transition-all duration-200 text-[14.5px] text-gray-700 flex items-center gap-3.5 active:scale-[0.99]"
+                onClick={() => setFreeTextMode(true)}
+                className="w-full text-left px-4 py-3.5 rounded-2xl border border-dashed border-gray-300 bg-white hover:border-[#D35400] hover:bg-[#D35400]/5 transition-all duration-200 text-[14.5px] text-gray-600 hover:text-[#D35400] flex items-center gap-3.5 active:scale-[0.99] mt-1"
               >
-                <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-white border border-gray-200 text-gray-400 group-hover:border-[#0B5345]/30 group-hover:text-[#0B5345] group-hover:bg-[#0B5345]/5 text-[13px] font-semibold shrink-0 transition-colors">
-                  {String.fromCharCode(65 + i)}
+                <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-white border border-dashed border-gray-300 text-gray-400 text-[13px] font-semibold shrink-0 transition-colors">
+                  ✏️
                 </span>
-                <span className="font-medium group-hover:text-[#0B5345] transition-colors">{opt}</span>
+                <span className="font-medium">Autre (Saisir ma propre réponse)</span>
               </button>
-            ))}
-            <button
-              onClick={() => setFreeTextMode(true)}
-              className="w-full text-left px-4 py-3.5 rounded-2xl border border-dashed border-gray-300 bg-white hover:border-[#D35400] hover:bg-[#D35400]/5 transition-all duration-200 text-[14.5px] text-gray-600 hover:text-[#D35400] flex items-center gap-3.5 active:scale-[0.99] mt-1"
-            >
-              <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-white border border-dashed border-gray-300 text-gray-400 text-[13px] font-semibold shrink-0 transition-colors">
-                ✏️
-              </span>
-              <span className="font-medium">Autre (Saisir ma propre réponse)</span>
-            </button>
+            )}
           </>
         )}
         <div className="flex justify-between items-center pt-3 px-1 border-t border-gray-100 mt-3">
@@ -170,6 +231,7 @@ const QuestionnaireWidget = ({
             onClick={() => {
               setStep(Math.max(0, step - 1));
               setFreeTextMode(false);
+              setMultiSelections([]);
             }} 
             disabled={step === 0} 
             className="text-[13px] font-medium text-gray-400 hover:text-gray-700 disabled:opacity-0 transition-colors px-2 py-1"
@@ -187,6 +249,7 @@ const QuestionnaireWidget = ({
     </div>
   );
 };
+
 
 interface SharedChatProps {
   toolContext: "cultisia" | "cultiplan" | "cultiseil" | "cultima";
