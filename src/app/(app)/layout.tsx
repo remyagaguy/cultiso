@@ -85,7 +85,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="fixed inset-0 overflow-hidden bg-[#F8F9FB] flex flex-col lg:flex-row">
       {/* ══ MOBILE BOTTOM TAB BAR ══ */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#052821] border-t border-white/10 flex justify-around items-center h-16 z-50 pb-safe">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.03)] flex justify-around items-center h-16 z-50 pb-safe">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname?.startsWith(item.href);
           const Icon = item.icon;
@@ -93,11 +93,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <Link 
               key={item.name} 
               href={item.disabled ? "#" : item.href}
-              className={`flex flex-col items-center justify-center w-full h-full space-y-1 ${item.disabled ? 'opacity-30 cursor-not-allowed' : isActive ? 'text-[#22c55e]' : 'text-white/60'}`}
+              className={`flex flex-col items-center justify-center w-full h-full space-y-0.5 transition-colors ${item.disabled ? 'opacity-30 cursor-not-allowed' : isActive ? 'text-[#0B5345]' : 'text-gray-400 hover:text-gray-600'}`}
               onClick={(e) => item.disabled && e.preventDefault()}
             >
-              <Icon className="text-xl" />
-              <span className="text-[10px] font-medium">{item.name}</span>
+              <div className={`p-1 rounded-full transition-colors ${isActive ? 'bg-[#f3fbe9]' : ''}`}>
+                <Icon className="text-xl" />
+              </div>
+              <span className={`text-[10px] font-semibold ${isActive ? 'text-[#0B5345]' : 'text-gray-400'}`}>{item.name}</span>
             </Link>
           );
         })}
@@ -108,19 +110,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={[
-          "hidden lg:flex inset-y-0 left-0 z-50 flex-col bg-[#052821] absolute h-full",
+          "hidden lg:flex inset-y-0 left-0 z-50 flex-col bg-white border-r border-gray-100 absolute h-full",
           "transform transition-all duration-300 ease-in-out",
-          isExpanded ? "w-[240px] shadow-2xl" : "w-[72px]"
+          isExpanded ? "w-[240px] shadow-[4px_0_24px_rgba(0,0,0,0.02)]" : "w-[72px]"
         ].join(" ")}
       >
         {/* Logo row */}
-        <div className="flex h-[72px] items-center justify-center px-4 border-b border-white/10 shrink-0">
+        <div className="flex h-[72px] items-center justify-center px-4 border-b border-gray-50 shrink-0">
           <Link href="/dashboard" className="flex items-center gap-3 no-underline overflow-hidden w-full justify-center">
-            <div className="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center border border-white/15 shrink-0">
-              <img src="/favicon.png" alt="Cultiso" className="w-5 h-5 object-contain" />
+            <div className="w-10 h-10 bg-[#0B5345] rounded-xl flex items-center justify-center shrink-0 shadow-sm">
+              <img src="/favicon.png" alt="Cultiso" className="w-6 h-6 object-contain brightness-0 invert" />
             </div>
             <div className={`transition-all duration-300 overflow-hidden flex items-center ${isExpanded ? "w-auto opacity-100 ml-1" : "w-0 opacity-0"}`}>
-              <span className="font-unbounded font-bold text-white text-lg tracking-tight whitespace-nowrap">
+              <span className="font-unbounded font-bold text-[#0B5345] text-xl tracking-tight whitespace-nowrap">
                 cultiso
               </span>
             </div>
@@ -128,8 +130,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Nav links */}
-        <nav className="flex-1 overflow-y-auto px-2 py-6">
-          <ul className="flex flex-col gap-2 list-none m-0 p-0">
+        <nav className="flex-1 overflow-y-auto px-3 py-6 custom-scrollbar">
+          <ul className="flex flex-col gap-3 list-none m-0 p-0">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname?.startsWith(item.href);
               const Icon = item.icon;
@@ -137,20 +139,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               const linkContent = (
                 <div
                   className={[
-                    "flex items-center rounded-lg transition-all duration-200 cursor-pointer overflow-hidden",
-                    !isExpanded ? "justify-center h-12 w-12 mx-auto" : "gap-3 px-3 py-3",
+                    "flex items-center rounded-xl transition-all duration-200 cursor-pointer overflow-hidden group",
+                    !isExpanded ? "justify-center h-12 w-12 mx-auto" : "gap-3 px-3.5 py-3",
                     item.disabled
-                      ? "text-white/25 cursor-not-allowed"
+                      ? "text-gray-300 cursor-not-allowed bg-gray-50/50"
                       : isActive
-                        ? "bg-[#22c55e] text-white shadow-md shadow-[#22c55e]/25"
-                        : "text-white/60 hover:bg-white/10 hover:text-white",
+                        ? "bg-[#0B5345] text-white shadow-md shadow-[#0B5345]/20"
+                        : "text-gray-500 hover:bg-[#f3fbe9] hover:text-[#0B5345]",
                   ].join(" ")}
                 >
-                  <Icon className="text-[20px] shrink-0" />
+                  <Icon className={`text-[20px] shrink-0 transition-transform duration-200 ${!item.disabled && !isActive && 'group-hover:scale-110'}`} />
                   <div className={`transition-all duration-300 flex items-center shrink-0 overflow-hidden ${isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"}`}>
-                    <span className="text-[14px] font-medium whitespace-nowrap">{item.name}</span>
+                    <span className="text-[14px] font-semibold whitespace-nowrap">{item.name}</span>
                     {item.disabled && (
-                      <span className="ml-3 text-[9px] font-bold uppercase tracking-wider bg-white/5 text-white/30 px-1.5 py-0.5 rounded border border-white/10">
+                      <span className="ml-3 text-[9px] font-bold uppercase tracking-wider bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded-md">
                         Bientôt
                       </span>
                     )}
@@ -162,7 +164,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 return (
                   <li key={item.name} className="block">
                     {!isExpanded ? (
-                      <Tooltip title={item.name} placement="right">
+                      <Tooltip title={item.name} placement="right" color="#0B5345">
                         {linkContent}
                       </Tooltip>
                     ) : (
@@ -175,7 +177,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               return (
                 <li key={item.name} className="block">
                   {!isExpanded ? (
-                    <Tooltip title={item.name} placement="right">
+                    <Tooltip title={item.name} placement="right" color="#0B5345">
                       <Link href={item.href} className="no-underline block">
                         {linkContent}
                       </Link>
@@ -192,10 +194,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </nav>
 
         {/* Pin toggle (desktop only) */}
-        <div className={`hidden lg:flex border-t border-white/10 px-3 py-4 shrink-0 justify-center transition-all duration-300`}>
+        <div className={`hidden lg:flex border-t border-gray-100 px-3 py-4 shrink-0 justify-center transition-all duration-300 bg-gray-50/50`}>
           <button
             onClick={togglePinned}
-            className={`flex items-center justify-center gap-3 h-10 rounded-lg text-white/50 hover:text-white hover:bg-white/10 transition-colors text-sm ${isExpanded ? "w-full px-3" : "w-10"}`}
+            className={`flex items-center justify-center gap-3 h-10 rounded-xl text-gray-400 hover:text-[#0B5345] hover:bg-white transition-all text-sm border border-transparent hover:border-gray-200 hover:shadow-sm ${isExpanded ? "w-full px-3" : "w-10"}`}
             title={isPinned ? "Détacher" : "Épingler le menu"}
           >
             {isPinned ? <PushpinFilled className="text-lg" /> : <PushpinOutlined className="text-lg" />}
