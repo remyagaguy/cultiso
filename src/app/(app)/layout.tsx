@@ -131,22 +131,22 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         {/* Nav links */}
         <nav className="flex-1 overflow-y-auto px-3 py-6 custom-scrollbar">
-          <ul className="list-none m-0 p-0 space-y-8">
+          <ul className="list-none m-0 p-0">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname?.startsWith(item.href);
               const Icon = item.icon;
 
               const linkContent = (
                 <div
-                  className={[
-                    "flex items-center transition-all duration-200 cursor-pointer overflow-hidden group",
-                    !isExpanded ? "justify-center h-12 w-12 mx-auto" : "gap-4 px-4 py-3",
+                  className={`flex items-center transition-all duration-200 cursor-pointer overflow-hidden group rounded-xl ${
+                    !isExpanded ? "justify-center h-12 w-12 mx-auto" : "gap-4 px-4 py-3 w-full"
+                  } ${
                     item.disabled
                       ? "text-gray-300 cursor-not-allowed"
                       : isActive
-                        ? "text-[#0B5345]"
-                        : "text-gray-400 hover:text-gray-600",
-                  ].join(" ")}
+                        ? "text-[#0B5345] bg-[#0B5345]/5"
+                        : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
+                  }`}
                 >
                   <Icon className={`text-[24px] shrink-0 transition-transform duration-200 ${!item.disabled && !isActive && 'group-hover:scale-110'}`} />
                   <div className={`transition-all duration-300 flex items-center shrink-0 overflow-hidden ${isExpanded ? "w-auto opacity-100" : "w-0 opacity-0"}`}>
@@ -160,33 +160,28 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
               );
 
+              // Apply Tooltip directly to the div so Ant Design doesn't wrap it in an inline span
+              const contentWithTooltip = !isExpanded ? (
+                <Tooltip title={item.name} placement="right" color="#0B5345">
+                  {linkContent}
+                </Tooltip>
+              ) : (
+                linkContent
+              );
+
               if (item.disabled) {
                 return (
-                  <li key={item.name} className="block">
-                    {!isExpanded ? (
-                      <Tooltip title={item.name} placement="right" color="#0B5345">
-                        {linkContent}
-                      </Tooltip>
-                    ) : (
-                      linkContent
-                    )}
+                  <li key={item.name} className="block w-full mb-8 last:mb-0">
+                    {contentWithTooltip}
                   </li>
                 );
               }
 
               return (
-                <li key={item.name} className="block">
-                  {!isExpanded ? (
-                    <Tooltip title={item.name} placement="right" color="#0B5345">
-                      <Link href={item.href} className="no-underline block">
-                        {linkContent}
-                      </Link>
-                    </Tooltip>
-                  ) : (
-                    <Link href={item.href} className="no-underline block">
-                      {linkContent}
-                    </Link>
-                  )}
+                <li key={item.name} className="block w-full mb-8 last:mb-0">
+                  <Link href={item.href} className="no-underline block w-full">
+                    {contentWithTooltip}
+                  </Link>
                 </li>
               );
             })}
