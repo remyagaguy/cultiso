@@ -131,15 +131,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
         {/* Nav links */}
         <nav className="flex-1 overflow-y-auto px-3 py-6 custom-scrollbar">
-          <ul className="list-none m-0 p-0">
+          <ul className="flex flex-col gap-[32px] list-none m-0 p-0 w-full">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname?.startsWith(item.href);
               const Icon = item.icon;
 
               const linkContent = (
                 <div
-                  className={`flex items-center transition-all duration-200 cursor-pointer overflow-hidden group rounded-xl ${
-                    !isExpanded ? "justify-center h-12 w-12 mx-auto" : "gap-4 px-4 py-3 w-full"
+                  className={`flex items-center transition-all duration-200 cursor-pointer overflow-hidden group rounded-xl shrink-0 ${
+                    !isExpanded 
+                      ? "justify-center h-[48px] min-h-[48px] w-[48px] mx-auto" 
+                      : "gap-4 px-4 py-3 h-[48px] min-h-[48px] w-full"
                   } ${
                     item.disabled
                       ? "text-gray-300 cursor-not-allowed"
@@ -160,27 +162,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 </div>
               );
 
-              // Apply Tooltip directly to the div so Ant Design doesn't wrap it in an inline span
-              const contentWithTooltip = !isExpanded ? (
-                <Tooltip title={item.name} placement="right" color="#0B5345">
-                  {linkContent}
-                </Tooltip>
-              ) : (
-                linkContent
-              );
-
+              // Temporarily use native title to guarantee Tooltip isn't breaking the DOM layout in collapsed mode
               if (item.disabled) {
                 return (
-                  <li key={item.name} className="block w-full mb-8 last:mb-0">
-                    {contentWithTooltip}
+                  <li key={item.name} className="block w-full shrink-0" title={!isExpanded ? item.name : undefined}>
+                    {linkContent}
                   </li>
                 );
               }
 
               return (
-                <li key={item.name} className="block w-full mb-8 last:mb-0">
+                <li key={item.name} className="block w-full shrink-0" title={!isExpanded ? item.name : undefined}>
                   <Link href={item.href} className="no-underline block w-full">
-                    {contentWithTooltip}
+                    {linkContent}
                   </Link>
                 </li>
               );
