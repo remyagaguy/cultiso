@@ -109,6 +109,15 @@ const QuestionnaireWidget = ({
   const [freeTextMode, setFreeTextMode] = useState(false);
   const [freeTextValue, setFreeTextValue] = useState("");
   const [multiSelections, setMultiSelections] = useState<string[]>([]);
+  const [isReady, setIsReady] = useState(false);
+
+  // Delay appearance so the user has time to read the text
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 1200); // 1.2s delay
+    return () => clearTimeout(timer);
+  }, []);
 
   const q = data.questions[step];
 
@@ -157,42 +166,42 @@ const QuestionnaireWidget = ({
     }
   };
 
-  if (!q) return null;
+  if (!q || !isReady) return null;
 
   const isMulti = !!q.allow_multiple;
 
   return (
-    <div className="mt-4 border border-gray-200 rounded-2xl bg-white shadow-sm overflow-hidden w-full max-w-xl transition-all duration-500 ease-out">
-      <div className="flex items-start justify-between px-4 py-3.5 border-b border-gray-100 bg-gray-50/50">
+    <div className="mt-4 border border-gray-200 rounded-3xl bg-white shadow-sm overflow-hidden w-full max-w-3xl transition-all duration-500 ease-out animate-in slide-in-from-bottom-2 fade-in">
+      <div className="flex items-start justify-between px-6 py-5 border-b border-gray-100 bg-gray-50/50">
         <div>
-          <h4 className="font-unbounded font-semibold text-[#0B5345] text-[14.5px] leading-snug pr-4">{q.question}</h4>
-          {isMulti && <p className="text-[11px] text-gray-500 font-medium mt-0.5">Plusieurs choix possibles</p>}
+          <h4 className="font-unbounded font-semibold text-[#0B5345] text-[15px] leading-snug pr-4">{q.question}</h4>
+          {isMulti && <p className="text-[12px] text-gray-500 font-medium mt-1">Plusieurs choix possibles</p>}
         </div>
-        <div className="flex items-center text-[11px] text-gray-400 font-medium gap-1 shrink-0 px-2">
+        <div className="flex items-center text-[11px] text-gray-400 font-medium gap-1 shrink-0 px-2 mt-0.5">
           <span>{step + 1} sur {data.questions.length}</span>
         </div>
       </div>
       <div className="flex flex-col">
         {freeTextMode && !isMulti ? (
-          <div className="p-4 flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <div className="p-6 flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
             <textarea
               autoFocus
               placeholder="Précisez votre réponse..."
               value={freeTextValue}
               onChange={(e) => setFreeTextValue(e.target.value)}
-              className="w-full p-3 rounded-xl border border-gray-200 bg-[#f9f8f6] focus:bg-white focus:border-[#0B5345] focus:ring-1 focus:ring-[#0B5345] outline-none transition-all resize-none text-[14px] text-gray-700 min-h-[80px]"
+              className="w-full p-4 rounded-xl border border-gray-200 bg-[#f9f8f6] focus:bg-white focus:border-[#0B5345] focus:ring-1 focus:ring-[#0B5345] outline-none transition-all resize-none text-[14px] text-gray-700 min-h-[100px]"
             />
             <div className="flex justify-between items-center mt-1">
               <button
                 onClick={() => setFreeTextMode(false)}
-                className="text-[12px] font-medium text-gray-500 hover:text-gray-800 transition-colors py-1"
+                className="text-[13px] font-medium text-gray-500 hover:text-gray-800 transition-colors py-1"
               >
                 ← Retour
               </button>
               <button
                 onClick={() => handleSelectSingle(freeTextValue)}
                 disabled={!freeTextValue.trim()}
-                className="px-4 py-2 rounded-lg bg-[#0B5345] text-white text-[13px] font-semibold hover:bg-[#084236] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-5 py-2.5 rounded-xl bg-[#0B5345] text-white text-[13px] font-semibold hover:bg-[#084236] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Valider
               </button>
@@ -206,37 +215,37 @@ const QuestionnaireWidget = ({
                 <button
                   key={i}
                   onClick={() => isMulti ? handleToggleMulti(opt) : handleSelectSingle(opt)}
-                  className={`group w-full text-left px-4 py-3 border-b border-gray-100 last:border-0 transition-all duration-150 text-[14px] flex items-center gap-3 active:bg-gray-50 ${
+                  className={`group w-full text-left px-6 py-4 border-b border-gray-100 last:border-0 transition-all duration-150 text-[14.5px] flex items-center gap-4 active:bg-gray-50 ${
                     isSelected 
                       ? "bg-green-50/50 text-green-900" 
                       : "bg-white hover:bg-gray-50/80 text-gray-700"
                   }`}
                 >
-                  <span className={`flex items-center justify-center w-5 h-5 rounded-md text-[11px] font-semibold shrink-0 transition-colors ${
+                  <span className={`flex items-center justify-center w-6 h-6 rounded-md text-[11.5px] font-semibold shrink-0 transition-colors ${
                     isSelected
                       ? "bg-green-500 text-white"
                       : "bg-gray-100 text-gray-500 group-hover:bg-gray-200 group-hover:text-gray-700"
                   }`}>
                     {isSelected ? "✓" : (i + 1)}
                   </span>
-                  <span className={`font-medium transition-colors ${isSelected ? "text-green-900" : "group-hover:text-gray-900"}`}>{opt}</span>
+                  <span className={`font-medium transition-colors leading-relaxed ${isSelected ? "text-green-900" : "group-hover:text-gray-900"}`}>{opt}</span>
                 </button>
               );
             })}
             
             {isMulti && (
-              <div className="p-3 border-t border-gray-100 bg-gray-50/50 animate-in fade-in slide-in-from-bottom-2 duration-200">
+              <div className="p-4 border-t border-gray-100 bg-gray-50/50 animate-in fade-in slide-in-from-bottom-2 duration-200">
                 <input
                   type="text"
                   placeholder="Autre (préciser)..."
                   value={freeTextValue}
                   onChange={(e) => setFreeTextValue(e.target.value)}
-                  className="w-full p-2.5 rounded-lg border border-gray-200 bg-white focus:border-[#D35400] outline-none transition-all text-[13.5px] text-gray-700 mb-2"
+                  className="w-full p-3 rounded-xl border border-gray-200 bg-white focus:border-[#D35400] outline-none transition-all text-[14px] text-gray-700 mb-3"
                 />
                 <button
                   onClick={handleValidateMulti}
                   disabled={multiSelections.length === 0 && !freeTextValue.trim()}
-                  className="w-full py-2.5 rounded-lg bg-[#0B5345] text-white text-[13.5px] font-bold hover:bg-[#084236] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-3 rounded-xl bg-[#0B5345] text-white text-[14px] font-bold hover:bg-[#084236] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Valider ces choix
                 </button>
@@ -244,19 +253,19 @@ const QuestionnaireWidget = ({
             )}
 
             {!isMulti && (
-              <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100 bg-white hover:bg-gray-50/80 transition-colors">
+              <div className="flex items-center justify-between px-6 py-4 border-t border-gray-100 bg-white hover:bg-gray-50/80 transition-colors">
                 <button
                   onClick={() => setFreeTextMode(true)}
-                  className="flex items-center gap-2.5 text-[13.5px] text-gray-500 hover:text-gray-800 transition-colors flex-1 text-left font-medium"
+                  className="flex items-center gap-3 text-[14px] text-gray-500 hover:text-gray-800 transition-colors flex-1 text-left font-medium"
                 >
-                  <span className="flex items-center justify-center w-5 h-5 rounded-md bg-gray-100 text-gray-500 text-[10px]">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                  <span className="flex items-center justify-center w-6 h-6 rounded-md bg-gray-100 text-gray-500 text-[12px]">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
                   </span>
                   Autre chose...
                 </button>
                 <button
                   onClick={handleSkip}
-                  className="text-[12px] font-medium text-gray-400 hover:text-gray-600 border border-gray-200 rounded-md px-2 py-1 bg-white hover:bg-gray-50 transition-colors"
+                  className="text-[13px] font-medium text-gray-400 hover:text-gray-600 border border-gray-200 rounded-lg px-3 py-1.5 bg-white hover:bg-gray-50 transition-colors"
                 >
                   Passer
                 </button>
@@ -938,12 +947,12 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                 <>Bonjour, comment puis-je vous aider ?</>
               )}
             </h1>
-            <div className="w-full max-w-[760px]">{renderInputBar(`Posez votre question à ${title}...`, true)}</div>
+            <div className="w-full max-w-[860px]">{renderInputBar(`Posez votre question à ${title}...`, true)}</div>
           </div>
         ) : (
-          <>
-            <div className="flex-1 overflow-y-auto scroll-smooth min-h-0 pt-6">
-              <div className="max-w-[780px] mx-auto px-6 py-12 space-y-7">
+            <>
+              <div className="flex-1 overflow-y-auto scroll-smooth min-h-0 pt-6">
+                <div className="max-w-[880px] mx-auto px-6 py-12 space-y-7">
                 {messages.map((msg, idx) => {
                   let displayContent = msg.content;
                   let questionnaireData: QuestionnaireData | null = null;
@@ -1023,7 +1032,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                           <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-[1.5px] border-white rounded-full"></span>
                         </div>
                       )}
-                      <div className={`flex flex-col gap-1.5 ${msg.role === "user" ? "items-end max-w-[70%]" : "items-start max-w-[90%]"}`}>
+                      <div className={`flex flex-col gap-1.5 ${msg.role === "user" ? "items-end max-w-[75%]" : "items-start w-full"}`}>
                         {msg.role === "user" ? (
                           <div className="px-5 py-3.5 rounded-3xl bg-[#f9f8f6] border border-gray-100 shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-gray-800 text-[15px] font-medium leading-[1.65] whitespace-pre-wrap">
                             {displayContent}
@@ -1082,7 +1091,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
               </div>
             </div>
             <div className="flex-shrink-0 px-6 pb-6 pt-2 bg-gradient-to-t from-white via-white to-white/0">
-              <div className="max-w-[760px] mx-auto">
+              <div className="max-w-[860px] mx-auto">
                 {renderInputBar("Répondre à Cultisia...")}
                 <p className="text-center mt-3.5 text-[11.5px] font-medium text-gray-400">Cultisia peut faire des erreurs. Vérifiez les informations agronomiques avant toute action.</p>
               </div>
