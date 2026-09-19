@@ -313,7 +313,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
     if (fencedMatch) {
       jsonString = fencedMatch[1];
     } else {
-      const rawMatch = content.match(/\{[\s\S]*\}/);
+      const rawMatch = content.match(/\{\s*"(?:action|type|meta)"\s*:[\s\S]*\}/);
       if (rawMatch) {
         jsonString = rawMatch[0];
       }
@@ -325,10 +325,10 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
         if (
           ["complete_simulation", "business_plan"].includes(parsed.action || parsed.type) ||
           parsed.payload ||
-          (parsed.meta && parsed.synthese) ||
-          (parsed.projet && parsed.etude_marche)
+          (parsed.meta && parsed.projet && parsed.financier)
         ) {
-          onSimulationComplete(parsed.payload || parsed.data || parsed);
+          const finalData = parsed.payload || parsed.data || parsed;
+          onSimulationComplete(finalData);
           return;
         }
       } catch(e) {}
@@ -658,7 +658,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                 if (fencedMatch) {
                   jsonString = fencedMatch[1];
                 } else {
-                  const rawMatch = assistantContent.match(/\{\s*"(?:action|type)"\s*:\s*"(?:complete_simulation|business_plan)"[\s\S]*\}/);
+                  const rawMatch = assistantContent.match(/\{\s*"(?:action|type|meta)"\s*:[\s\S]*\}/);
                   if (rawMatch) {
                     jsonString = rawMatch[0];
                   }
@@ -667,8 +667,13 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                 if (jsonString) {
                   try {
                     const parsed = JSON.parse(jsonString);
-                    if ((["complete_simulation", "business_plan"].includes(parsed.action || parsed.type)) || parsed.payload) {
-                      onSimulationComplete(parsed);
+                    if (
+                      ["complete_simulation", "business_plan"].includes(parsed.action || parsed.type) || 
+                      parsed.payload || 
+                      (parsed.meta && parsed.projet && parsed.financier)
+                    ) {
+                      const finalData = parsed.payload || parsed.data || parsed;
+                      onSimulationComplete(finalData);
                     }
                   } catch (e) {
                     console.error("Erreur parsing complete_simulation:", e);
@@ -949,7 +954,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                       jsonString = fencedMatch[1];
                       matchToRemove = fencedMatch[0];
                     } else {
-                      const rawMatch = displayContent.match(/\{[\s\S]*\}/);
+                      const rawMatch = displayContent.match(/\{\s*"(?:action|type|meta)"\s*:[\s\S]*\}/);
                       if (rawMatch) {
                         jsonString = rawMatch[0];
                         matchToRemove = rawMatch[0];
@@ -966,8 +971,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                         if (
                           ["complete_simulation", "business_plan"].includes(parsed.action || parsed.type) ||
                           parsed.payload ||
-                          (parsed.meta && parsed.synthese) ||
-                          (parsed.projet && parsed.etude_marche)
+                          (parsed.meta && parsed.projet && parsed.financier)
                         ) {
                           simulationData = parsed.payload || parsed.data || parsed;
                           displayContent = displayContent.replace(matchToRemove as string, "").trim();
