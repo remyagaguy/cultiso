@@ -416,16 +416,6 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
 
       if (sessions && sessions.length > 0) {
         currentSessionId = sessions[0].id;
-      } else {
-        // Create new session if none exists
-        const { data: newSession, error } = await supabase
-          .from("chat_sessions")
-          .insert({ user_id: user.id, title: "Discussion Cultisia" })
-          .select("id, title")
-          .single();
-        if (newSession && !error) {
-          currentSessionId = newSession.id;
-        }
       }
 
       if (currentSessionId) {
@@ -483,19 +473,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
   };
 
   const startNewDiscussion = async () => {
-    if (userId) {
-      const { data: newSession } = await supabase
-        .from("chat_sessions")
-        .insert({ user_id: userId, title: "Nouvelle discussion" })
-        .select("id, title")
-        .single();
-        
-      if (newSession) {
-        setSessionId(newSession.id);
-        setSessions(prev => [{id: newSession.id, title: newSession.title, updated_at: new Date().toISOString()}, ...prev]);
-      }
-    }
-    
+    setSessionId(null);
     setMessages([]);
     hasAutoGreeted.current = false; // Reset auto greeting for new discussion
     setIsLoading(false); 
