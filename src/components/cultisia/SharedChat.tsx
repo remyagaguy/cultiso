@@ -162,81 +162,81 @@ const QuestionnaireWidget = ({
   const isMulti = !!q.allow_multiple;
 
   return (
-    <div className="mt-6 border border-gray-100 rounded-3xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden w-full max-w-xl transition-all duration-500 ease-out opacity-100 translate-y-0">
-      <div className="flex items-start justify-between px-6 pt-6 pb-4">
+    <div className="mt-4 border border-gray-200 rounded-2xl bg-white shadow-sm overflow-hidden w-full max-w-xl transition-all duration-500 ease-out">
+      <div className="flex items-start justify-between px-4 py-3.5 border-b border-gray-100 bg-gray-50/50">
         <div>
-          <h4 className="font-unbounded font-semibold text-[#0B5345] text-[15.5px] leading-snug pr-4">{q.question}</h4>
-          {isMulti && <p className="text-[12px] text-gray-500 font-medium mt-1">Plusieurs choix possibles</p>}
+          <h4 className="font-unbounded font-semibold text-[#0B5345] text-[14.5px] leading-snug pr-4">{q.question}</h4>
+          {isMulti && <p className="text-[11px] text-gray-500 font-medium mt-0.5">Plusieurs choix possibles</p>}
         </div>
-        <div className="flex items-center text-[11.5px] text-gray-500 font-medium gap-2 shrink-0 bg-[#f9f8f6] px-3 py-1.5 rounded-full border border-gray-100">
-          <span>{step + 1} / {data.questions.length}</span>
+        <div className="flex items-center text-[11px] text-gray-400 font-medium gap-1 shrink-0 px-2">
+          <span>{step + 1} sur {data.questions.length}</span>
         </div>
       </div>
-      <div className="px-5 pb-5 space-y-2.5">
+      <div className="flex flex-col">
         {freeTextMode && !isMulti ? (
-          <div className="flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <div className="p-4 flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-2 duration-200">
             <textarea
               autoFocus
               placeholder="Précisez votre réponse..."
               value={freeTextValue}
               onChange={(e) => setFreeTextValue(e.target.value)}
-              className="w-full p-4 rounded-2xl border border-gray-200 bg-[#f9f8f6] focus:bg-white focus:border-[#0B5345] focus:ring-2 focus:ring-[#0B5345]/20 outline-none transition-all resize-none text-[14.5px] text-gray-700 min-h-[100px]"
+              className="w-full p-3 rounded-xl border border-gray-200 bg-[#f9f8f6] focus:bg-white focus:border-[#0B5345] focus:ring-1 focus:ring-[#0B5345] outline-none transition-all resize-none text-[14px] text-gray-700 min-h-[80px]"
             />
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mt-1">
               <button
                 onClick={() => setFreeTextMode(false)}
-                className="text-[13px] font-medium text-gray-500 hover:text-gray-800 transition-colors px-3 py-2"
+                className="text-[12px] font-medium text-gray-500 hover:text-gray-800 transition-colors py-1"
               >
-                ← Retour aux suggestions
+                ← Retour
               </button>
               <button
                 onClick={() => handleSelectSingle(freeTextValue)}
                 disabled={!freeTextValue.trim()}
-                className="px-5 py-2.5 rounded-xl bg-[#0B5345] text-white text-[14px] font-semibold hover:bg-[#084236] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 rounded-lg bg-[#0B5345] text-white text-[13px] font-semibold hover:bg-[#084236] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Valider
               </button>
             </div>
           </div>
         ) : (
-          <>
+          <div className="flex flex-col">
             {q.options.map((opt, i) => {
               const isSelected = multiSelections.includes(opt);
               return (
                 <button
                   key={i}
                   onClick={() => isMulti ? handleToggleMulti(opt) : handleSelectSingle(opt)}
-                  className={`group w-full text-left px-4 py-3.5 rounded-2xl border transition-all duration-200 text-[14.5px] flex items-center gap-3.5 active:scale-[0.99] ${
+                  className={`group w-full text-left px-4 py-3 border-b border-gray-100 last:border-0 transition-all duration-150 text-[14px] flex items-center gap-3 active:bg-gray-50 ${
                     isSelected 
-                      ? "bg-green-50 border-green-200 text-green-900 shadow-sm" 
-                      : "border-transparent bg-[#f9f8f6] hover:bg-white hover:border-[#0B5345] hover:shadow-[0_2px_12px_rgba(11,83,69,0.08)] text-gray-700"
+                      ? "bg-green-50/50 text-green-900" 
+                      : "bg-white hover:bg-gray-50/80 text-gray-700"
                   }`}
                 >
-                  <span className={`flex items-center justify-center w-7 h-7 rounded-xl border text-[13px] font-semibold shrink-0 transition-colors ${
+                  <span className={`flex items-center justify-center w-5 h-5 rounded-md text-[11px] font-semibold shrink-0 transition-colors ${
                     isSelected
-                      ? "bg-green-500 border-green-600 text-white"
-                      : "bg-white border-gray-200 text-gray-400 group-hover:border-[#0B5345]/30 group-hover:text-[#0B5345] group-hover:bg-[#0B5345]/5"
+                      ? "bg-green-500 text-white"
+                      : "bg-gray-100 text-gray-500 group-hover:bg-gray-200 group-hover:text-gray-700"
                   }`}>
-                    {isSelected ? "✓" : String.fromCharCode(65 + i)}
+                    {isSelected ? "✓" : (i + 1)}
                   </span>
-                  <span className={`font-medium transition-colors ${isSelected ? "text-green-900" : "group-hover:text-[#0B5345]"}`}>{opt}</span>
+                  <span className={`font-medium transition-colors ${isSelected ? "text-green-900" : "group-hover:text-gray-900"}`}>{opt}</span>
                 </button>
               );
             })}
             
             {isMulti && (
-              <div className="pt-2 animate-in fade-in slide-in-from-bottom-2 duration-200">
+              <div className="p-3 border-t border-gray-100 bg-gray-50/50 animate-in fade-in slide-in-from-bottom-2 duration-200">
                 <input
                   type="text"
                   placeholder="Autre (préciser)..."
                   value={freeTextValue}
                   onChange={(e) => setFreeTextValue(e.target.value)}
-                  className="w-full p-3.5 rounded-2xl border border-dashed border-gray-300 bg-white focus:bg-[#f9f8f6] focus:border-[#D35400] outline-none transition-all text-[14.5px] text-gray-700 mb-3"
+                  className="w-full p-2.5 rounded-lg border border-gray-200 bg-white focus:border-[#D35400] outline-none transition-all text-[13.5px] text-gray-700 mb-2"
                 />
                 <button
                   onClick={handleValidateMulti}
                   disabled={multiSelections.length === 0 && !freeTextValue.trim()}
-                  className="w-full py-3.5 rounded-2xl bg-[#0B5345] text-white text-[14.5px] font-bold hover:bg-[#084236] transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                  className="w-full py-2.5 rounded-lg bg-[#0B5345] text-white text-[13.5px] font-bold hover:bg-[#084236] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Valider ces choix
                 </button>
@@ -244,37 +244,26 @@ const QuestionnaireWidget = ({
             )}
 
             {!isMulti && (
-              <button
-                onClick={() => setFreeTextMode(true)}
-                className="w-full text-left px-4 py-3.5 rounded-2xl border border-dashed border-gray-300 bg-white hover:border-[#D35400] hover:bg-[#D35400]/5 transition-all duration-200 text-[14.5px] text-gray-600 hover:text-[#D35400] flex items-center gap-3.5 active:scale-[0.99] mt-1"
-              >
-                <span className="flex items-center justify-center w-7 h-7 rounded-xl bg-white border border-dashed border-gray-300 text-gray-400 text-[13px] font-semibold shrink-0 transition-colors">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                </span>
-                <span className="font-medium">Autre (Saisir ma propre réponse)</span>
-              </button>
+              <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100 bg-white hover:bg-gray-50/80 transition-colors">
+                <button
+                  onClick={() => setFreeTextMode(true)}
+                  className="flex items-center gap-2.5 text-[13.5px] text-gray-500 hover:text-gray-800 transition-colors flex-1 text-left font-medium"
+                >
+                  <span className="flex items-center justify-center w-5 h-5 rounded-md bg-gray-100 text-gray-500 text-[10px]">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                  </span>
+                  Autre chose...
+                </button>
+                <button
+                  onClick={handleSkip}
+                  className="text-[12px] font-medium text-gray-400 hover:text-gray-600 border border-gray-200 rounded-md px-2 py-1 bg-white hover:bg-gray-50 transition-colors"
+                >
+                  Passer
+                </button>
+              </div>
             )}
-          </>
+          </div>
         )}
-        <div className="flex justify-between items-center pt-3 px-1 border-t border-gray-100 mt-3">
-          <button 
-            onClick={() => {
-              setStep(Math.max(0, step - 1));
-              setFreeTextMode(false);
-              setMultiSelections([]);
-            }} 
-            disabled={step === 0} 
-            className="text-[13px] font-medium text-gray-400 hover:text-gray-700 disabled:opacity-0 transition-colors px-2 py-1"
-          >
-            ← Précédent
-          </button>
-          <button 
-            onClick={handleSkip} 
-            className="text-[13px] font-medium text-gray-400 hover:text-[#D35400] transition-colors px-2 py-1"
-          >
-            Passer cette question
-          </button>
-        </div>
       </div>
     </div>
   );
