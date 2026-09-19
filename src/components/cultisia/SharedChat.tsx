@@ -841,7 +841,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
           </div>
           
           <div className="flex-1 overflow-y-auto px-4 py-4 space-y-1 custom-scrollbar">
-            <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-4 mt-2 px-2">Sessions rÃ©centes</h3>
+            <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-4 mt-2 px-2">Sessions récentes</h3>
             {sessions.map(s => (
               <div 
                 key={s.id} 
