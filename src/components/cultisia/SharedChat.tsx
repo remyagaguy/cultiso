@@ -972,7 +972,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                         if (
                           ["complete_simulation", "business_plan"].includes(parsed.action || parsed.type) ||
                           parsed.payload ||
-                          (parsed.meta && parsed.projet && parsed.financier)
+                          parsed.meta || parsed.projet || parsed.synthese
                         ) {
                           simulationData = parsed.payload || parsed.data || parsed;
                           displayContent = displayContent.replace(matchToRemove as string, "").trim();
@@ -990,11 +990,11 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                       else if (displayContent.includes('"risques"')) progressMsg = "Analyse des risques en cours...";
                       else if (displayContent.includes('"marketing"')) progressMsg = "Stratégie marketing en cours...";
                       else if (displayContent.includes('"technique"')) progressMsg = "Étude technique en cours...";
-                      else if (displayContent.includes('"etude_marche"')) progressMsg = "Étude de marché en cours...";
+                      else if (displayContent.includes('"etude_marche"') || displayContent.includes('"marche"')) progressMsg = "Étude de marché en cours...";
                       else if (displayContent.includes('"projet"')) progressMsg = "Structuration du projet en cours...";
                       else if (displayContent.includes('"synthese"')) progressMsg = "Génération de la synthèse...";
                       else if (displayContent.includes('"meta"')) progressMsg = "Initialisation du business plan...";
-                      else if (displayContent.includes('```json') || displayContent.includes('{"type":"questionnaire"')) progressMsg = "Génération en cours...";
+                      else if (displayContent.includes('```json') || displayContent.includes('{')) progressMsg = "Génération en cours...";
 
                       if (progressMsg) {
                         const jsonStartIndex = displayContent.indexOf('```json');
