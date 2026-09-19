@@ -523,11 +523,16 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
     // Créer une session au premier message si elle n'existe pas
     if (!currentSessionId && userId) {
       const title = text.substring(0, 30) + (text.length > 30 ? "..." : "");
-      const { data: newSession } = await supabase
+      const { data: newSession, error } = await supabase
         .from("chat_sessions")
         .insert({ user_id: userId, title: title })
         .select("id, title")
         .single();
+        
+      if (error) {
+        console.error("Erreur création de session :", error);
+        antMessage.error("Erreur création de session: " + error.message);
+      }
         
       if (newSession) {
         currentSessionId = newSession.id;
