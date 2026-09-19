@@ -531,7 +531,7 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
 
   useEffect(() => { autoResize(); }, [input, autoResize]);
 
-  /* â”€â”€â”€ Streaming Send â”€â”€â”€ */
+  /* ─── Streaming Send ─── */
   const doSend = async (text: string) => {
     if (!text.trim() || isLoading) return;
     const newMessages = [...messages, { role: "user" as const, content: text }];
@@ -540,9 +540,27 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
     setIsLoading(true);
     setIsThinking(true);
 
+    let currentSessionId = sessionId;
+
+    // Créer une session au premier message si elle n'existe pas
+    if (!currentSessionId && userId) {
+      const title = text.substring(0, 30) + (text.length > 30 ? "..." : "");
+      const { data: newSession } = await supabase
+        .from("chat_sessions")
+        .insert({ user_id: userId, title: title })
+        .select("id, title")
+        .single();
+        
+      if (newSession) {
+        currentSessionId = newSession.id;
+        setSessionId(currentSessionId);
+        setSessions(prev => [{id: newSession.id, title: newSession.title, updated_at: new Date().toISOString()}, ...prev]);
+      }
+    }
+
     // Sauvegarde en DB (si connecté)
-    if (sessionId) {
-      await supabase.from("chat_messages").insert({ session_id: sessionId, role: "user", content: text });
+    if (currentSessionId) {
+      await supabase.from("chat_messages").insert({ session_id: currentSessionId, role: "user", content: text });
     }
 
       try {
@@ -647,8 +665,8 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                 });
               }
               // Sauvegarde de la réponse finale en DB
-              if (sessionId && assistantContent) {
-                supabase.from("chat_messages").insert({ session_id: sessionId, role: "assistant", content: assistantContent }).then();
+              if (currentSessionId && assistantContent) {
+                supabase.from("chat_messages").insert({ session_id: currentSessionId, role: "assistant", content: assistantContent }).then();
               }
               
               // Détecter si on a reçu les données de simulation finales
