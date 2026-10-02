@@ -1,4 +1,5 @@
-import { supabase } from '../supabase/client';
+import { createClient } from '../supabase/client';
+const supabase = createClient();
 
 export interface CropProfile {
   id: string;
