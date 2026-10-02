@@ -5,7 +5,7 @@
 
 ## 1. La Pile Technique (Stack)
 *   **Frontend & Framework :** Next.js avec TypeScript strict.
-*   **UI / Design :** Librairie Ant Design (Couleurs de marque : Vert `#0B5345`, Orange Latérite `#D35400`, Polices : *Unbounded* pour les titres & *Manrope* pour le corps).
+*   **UI / Design :** Librairie Ant Design (Couleurs de marque : Vert `#0B5345`, Orange Latérite `#D35400`, Polices : *Plus Jakarta Sans*).
 *   **Backend, BDD & Auth :** Supabase (PostgreSQL & Supabase Auth).
 *   **Communication API :** REST.
 *   **Hébergement & Déploiement :** Vercel.
@@ -16,7 +16,6 @@
 ✅ **TU DOIS (MUST) :**
 *   **Architecture Applicative :** Suivre une architecture "Monolithe Modulaire". Isoler le code du module `Cultiplan` pour permettre l'ajout futur des modules `Cultishop`, `Cultisia`, etc.
 *   **Approche Mobile-First :** L'interface DOIT être 100% responsive en utilisant le système de grille d'Ant Design.
-*   **Mode "PWA - Hors-ligne léger" :** L'UI doit charger rapidement (cache), mais la connexion internet est requise pour les actions de sauvegarde.
 *   **Mode Invité (Product-Led Growth) :** L'utilisateur doit pouvoir utiliser le simulateur (Tunnel) sans s'inscrire. Les données sont sauvegardées dans le `LocalStorage`. L'inscription n'est exigée qu'à la fin pour voir les résultats et exporter le PDF (migration du LocalStorage vers Supabase à la création du compte).
 *   **Sécurité :** Garantir un Mode Privé strict en V1 (Row Level Security sur Supabase). Les rôles avancés (Cultiseil) sont repoussés à la V2.
 *   **Navigation Globale :** Implémenter la navigation avec des Mega Menus pour "Produits" et "Solutions" (structure spécifique : 2 colonnes de texte + 1 Cadre visuel d'appel à l'action sur la droite), et un lien simple "Blog".

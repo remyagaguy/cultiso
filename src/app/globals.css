@@ -2,9 +2,9 @@
 
 @theme inline {
   /* Fonts */
-  --font-sans: var(--font-manrope);
-  --font-unbounded: var(--font-unbounded);
-  --font-manrope: var(--font-manrope);
+  --font-sans: var(--font-plus-jakarta);
+  --font-unbounded: var(--font-plus-jakarta);
+  --font-manrope: var(--font-plus-jakarta);
   
   /* Cultiso Core Colors */
   --color-brand-green: #0B5345;
@@ -51,7 +51,7 @@ body {
   color: #052821;
   margin: 0;
   padding: 0;
-  font-family: var(--font-manrope), sans-serif;
+  font-family: var(--font-plus-jakarta), sans-serif;
   letter-spacing: -0.01em; /* Plain body tracking */
 }
 

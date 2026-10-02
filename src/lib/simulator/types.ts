@@ -2,25 +2,35 @@
 
 export type CultivationType = 'cultures_vivrieres' | 'cultures_de_rente' | 'maraichage' | 'elevage' | 'agroalimentaire' | '';
 
+export interface AgronomicParameters {
+  baseTemp: number | null;
+  waterProductivity: number | null;
+  harvestIndex: number | null;
+  soilFieldCapacity: number | null;
+  cropCycleDays: number | null;
+}
+
 export interface ProjectInfo {
   name: string;
   type: CultivationType;
+  cropId: string; // From Supabase cultiplan_crops
+  soilId: string; // From Supabase cultiplan_soils
   areaSize: number; // en hectares ou m2 selon le type
   areaUnit: 'ha' | 'm2' | 'tetes';
 }
 
 export interface Capex { // Capital Expenditures (Investissements)
-  infrastructure: number; // ex: b√¢timents, irrigation
+  infrastructure: number; // ex: b?timents, irrigation
   equipment: number; // ex: tracteurs, outils
 }
 
 export interface Opex { // Operational Expenditures (Charges)
   inputs: number; // intrants: semences, engrais, alimentation animale
-  labor: number; // main d'≈ìuvre
+  labor: number; // main d'úuvre
 }
 
 export interface Sales { // Ventes
-  expectedYield: number; // rendement esp√©r√© total
+  expectedYield: number; // rendement espÈrÈ total (now calculated)
   unitPrice: number; // prix de vente unitaire
 }
 
@@ -29,12 +39,15 @@ export interface SimulatorState {
   capex: Capex;
   opex: Opex;
   sales: Sales;
+  agronomicParams: AgronomicParameters; // New state for offline calc
 }
 
 export const INITIAL_SIMULATOR_STATE: SimulatorState = {
   project: {
     name: '',
     type: '',
+    cropId: '',
+    soilId: '',
     areaSize: 1,
     areaUnit: 'ha',
   },
@@ -49,5 +62,12 @@ export const INITIAL_SIMULATOR_STATE: SimulatorState = {
   sales: {
     expectedYield: 0,
     unitPrice: 0,
+  },
+  agronomicParams: {
+    baseTemp: null,
+    waterProductivity: null,
+    harvestIndex: null,
+    soilFieldCapacity: null,
+    cropCycleDays: 120, // default
   }
 };

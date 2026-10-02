@@ -1,0 +1,56 @@
+[
+  {
+    "id": "maize",
+    "name": "Default Maize, Calendar (Davis, 1Jun96)",
+    "base_temperature_c": 8.0,
+    "upper_temperature_c": 30.0,
+    "reference_harvest_index_pct": 48.0,
+    "water_productivity_normalized": 33.7,
+    "crop_cycle_days": -9.0
+  },
+  {
+    "id": "tomato",
+    "name": "Default Tomato, Calendar (Cordoba, 1May86)",
+    "base_temperature_c": 7.0,
+    "upper_temperature_c": 28.0,
+    "reference_harvest_index_pct": 63.0,
+    "water_productivity_normalized": 18.0,
+    "crop_cycle_days": null
+  },
+  {
+    "id": "cassava",
+    "name": "Default Cassava, Calendar (Columbia, Nigeria, Togo)",
+    "base_temperature_c": 10.0,
+    "upper_temperature_c": 30.0,
+    "reference_harvest_index_pct": 60.0,
+    "water_productivity_normalized": 17.0,
+    "crop_cycle_days": null
+  },
+  {
+    "id": "soybean",
+    "name": "Default Soybean, Calendar (Patancheru, 25Jun96)",
+    "base_temperature_c": 5.0,
+    "upper_temperature_c": 30.0,
+    "reference_harvest_index_pct": 40.0,
+    "water_productivity_normalized": 15.0,
+    "crop_cycle_days": -9.0
+  },
+  {
+    "id": "sorghum",
+    "name": "Bushland Texas 1991 Sorghum 25 June 1991",
+    "base_temperature_c": 8.0,
+    "upper_temperature_c": 30.0,
+    "reference_harvest_index_pct": 45.0,
+    "water_productivity_normalized": 33.7,
+    "crop_cycle_days": -9.0
+  },
+  {
+    "id": "wheat",
+    "name": "Default Wheat, Calendar (Valenzano, 23Nov07)",
+    "base_temperature_c": 0.0,
+    "upper_temperature_c": 26.0,
+    "reference_harvest_index_pct": 48.0,
+    "water_productivity_normalized": 15.0,
+    "crop_cycle_days": -9.0
+  }
+]

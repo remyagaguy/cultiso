@@ -1,0 +1,38 @@
+[
+  {
+    "id": "clay",
+    "name": "deep uniform 'heavy clay' soil profile",
+    "curve_number": 77.0,
+    "saturation_vol_pct": 55.0,
+    "field_capacity_vol_pct": 54.0,
+    "wilting_point_vol_pct": 39.0,
+    "ksat_mm_day": 35.0
+  },
+  {
+    "id": "sand",
+    "name": "deep uniform 'very sandy' soil profile",
+    "curve_number": 46.0,
+    "saturation_vol_pct": 36.0,
+    "field_capacity_vol_pct": 13.0,
+    "wilting_point_vol_pct": 6.0,
+    "ksat_mm_day": 3000.0
+  },
+  {
+    "id": "loam",
+    "name": "deep uniform 'loamy' soil profile",
+    "curve_number": 61.0,
+    "saturation_vol_pct": 46.0,
+    "field_capacity_vol_pct": 31.0,
+    "wilting_point_vol_pct": 15.0,
+    "ksat_mm_day": 500.0
+  },
+  {
+    "id": "siltloam",
+    "name": "deep uniform 'silty loam' soil profile",
+    "curve_number": 61.0,
+    "saturation_vol_pct": 46.0,
+    "field_capacity_vol_pct": 33.0,
+    "wilting_point_vol_pct": 13.0,
+    "ksat_mm_day": 575.0
+  }
+]

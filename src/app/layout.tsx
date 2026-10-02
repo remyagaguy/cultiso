@@ -1,16 +1,11 @@
-﻿import type { Metadata } from "next";
-import { Unbounded, Manrope, Caveat } from "next/font/google";
+import type { Metadata } from "next";
+import { Plus_Jakarta_Sans, Caveat } from "next/font/google";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
 import "./globals.css";
 
-const unbounded = Unbounded({
-  variable: "--font-unbounded",
-  subsets: ["latin"],
-});
-
-const manrope = Manrope({
-  variable: "--font-manrope",
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
   subsets: ["latin"],
 });
 
@@ -36,9 +31,9 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={unbounded.variable + " " + manrope.variable + " " + caveat.variable + " h-full antialiased bg-[#ffffff]"}
+      className={`${plusJakarta.variable} ${caveat.variable} h-full antialiased bg-[#ffffff]`}
     >
-      <body className="min-h-full flex flex-col font-manrope m-0 p-0 bg-[#ffffff] text-[#052821] selection:bg-[#f3fbe9] selection:text-[#052821]">
+      <body className="min-h-full flex flex-col font-plus-jakarta m-0 p-0 bg-[#ffffff] text-[#052821] selection:bg-[#f3fbe9] selection:text-[#052821]">
         <AntdRegistry>
           <ConfigProvider
             theme={{
@@ -47,13 +42,13 @@ export default function RootLayout({
                 colorInfo: '#D35400',
                 colorBgBase: '#ffffff',
                 colorBgContainer: '#ffffff', 
-                fontFamily: 'var(--font-manrope)',
+                fontFamily: 'var(--font-plus-jakarta)',
                 colorError: '#EF4444',
                 colorTextBase: '#052821',
               },
               components: {
                 Typography: {
-                  fontFamily: 'var(--font-unbounded)',
+                  fontFamily: 'var(--font-plus-jakarta)',
                 },
                 Button: {
                   colorPrimary: '#D35400',

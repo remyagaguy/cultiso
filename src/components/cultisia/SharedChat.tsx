@@ -395,20 +395,31 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
       setUserId(user.id);
 
       // Find existing session for logged in user
-      let { data: sessions } = await supabase
+      let { data: sessions, error: sessionErr } = await supabase
         .from("chat_sessions")
         .select("id, title")
         .eq("user_id", user.id)
         .order("created_at", { ascending: false })
         .limit(1);
 
-      let { data: allSessions } = await supabase
+      if (sessionErr) console.error("Error fetching initial session:", sessionErr);
+
+      let { data: allSessions, error: allSessionsErr } = await supabase
         .from("chat_sessions")
         .select("id, title, updated_at, is_pinned, is_archived, share_id")
         .eq("user_id", user.id)
         .order("updated_at", { ascending: false });
         
-      if (allSessions) setSessions(allSessions);
+      if (allSessionsErr) {
+        console.error("Error fetching all sessions:", allSessionsErr);
+      }
+        
+      if (allSessions) {
+        setSessions(allSessions);
+      } else if (!allSessionsErr && sessions) {
+        // Fallback if allSessions query somehow returned null without error
+        // setSessions(sessions);
+      }
 
       let currentSessionId = null;
 
@@ -1110,17 +1121,12 @@ const extractSimulationData = (msgs: ChatMessage[]) => {
                             {msg.isStreaming && (
                               <span className="inline-block w-1 h-5 bg-[#D35400] animate-pulse ml-1 align-text-bottom rounded-sm" />
                             )}
-                            {questionnaireData && !msg.isStreaming && !msg.questionnaireCompleted && (
+                            {questionnaireData && !msg.isStreaming && idx === messages.length - 1 && (
                               <QuestionnaireWidget
                                 data={questionnaireData}
                                 onSubmit={(answers) => {
-                                  setMessages(prev => {
-                                    const next = [...prev];
-                                    next[idx].questionnaireCompleted = true;
-                                    return next;
-                                  });
-                                  const lines = questionnaireData!.questions.map((q, i) => `â€¢ ${q.question} : ${answers[i] || "Non spécifié"}`);
-                                  doSend("Voici mes précisions pour affiner mon projet :\n" + lines.join("\n"));
+                                  const lines = questionnaireData!.questions.map((q, i) => `**Q :** ${q.question}\n**R :** ${answers[i] || "Non spécifié"}`);
+                                  doSend(lines.join("\n\n"));
                                 }}
                               />
                             )}

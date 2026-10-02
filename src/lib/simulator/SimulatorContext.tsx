@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { SimulatorState, INITIAL_SIMULATOR_STATE, ProjectInfo, Capex, Opex, Sales } from './types';
+import { SimulatorState, INITIAL_SIMULATOR_STATE, ProjectInfo, Capex, Opex, Sales, AgronomicParameters } from './types';
 import { loadSimulatorState, saveSimulatorState } from './storage';
 
 interface SimulatorContextProps {
@@ -10,6 +10,7 @@ interface SimulatorContextProps {
   updateCapex: (data: Partial<Capex>) => void;
   updateOpex: (data: Partial<Opex>) => void;
   updateSales: (data: Partial<Sales>) => void;
+  updateAgronomicParams: (data: Partial<AgronomicParameters>) => void;
   resetState: () => void;
 }
 
@@ -19,13 +20,11 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SimulatorState>(INITIAL_SIMULATOR_STATE);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Charger depuis le localStorage au montage
   useEffect(() => {
     setState(loadSimulatorState());
     setIsLoaded(true);
   }, []);
 
-  // Sauvegarder dans le localStorage à chaque modification d'état
   useEffect(() => {
     if (isLoaded) {
       saveSimulatorState(state);
@@ -48,15 +47,18 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
     setState(prev => ({ ...prev, sales: { ...prev.sales, ...data } }));
   };
 
+  const updateAgronomicParams = (data: Partial<AgronomicParameters>) => {
+    setState(prev => ({ ...prev, agronomicParams: { ...prev.agronomicParams, ...data } }));
+  };
+
   const resetState = () => {
     setState(INITIAL_SIMULATOR_STATE);
   };
 
-  // On attend que le state soit chargé côté client pour éviter une erreur d'hydratation (Hydration Mismatch)
   if (!isLoaded) return <div className="min-h-screen bg-[#061510]"></div>;
 
   return (
-    <SimulatorContext.Provider value={{ state, updateProject, updateCapex, updateOpex, updateSales, resetState }}>
+    <SimulatorContext.Provider value={{ state, updateProject, updateCapex, updateOpex, updateSales, updateAgronomicParams, resetState }}>
       {children}
     </SimulatorContext.Provider>
   );
