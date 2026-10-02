@@ -44,7 +44,7 @@ export async function fetchSoils(): Promise<SoilProfile[]> {
 export async function searchLocation(query: string) {
   if (query.length < 3) return [];
   try {
-    const res = await fetch(https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Togo')}&limit=5);
+    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Togo')}&limit=5`);
     const data = await res.json();
     return data.map((item: any) => ({
       name: item.display_name,
@@ -60,7 +60,7 @@ export async function searchLocation(query: string) {
 // SoilGrids ISRIC API
 export async function fetchSoilData(lat: number, lon: number) {
   try {
-    const res = await fetch(https://rest.isric.org/soilgrids/v2.0/classification/query?lon=${lon}&lat=${lat}&number_classes=1);
+    const res = await fetch(`https://rest.isric.org/soilgrids/v2.0/classification/query?lon=${lon}&lat=${lat}&number_classes=1`);
     const data = await res.json();
     const soilClass = data?.wrb_class_name || 'Inconnu';
     

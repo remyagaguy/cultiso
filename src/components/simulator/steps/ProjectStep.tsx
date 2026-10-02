@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import React, { useEffect, useState } from 'react';
 import { useSimulator } from '@/lib/simulator/SimulatorContext';
 import { TextInput, NumberInput, SelectInput } from '../ui';
@@ -69,7 +69,7 @@ export function ProjectStep() {
         });
       }
     } else {
-      setDetectedSoil('Erreur lors de l\\'analyse spatiale.');
+      setDetectedSoil("Erreur lors de l'analyse spatiale.");
     }
   };
 
